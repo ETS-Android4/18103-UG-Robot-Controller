@@ -37,7 +37,10 @@ public class REV_IMU extends IMU {
 
         imu = ahMap.get(BNO055IMU.class, "imu");
         imu.initialize(IMUParameters);
+    }
 
+    @Override
+    public void start() {
         angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         gravity  = imu.getGravity();
 

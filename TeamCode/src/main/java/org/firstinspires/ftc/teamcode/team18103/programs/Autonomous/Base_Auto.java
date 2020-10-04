@@ -14,5 +14,7 @@ public class Base_Auto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init();
+        robot.start();
+
     }
 }

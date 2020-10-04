@@ -19,6 +19,11 @@ public class TestChassis extends OpMode {
     }
 
     @Override
+    public void start() {
+        robot.start();
+    }
+
+    @Override
     public void loop() {
         robot.loop();
         robot.getDriveSubsystem().ultimateDriveController(gamepad1.left_stick_y, gamepad1.left_stick_x,

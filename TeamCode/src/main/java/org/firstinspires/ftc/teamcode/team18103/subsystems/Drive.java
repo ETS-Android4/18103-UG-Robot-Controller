@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.lib.control.PIDSVA;
 import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
 import org.firstinspires.ftc.teamcode.lib.motion.ProfileState;
 import org.firstinspires.ftc.teamcode.lib.motion.TrapezoidalMotionProfileGenerator;
+import org.firstinspires.ftc.teamcode.lib.physics.MecanumKinematicEstimator;
 import org.firstinspires.ftc.teamcode.lib.util.MathFx;
 import org.firstinspires.ftc.teamcode.lib.util.MeanOptimizedDataFusionModel;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
@@ -30,14 +31,16 @@ public class Drive extends Subsystem {
     private IMU imu;
     private TriWheelOdometryGPS odometry;
     private VuforiaVision vision;
+    private MecanumKinematicEstimator MKEstimator;
     private MeanOptimizedDataFusionModel model;
     private ProfileState driveState;
     private double x, y, theta;
 
-    public Drive(IMU imu, TriWheelOdometryGPS odometry, VuforiaVision vision) {
+    public Drive(IMU imu, TriWheelOdometryGPS odometry, VuforiaVision vision, MecanumKinematicEstimator estimator) {
         this.imu = imu;
         this.odometry = odometry;
         this.vision = vision;
+        this.MKEstimator = estimator;
         model = new MeanOptimizedDataFusionModel();
         update();
     }
@@ -58,6 +61,11 @@ public class Drive extends Subsystem {
             //motor.setPositionPIDFCoefficients(Constants.DRIVE_P);
             motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         }
+
+    }
+
+    @Override
+    public void start() {
 
     }
 
@@ -346,23 +354,20 @@ public class Drive extends Subsystem {
 
     public double getDataFusionTheta() {
         setTheta(model.fuse(new double[]{imu.getHeading(), vision.getTheta(),
-                odometry.getTheta()}, new double[]{1, 2, 2}));
-        return model.fuse(new double[]{imu.getHeading(), vision.getTheta(),
-                odometry.getTheta()}, new double[]{1, 2, 2});
+                odometry.getTheta(), MKEstimator.getTheta()}, new double[]{1, 2, 2, 1}));
+        return theta;
     }
 
     public double getDataFusionX() {
         setX(model.fuse(new double[]{vision.getX(),
-                odometry.getX()}));
-        return model.fuse(new double[]{vision.getX(),
-                odometry.getX()});
+                odometry.getX(), MKEstimator.getX()}));
+        return x;
     }
 
     public double getDataFusionY() {
         setY(model.fuse(new double[]{vision.getY(),
-                odometry.getY()}));
-        return model.fuse(new double[]{vision.getY(),
-                odometry.getY()});
+                odometry.getY(), MKEstimator.getY()}));
+        return y;
     }
 
     public void setDriveState(ProfileState driveState) {

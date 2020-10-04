@@ -71,6 +71,11 @@ public class VuforiaVision extends Subsystem {
         }
     }
 
+    @Override
+    public void start() {
+
+    }
+
     public boolean search(VuforiaTrackable target) {
         if (((VuforiaTrackableDefaultListener)target.getListener()).isVisible()) {
             return true;

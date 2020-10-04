@@ -43,6 +43,11 @@ public class DiWheelOdometryGPS extends Odometry {
     }
 
     @Override
+    public void start() {
+
+    }
+
+    @Override
     public void run() {
         //Get Current Positions
         double lPos = (getLeft() * getTicksPerInch());

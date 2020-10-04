@@ -16,6 +16,11 @@ public class TFVision extends Subsystem {
     }
 
     @Override
+    public void start() {
+
+    }
+
+    @Override
     public void update() {
 
     }

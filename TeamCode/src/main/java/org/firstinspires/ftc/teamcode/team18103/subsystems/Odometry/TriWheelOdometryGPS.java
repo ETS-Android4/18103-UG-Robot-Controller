@@ -31,6 +31,11 @@ public class TriWheelOdometryGPS extends Odometry {
     }
 
     @Override
+    public void start() {
+
+    }
+
+    @Override
     public void init(HardwareMap ahMap) {
         left = ahMap.get(DcMotor.class, Constants.frontLeft);
         right = ahMap.get(DcMotor.class, Constants.frontRight);

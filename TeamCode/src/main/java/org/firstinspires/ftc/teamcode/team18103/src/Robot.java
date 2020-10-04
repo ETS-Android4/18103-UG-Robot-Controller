@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
+import org.firstinspires.ftc.teamcode.lib.physics.MecanumKinematicEstimator;
 import org.firstinspires.ftc.teamcode.team18103.states.GameState;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.REV_IMU;
@@ -28,7 +29,8 @@ public class Robot {
     //private AHRS navX = new KLAHRS();
     private TriWheelOdometryGPS odometry = new TriWheelOdometryGPS(Motor.GoBILDA_312.getTicksPerInch(), Constants.dt);
     private VuforiaVision vision = new VuforiaVision();
-    private Drive DriveSubsystem = new Drive(imu, odometry, vision);
+    private MecanumKinematicEstimator MKEstimator = new MecanumKinematicEstimator();
+    private Drive DriveSubsystem = new Drive(imu, odometry, vision, MKEstimator);
 
     public Robot(HardwareMap hMap, Telemetry tele) {
         hardwareMap = hMap;
@@ -36,7 +38,7 @@ public class Robot {
     }
 
     public void init() {
-        subsystems = new Subsystem[]{DriveSubsystem, imu, vision, odometry};
+        subsystems = new Subsystem[]{DriveSubsystem, imu, vision, odometry, MKEstimator};
 
         for (Subsystem subsystem : subsystems) {
             subsystem.init(hardwareMap);
@@ -49,11 +51,19 @@ public class Robot {
         Telemetry();
     }
 
+    public void start() {
+        for (Subsystem subsystem : subsystems) {
+            subsystem.start();
+        }
+    }
+
     public void loop() {
         for (Subsystem subsystem : subsystems) {
             subsystem.update();
         }
+
         getGameState();
+
         Telemetry();
     }
 

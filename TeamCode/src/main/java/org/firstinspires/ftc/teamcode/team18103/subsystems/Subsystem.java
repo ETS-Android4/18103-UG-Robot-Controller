@@ -10,6 +10,8 @@ public abstract class Subsystem {
 
     public abstract void init(HardwareMap ahMap);
 
+    public abstract void start();
+
     public abstract void update();
 
     //public abstract StateMachine getStateMachine();
