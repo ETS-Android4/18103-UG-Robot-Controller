@@ -21,15 +21,9 @@ import java.util.List;
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
-import static org.firstinspires.ftc.teamcode.team18103.src.Constants.bridgeRotY;
-import static org.firstinspires.ftc.teamcode.team18103.src.Constants.bridgeRotZ;
-import static org.firstinspires.ftc.teamcode.team18103.src.Constants.bridgeX;
-import static org.firstinspires.ftc.teamcode.team18103.src.Constants.bridgeY;
-import static org.firstinspires.ftc.teamcode.team18103.src.Constants.bridgeZ;
 import static org.firstinspires.ftc.teamcode.team18103.src.Constants.halfField;
 import static org.firstinspires.ftc.teamcode.team18103.src.Constants.mmTargetHeight;
 import static org.firstinspires.ftc.teamcode.team18103.src.Constants.quadField;
-import static org.firstinspires.ftc.teamcode.team18103.src.Constants.stoneZ;
 
 /*
  * Author: Akhil G
@@ -60,7 +54,7 @@ public class VuforiaVision extends Subsystem {
 
         parameters.vuforiaLicenseKey = Constants.VUFORIA_KEY;
         parameters.cameraName = webcamName;
-        parameters.useExtendedTracking = true;
+        parameters.useExtendedTracking = false;
 
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
@@ -76,18 +70,18 @@ public class VuforiaVision extends Subsystem {
 
     }
 
-    public boolean search(VuforiaTrackable target) {
+    public VuforiaTrackable search(VuforiaTrackable target) {
         if (((VuforiaTrackableDefaultListener)target.getListener()).isVisible()) {
-            return true;
+            return target;
         } else {
-            return false;
+            return null;
         }
     }
 
     public void getRobotLocation() {
         boolean targetVisible = false;
         for (VuforiaTrackable trackable : allTrackables) {
-            if (search(trackable)) {
+            if (search(trackable) != null) {
                 OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
                 if (robotLocationTransform != null) {
                     lastKnownLocation = robotLocationTransform;
@@ -111,74 +105,52 @@ public class VuforiaVision extends Subsystem {
     private void initVuforia() {
         VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
 
-        VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
-        stoneTarget.setName("Stone Target");
-        VuforiaTrackable blueRearBridge = targetsSkyStone.get(1);
-        blueRearBridge.setName("Blue Rear Bridge");
-        VuforiaTrackable redRearBridge = targetsSkyStone.get(2);
-        redRearBridge.setName("Red Rear Bridge");
-        VuforiaTrackable redFrontBridge = targetsSkyStone.get(3);
-        redFrontBridge.setName("Red Front Bridge");
-        VuforiaTrackable blueFrontBridge = targetsSkyStone.get(4);
-        blueFrontBridge.setName("Blue Front Bridge");
-        VuforiaTrackable red1 = targetsSkyStone.get(5);
-        red1.setName("Red Perimeter 1");
-        VuforiaTrackable red2 = targetsSkyStone.get(6);
-        red2.setName("Red Perimeter 2");
-        VuforiaTrackable front1 = targetsSkyStone.get(7);
-        front1.setName("Front Perimeter 1");
-        VuforiaTrackable front2 = targetsSkyStone.get(8);
-        front2.setName("Front Perimeter 2");
-        VuforiaTrackable blue1 = targetsSkyStone.get(9);
-        blue1.setName("Blue Perimeter 1");
-        VuforiaTrackable blue2 = targetsSkyStone.get(10);
-        blue2.setName("Blue Perimeter 2");
-        VuforiaTrackable rear1 = targetsSkyStone.get(11);
-        rear1.setName("Rear Perimeter 1");
-        VuforiaTrackable rear2 = targetsSkyStone.get(12);
-        rear2.setName("Rear Perimeter 2");
+        VuforiaTrackables targetsUltimateGoal = this.vuforia.loadTrackablesFromAsset("UltimateGoal");
+        VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
+        blueTowerGoalTarget.setName("Blue Tower Goal Target");
+        VuforiaTrackable redTowerGoalTarget = targetsUltimateGoal.get(1);
+        redTowerGoalTarget.setName("Red Tower Goal Target");
+        VuforiaTrackable redAllianceTarget = targetsUltimateGoal.get(2);
+        redAllianceTarget.setName("Red Alliance Target");
+        VuforiaTrackable blueAllianceTarget = targetsUltimateGoal.get(3);
+        blueAllianceTarget.setName("Blue Alliance Target");
+        VuforiaTrackable frontWallTarget = targetsUltimateGoal.get(4);
+        frontWallTarget.setName("Front Wall Target");
 
         allTrackables.addAll(targetsSkyStone);
         // Setting Traceable Target Locations
-        stoneTarget.setLocation(MathFx.createMatrix(0, 0, stoneZ, 90, 0, -90));
+        redAllianceTarget.setLocation(OpenGLMatrix
+                .translation(0, -halfField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180)));
 
-        blueFrontBridge.setLocation(MathFx.createMatrix(-bridgeX, bridgeY, bridgeZ, 0, bridgeRotY, bridgeRotZ));
+        blueAllianceTarget.setLocation(OpenGLMatrix
+                .translation(0, halfField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0)));
+        frontWallTarget.setLocation(OpenGLMatrix
+                .translation(-halfField, 0, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90)));
 
-        blueRearBridge.setLocation(MathFx.createMatrix(-bridgeX, bridgeY, bridgeZ, 0, -bridgeRotY, bridgeRotZ));
-
-        redFrontBridge.setLocation(MathFx.createMatrix(-bridgeX, -bridgeY, bridgeZ, 0, -bridgeRotY, 0));
-
-        redRearBridge.setLocation(MathFx.createMatrix(bridgeX, -bridgeY, bridgeZ, 0, bridgeRotY, 0));
-
-        red1.setLocation(MathFx.createMatrix(quadField, -halfField, mmTargetHeight, 90, 0, 180));
-
-        red2.setLocation(MathFx.createMatrix(-quadField, -halfField, mmTargetHeight, 90, 0, 180));
-
-        front1.setLocation(MathFx.createMatrix(-halfField, -quadField, mmTargetHeight, 90, 0, 90));
-
-        front2.setLocation(MathFx.createMatrix(-halfField, quadField, mmTargetHeight, 90, 0, 90));
-
-        blue1.setLocation(MathFx.createMatrix(-quadField, halfField, mmTargetHeight, 90, 0, 0));
-
-        blue2.setLocation(MathFx.createMatrix(quadField, halfField, mmTargetHeight, 90, 0, 0));
-
-        rear1.setLocation(MathFx.createMatrix(halfField, quadField, mmTargetHeight, 90, 0, -90));
-
-        rear2.setLocation(MathFx.createMatrix(halfField, -quadField, mmTargetHeight, 90, 0, -90));
+        // The tower goal targets are located a quarter field length from the ends of the back perimeter wall.
+        blueTowerGoalTarget.setLocation(OpenGLMatrix
+                .translation(halfField, quadField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , -90)));
+        redTowerGoalTarget.setLocation(OpenGLMatrix
+                .translation(halfField, -quadField, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
     }
 
     public float getX() {
-        getRobotLocation();
+        //getRobotLocation();
         return X;
     }
 
     public float getY() {
-        getRobotLocation();
+        //getRobotLocation();
         return Y;
     }
 
     public float getTheta() {
-        getRobotLocation();
+        //getRobotLocation();
         return Theta;
     }
 

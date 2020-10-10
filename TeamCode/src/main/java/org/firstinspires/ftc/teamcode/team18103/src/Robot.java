@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.team18103.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.REV_IMU;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry.TriWheelOdometryGPS;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.TFVision;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.VuforiaVision;
 
 /*
@@ -26,11 +27,11 @@ public class Robot {
     private Subsystem[] subsystems;
 
     private REV_IMU imu = new REV_IMU();
-    //private AHRS navX = new KLAHRS();
     private TriWheelOdometryGPS odometry = new TriWheelOdometryGPS(Motor.GoBILDA_312.getTicksPerInch(), Constants.dt);
-    private VuforiaVision vision = new VuforiaVision();
+    private VuforiaVision vuforiaVision = new VuforiaVision();
     private MecanumKinematicEstimator MKEstimator = new MecanumKinematicEstimator();
-    private Drive DriveSubsystem = new Drive(imu, odometry, vision, MKEstimator);
+    private TFVision tfVision = new TFVision();
+    private Drive DriveSubsystem = new Drive(imu, odometry, vuforiaVision, MKEstimator);
 
     public Robot(HardwareMap hMap, Telemetry tele) {
         hardwareMap = hMap;
@@ -38,7 +39,7 @@ public class Robot {
     }
 
     public void init() {
-        subsystems = new Subsystem[]{DriveSubsystem, imu, vision, odometry, MKEstimator};
+        subsystems = new Subsystem[]{DriveSubsystem, imu, vuforiaVision, odometry, MKEstimator, tfVision};
 
         for (Subsystem subsystem : subsystems) {
             subsystem.init(hardwareMap);
@@ -136,8 +137,8 @@ public class Robot {
         return odometry;
     }
 
-    public VuforiaVision getVision() {
-        return vision;
+    public VuforiaVision getVuforiaVision() {
+        return vuforiaVision;
     }
 
 }
