@@ -52,5 +52,8 @@ public final class Constants {
     public static final double HORIZONTAL_OFFSET = 0;
     public static final int dt = 100;
     public static final String horizontal = "Horizontal";
-
+    // ------------------
+    //  Intake Subsystem
+    // ------------------
+    public static final String intake = "Intake";
 }
