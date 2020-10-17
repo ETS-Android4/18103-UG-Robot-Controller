@@ -4,42 +4,31 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
 import org.firstinspires.ftc.teamcode.lib.physics.MecanumKinematicEstimator;
 import org.firstinspires.ftc.teamcode.team18103.states.GameState;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.REV_IMU;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry.TriWheelOdometryGPS;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.TFVision;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.VuforiaVision;
 
 /*
  * Author: Akhil G
  */
 
 public class Robot {
-    private Telemetry telemetry;
-    private HardwareMap hardwareMap;
-    private ElapsedTime elapsedTime = new ElapsedTime();
-    private GameState gameState;
+    ElapsedTime elapsedTime = new ElapsedTime();
+    GameState gameState;
 
-    private Subsystem[] subsystems;
+    Subsystem[] subsystems;
 
-    private REV_IMU imu = new REV_IMU();
-    private TriWheelOdometryGPS odometry = new TriWheelOdometryGPS(Motor.GoBILDA_312.getTicksPerInch(), Constants.dt);
-    private VuforiaVision vuforiaVision = new VuforiaVision();
-    private MecanumKinematicEstimator MKEstimator = new MecanumKinematicEstimator();
-    private TFVision tfVision = new TFVision();
-    private Drive DriveSubsystem = new Drive(imu, odometry, vuforiaVision, MKEstimator);
+    REV_IMU imu = new REV_IMU();
+    MecanumKinematicEstimator MKEstimator = new MecanumKinematicEstimator();
+    Drive DriveSubsystem = new Drive(imu, MKEstimator);
 
-    public Robot(HardwareMap hMap, Telemetry tele) {
-        hardwareMap = hMap;
-        telemetry = tele;
+    public Robot() {
     }
 
-    public void init() {
-        subsystems = new Subsystem[]{DriveSubsystem, imu, vuforiaVision, odometry, MKEstimator, tfVision};
+    public void init(HardwareMap hardwareMap, Telemetry telemetry) {
+        subsystems = new Subsystem[]{DriveSubsystem, imu, MKEstimator};
 
         for (Subsystem subsystem : subsystems) {
             subsystem.init(hardwareMap);
@@ -49,7 +38,7 @@ public class Robot {
 
         resetElapsedTime();
 
-        Telemetry();
+        Telemetry(telemetry);
     }
 
     public void start() {
@@ -58,29 +47,29 @@ public class Robot {
         }
     }
 
-    public void loop() {
+    public void loop(Telemetry telemetry) {
         for (Subsystem subsystem : subsystems) {
             subsystem.update();
         }
 
-        getGameState();
-
-        Telemetry();
+        Telemetry(telemetry);
     }
 
-    public void Telemetry() {
+    public void Telemetry(Telemetry telemetry) {
         // Robot Init
         telemetry.addLine()
                 .addData("Robot Initialized: ", true);
+
         // Game State
         telemetry.addLine()
                 .addData("Game State: ", getGameState().getName());
-        /*
+
         // IMU Measurements
         telemetry.addLine()
                 .addData("IMU Roll: ", getImu().getRoll())
                 .addData("IMU Pitch: ", getImu().getPitch())
                 .addData("IMU Heading: ", getImu().getHeading());
+        /*
         // Odometry
         telemetry.addLine()
                 .addData("Odometry X: ", getOdometry().getX())
@@ -92,7 +81,6 @@ public class Robot {
                 .addData("Vision Y: ", getVision().getY())
                 .addData("Vision Theta: ", getVision().getTheta());
          */
-
         // Data Fusion Model
         telemetry.addLine()
                 .addData("Data Fusion X: ", getDriveSubsystem().getDataFusionX())
@@ -106,6 +94,7 @@ public class Robot {
                 .addData("Drive Mode: ", getDriveSubsystem().getDriveMode().getName());
 
         telemetry.update();
+
     }
 
     public GameState getGameState() {
@@ -133,12 +122,12 @@ public class Robot {
         this.gameState = gameState;
     }
 
-    public TriWheelOdometryGPS getOdometry() {
-        return odometry;
-    }
+    //public TriWheelOdometryGPS getOdometry() {
+    //    return odometry;
+    //}
 
-    public VuforiaVision getVuforiaVision() {
-        return vuforiaVision;
-    }
+    //public VuforiaVision getVuforiaVision() {
+    //    return vuforiaVision;
+    //}
 
 }

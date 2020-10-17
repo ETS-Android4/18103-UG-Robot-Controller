@@ -14,10 +14,11 @@ import org.firstinspires.ftc.teamcode.team18103.src.Robot;
 @Autonomous
 @Disabled
 public class OdometryCalibration extends LinearOpMode {
-    Robot robot = new Robot(hardwareMap, telemetry);
+    //Robot robot = new Robot(hardwareMap, telemetry);
 
     @Override
     public void runOpMode() throws InterruptedException {
+        /*
         robot.init();
         robot.getDriveSubsystem().PointRotation(90);
         robot.Telemetry();
@@ -29,6 +30,8 @@ public class OdometryCalibration extends LinearOpMode {
         telemetry.addLine()
                 .addData("Horizontal Encoder Offset", robot.getDriveSubsystem().getOdometry()
                         .getHorizontal().getCurrentPosition()/Math.toRadians(robot.getDriveSubsystem().getDataFusionTheta()));
+
+         */
 
     }
 }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.team18103.subsystems.IMU;
+package org.firstinspires.ftc.teamcode.testChassis;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -11,22 +11,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 
 import static org.firstinspires.ftc.teamcode.team18103.src.Constants.COLLISION_THRESHOLD_DELTA_G;
 
-/*
- * Author: Akhil G
- */
-
-public class REV_IMU extends IMU {
+public class IMU {
     BNO055IMU imu;
     Orientation angles;
     Acceleration gravity;
     double last_world_linear_accel_x = 0.0;
     double last_world_linear_accel_y = 0.0;
 
-    public void init(HardwareMap hMap) {
+    public void init(HardwareMap ahMap) {
         BNO055IMU.Parameters IMUParameters = new BNO055IMU.Parameters();
         IMUParameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         IMUParameters.temperatureUnit     = BNO055IMU.TempUnit.FARENHEIT;
@@ -35,7 +30,7 @@ public class REV_IMU extends IMU {
         IMUParameters.loggingTag          = "IMU";
         IMUParameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
-        imu = hMap.get(BNO055IMU.class, "imu");
+        imu = ahMap.get(BNO055IMU.class, "imu");
         imu.initialize(IMUParameters);
 
         angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);

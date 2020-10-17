@@ -13,11 +13,11 @@ import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 
 public class MecanumKinematicEstimator extends Subsystem {
 
-    private double x, y, theta;
-    private ElapsedTime time;
-    private double t_0;
-    private DcMotorEx frontLeft, frontRight, backLeft, backRight;
-    private double fl, fr, bl, br, fl_0, fr_0, bl_0, br_0;
+    double x, y, theta;
+    ElapsedTime time = new ElapsedTime();
+    double t_0;
+    DcMotorEx frontLeft, frontRight, backLeft, backRight;
+    double fl, fr, bl, br, fl_0, fr_0, bl_0, br_0;
 
     public MecanumKinematicEstimator() {
         x = 0;
@@ -40,8 +40,8 @@ public class MecanumKinematicEstimator extends Subsystem {
         backLeft = ahMap.get(DcMotorEx.class, Constants.backLeft);
         backRight = ahMap.get(DcMotorEx.class, Constants.backRight);
 
-        frontRight.setDirection(DcMotorEx.Direction.REVERSE);
-        backRight.setDirection(DcMotorEx.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        backLeft.setDirection(DcMotorEx.Direction.REVERSE);
     }
 
     @Override

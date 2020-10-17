@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.lib.concept.Vision;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -24,7 +25,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 /*
  * Author: Akhil G
  */
-
+@Disabled
 @TeleOp(name = "Concept Vuforia", group = "Concept")
 public class VuforiaConceptSkystone extends LinearOpMode {
     // Vuforia Parameters

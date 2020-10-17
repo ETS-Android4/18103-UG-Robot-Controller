@@ -24,17 +24,20 @@ import java.util.Arrays;
  */
 
 public class Drive extends Subsystem {
-    private DcMotorEx frontLeft, frontRight, backLeft, backRight;
-    private DcMotorEx[] driveMotors;
-    private DriveMode driveMode = DriveMode.Balanced;
-    private int driveType = 0; // 0 - Field-Centric, 1 - POV
-    private IMU imu;
-    private TriWheelOdometryGPS odometry;
-    private VuforiaVision vision;
-    private MecanumKinematicEstimator MKEstimator;
-    private MeanOptimizedDataFusionModel model;
-    private ProfileState driveState;
-    private double x, y, theta;
+
+    DcMotorEx frontLeft, frontRight, backLeft, backRight;
+    DcMotorEx[] driveMotors;
+
+    DriveMode driveMode = DriveMode.Balanced;
+    int driveType = 0; // 0 - Field-Centric, 1 - POV
+    ProfileState driveState;
+    double x, y, theta;
+
+    IMU imu;
+    TriWheelOdometryGPS odometry;
+    VuforiaVision vision;
+    MecanumKinematicEstimator MKEstimator;
+    MeanOptimizedDataFusionModel model;
 
     public Drive(IMU imu, TriWheelOdometryGPS odometry, VuforiaVision vision, MecanumKinematicEstimator estimator) {
         this.imu = imu;
@@ -45,6 +48,24 @@ public class Drive extends Subsystem {
         update();
     }
 
+    public Drive(IMU imu, MecanumKinematicEstimator estimator) {
+        this.imu = imu;
+        this.odometry = null;
+        this.vision = null;
+        this.MKEstimator = estimator;
+        model = new MeanOptimizedDataFusionModel();
+        //update();
+    }
+
+    public Drive(IMU imu) {
+        this.imu = imu;
+        this.odometry = null;
+        this.vision = null;
+        this.MKEstimator = null;
+        model = new MeanOptimizedDataFusionModel();
+        //update();
+    }
+
     @Override
     public void init(HardwareMap ahMap) {
         frontLeft = ahMap.get(DcMotorEx.class, Constants.frontLeft);
@@ -52,8 +73,8 @@ public class Drive extends Subsystem {
         backLeft = ahMap.get(DcMotorEx.class, Constants.backLeft);
         backRight = ahMap.get(DcMotorEx.class, Constants.backRight);
 
-        frontRight.setDirection(DcMotorEx.Direction.REVERSE);
-        backRight.setDirection(DcMotorEx.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        backLeft.setDirection(DcMotorEx.Direction.REVERSE);
 
         driveMotors = new DcMotorEx[]{frontLeft, frontRight, backLeft, backRight};
 
@@ -77,7 +98,7 @@ public class Drive extends Subsystem {
      * Sets Drive to go forward/backwards
      * @param power Speed of movement
      */
-    private void setDriveMotors(double power) {
+    public void setDriveMotors(double power) {
         for (DcMotorEx i : driveMotors) {
             i.setPower(power);
         }
@@ -87,7 +108,7 @@ public class Drive extends Subsystem {
      * Sets Drive to go left/right
      * @param power Speed of movement
      */
-    private void setStrafeMotors(double power) {
+    public void setStrafeMotors(double power) {
         frontLeft.setPower(power);
         backLeft.setPower(-power);
         frontRight.setPower(-power);
@@ -98,7 +119,7 @@ public class Drive extends Subsystem {
      * Sets Drive to rotate
      * @param power Speed of Movement
      */
-    private void setRotateMotors(double power) {
+    public void setRotateMotors(double power) {
         frontLeft.setPower(power);
         backLeft.setPower(power);
         frontRight.setPower(-power);
@@ -353,20 +374,17 @@ public class Drive extends Subsystem {
     }
 
     public double getDataFusionTheta() {
-        setTheta(model.fuse(new double[]{imu.getHeading(), vision.getTheta(),
-                odometry.getTheta(), MKEstimator.getTheta()}, new double[]{1, 2, 2, 1}));
+        setTheta(model.fuse(new double[]{imu.getHeading(), MKEstimator.getTheta()}));
         return theta;
     }
 
     public double getDataFusionX() {
-        setX(model.fuse(new double[]{vision.getX(),
-                odometry.getX(), MKEstimator.getX()}));
+        setX(model.fuse(new double[]{MKEstimator.getX()}));
         return x;
     }
 
     public double getDataFusionY() {
-        setY(model.fuse(new double[]{vision.getY(),
-                odometry.getY(), MKEstimator.getY()}));
+        setY(model.fuse(new double[]{MKEstimator.getY()}));
         return y;
     }
 
