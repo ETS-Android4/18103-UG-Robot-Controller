@@ -56,4 +56,6 @@ public final class Constants {
     //  Intake Subsystem
     // ------------------
     public static final String intake = "Intake";
+    public static final String transfer = "Transfer";
+    public static final String outtake = "Outtake";
 }

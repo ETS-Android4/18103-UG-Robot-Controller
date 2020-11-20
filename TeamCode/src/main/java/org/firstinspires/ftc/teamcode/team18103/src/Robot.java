@@ -9,7 +9,9 @@ import org.firstinspires.ftc.teamcode.team18103.states.GameState;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.REV_IMU;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Transfer;
 
 /*
  * Author: Akhil G
@@ -25,12 +27,16 @@ public class Robot {
     MecanumKinematicEstimator MKEstimator = new MecanumKinematicEstimator();
     Drive DriveSubsystem = new Drive(imu, MKEstimator);
     Intake IntakeSubsystem = new Intake();
+    Transfer TransferSubsystem = new Transfer();
+    Outtake OuttakeSubsystem = new Outtake();
 
     public Robot() {
+
     }
 
     public void init(HardwareMap hardwareMap, Telemetry telemetry) {
-        subsystems = new Subsystem[]{DriveSubsystem, imu, MKEstimator, IntakeSubsystem};
+        subsystems = new Subsystem[]{DriveSubsystem, imu, MKEstimator, IntakeSubsystem,
+                TransferSubsystem, OuttakeSubsystem};
 
         for (Subsystem subsystem : subsystems) {
             subsystem.init(hardwareMap);
@@ -122,6 +128,14 @@ public class Robot {
 
     public Intake getIntakeSubsystem() {
         return IntakeSubsystem;
+    }
+
+    public Outtake getOuttakeSubsystem() {
+        return OuttakeSubsystem;
+    }
+
+    public Transfer getTransferSubsystem() {
+        return TransferSubsystem;
     }
 
     public void setGameState(GameState gameState) {

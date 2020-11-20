@@ -8,6 +8,24 @@ import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
 
 /*
  * Author: Akhil G
+ *
+ * Controls
+ *
+ * Chassis:
+ *
+ * Forward/Backward (GamePad Left Stick y)
+ * Left/Right (Strafe) (GamePad Left Stick x)
+ * (Turn) Rotational Force (GamePad Right Stick x)
+ * Lower Gear Adjustment (GamePad Left Trigger)
+ * Higher Gear Adjustment (GamePad Right Trigger)
+ * Field-Centric Drive Setter (GamePad Left Bumper) * Don't Use
+ * Point-of-View Drive Setter (GamePad Right Bumper) * Don't Use
+ * Zero Yaw Setter (GamePad X Button)
+ *
+ * Intake-Outtake:
+ *
+ * Run at full speed (GamePad Y Button)
+ *
  */
 
 @TeleOp
@@ -33,6 +51,8 @@ public class TestChassis extends OpMode {
                 gamepad1.left_bumper, gamepad1.right_bumper, gamepad1.x);
 
         robot.getIntakeSubsystem().runIntake(gamepad1.y);
+        robot.getTransferSubsystem().runTransfer(gamepad1.y);
+        robot.getOuttakeSubsystem().runOuttake(gamepad1.y);
 
     }
 

@@ -5,16 +5,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 
-public class Intake extends Subsystem {
-    DcMotorEx intake;
+public class Transfer extends Subsystem {
+    DcMotorEx transfer;
 
-    public Intake() {
+    public Transfer() {
 
     }
 
     @Override
     public void init(HardwareMap ahMap) {
-        intake = ahMap.get(DcMotorEx.class, Constants.intake);
+        transfer = ahMap.get(DcMotorEx.class, Constants.intake);
     }
 
     @Override
@@ -27,20 +27,20 @@ public class Intake extends Subsystem {
 
     }
 
-    public void runIntake(double power) {
-        intake.setPower(power);
+    public void runTransfer(double power) {
+        transfer.setPower(power);
     }
 
-    public void runIntake(boolean on) {
+    public void runTransfer(boolean on) {
         if (on) {
-            runIntake(1);
+            runTransfer(1);
         } else {
             stopIntake();
         }
     }
 
     public void stopIntake() {
-        runIntake(0);
+        runTransfer(0);
     }
 
 }

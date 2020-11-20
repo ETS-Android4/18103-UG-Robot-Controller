@@ -29,7 +29,7 @@ public class Drive extends Subsystem {
     DcMotorEx[] driveMotors;
 
     DriveMode driveMode = DriveMode.Balanced;
-    int driveType = 0; // 0 - Field-Centric, 1 - POV
+    int driveType = 1; // 0 - Field-Centric, 1 - POV
     ProfileState driveState;
     double x, y, theta;
 
