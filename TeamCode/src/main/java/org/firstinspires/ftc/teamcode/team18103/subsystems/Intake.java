@@ -43,4 +43,8 @@ public class Intake extends Subsystem {
         runIntake(0);
     }
 
+    public void manuallyPowerIntake(double power) {
+        runIntake(power);
+    }
+
 }
