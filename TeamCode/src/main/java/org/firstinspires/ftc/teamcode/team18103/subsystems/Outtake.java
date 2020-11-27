@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 
 public class Outtake extends Subsystem {
     DcMotorEx outtake;
+    DcMotorEx secondOuttake;
     CRServo transOut;
 
     public Outtake() {
@@ -17,6 +18,7 @@ public class Outtake extends Subsystem {
     @Override
     public void init(HardwareMap ahMap) {
         outtake = ahMap.get(DcMotorEx.class, Constants.outtake);
+        secondOuttake = ahMap.get(DcMotorEx.class, Constants.secondOuttake); //Needed a simple name and was lazy :/
         transOut = ahMap.get(CRServo.class, Constants.transOut);
     }
 
@@ -32,6 +34,7 @@ public class Outtake extends Subsystem {
 
     public void runOuttake(double power) {
         outtake.setPower(power);
+        secondOuttake.setPower(power);
         transOut.setPower(power);
     }
 
