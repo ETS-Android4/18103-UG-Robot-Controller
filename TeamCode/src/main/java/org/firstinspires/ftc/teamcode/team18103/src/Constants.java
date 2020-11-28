@@ -57,7 +57,7 @@ public final class Constants {
     // ------------------
     public static final String intake = "Intake";
     public static final String transfer = "Transfer";
-    public static final String outtake = "Outtake";
+    public static final String firstOuttake = "Outtake";
     public static final String secondOuttake = "Second Outtake";
     public static final String transOut = "TransOut";
 }

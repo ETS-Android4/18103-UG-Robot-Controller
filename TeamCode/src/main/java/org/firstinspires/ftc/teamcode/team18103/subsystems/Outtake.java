@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 
 public class Outtake extends Subsystem {
-    DcMotorEx outtake;
+    DcMotorEx firstOuttake;
     DcMotorEx secondOuttake;
     CRServo transOut;
 
@@ -17,7 +17,7 @@ public class Outtake extends Subsystem {
 
     @Override
     public void init(HardwareMap ahMap) {
-        outtake = ahMap.get(DcMotorEx.class, Constants.outtake);
+        firstOuttake = ahMap.get(DcMotorEx.class, Constants.firstOuttake);
         secondOuttake = ahMap.get(DcMotorEx.class, Constants.secondOuttake); //Needed a simple name and was lazy :/
         transOut = ahMap.get(CRServo.class, Constants.transOut);
     }
@@ -33,7 +33,7 @@ public class Outtake extends Subsystem {
     }
 
     public void runOuttake(double power) {
-        outtake.setPower(power);
+        firstOuttake.setPower(power);
         secondOuttake.setPower(power);
         transOut.setPower(power);
     }
