@@ -274,8 +274,8 @@ public class Drive extends Subsystem {
      * @param mode Drivetrain Speed Setting (Sport, Normal, Economy)
      */
     public void fieldCentricMecanumDrive(double y, double x, double turn, DriveMode mode) {
-        x = x * Math.cos(getDataFusionTheta()) - y * Math.sin(getDataFusionTheta());
-        y = x * Math.sin(getDataFusionTheta()) + y * Math.cos(getDataFusionTheta());
+        x = x * Math.cos(imu.getHeading()) - y * Math.sin(imu.getHeading());
+        y = x * Math.sin(imu.getHeading()) + y * Math.cos(imu.getHeading());
 
         POVMecanumDrive(y, x, turn, mode);
     }
