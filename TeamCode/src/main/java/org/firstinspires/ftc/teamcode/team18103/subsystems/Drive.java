@@ -281,6 +281,51 @@ public class Drive extends Subsystem {
     }
 
     /**
+     * Field-Centric Tank Drive Control
+     * @param y Forward/Backward Input (GamePad Right Stick y)
+     * @param x Left/Right Input (GamePad Right Stick x)
+     * @param largeTurn Determination of when the optimal angle exceeds 100 degrees whether to make a large turn (true) or drive backwards (false)
+     * @param mode DriveMode Speed Setting (Sport, Normal, Economy)
+     */
+    public void fieldCentricTankDrive(double y, double x, boolean largeTurn, DriveMode mode) {
+        double targetSpeed = Math.max(Math.abs(x), Math.abs(y));
+        double targetDirection = Math.atan2(x, y) * (180/Math.PI);
+
+        double angleError = targetDirection - imu.getHeading();
+
+        while(angleError>180)
+            angleError-=360;
+        while(angleError<180)
+            angleError+=360;
+
+        if(!largeTurn) {
+            if(angleError > 100) {
+                angleError-=180;
+                targetSpeed = -targetSpeed;
+            } else if(angleError < -100) {
+                angleError+=180;
+                targetSpeed = -targetSpeed;
+            }
+        }
+
+        double targetTurn = angleError/45;
+
+        if(Math.abs(targetSpeed) < 0.1)
+            targetSpeed = 0;
+
+        double leftSidePower = targetSpeed + targetTurn;
+        double rightSidePower = targetSpeed - targetTurn;
+
+        leftSidePower = Math.max(Math.min(1, leftSidePower), -1);
+        rightSidePower = Math.max(Math.min(1, rightSidePower), -1);
+
+        frontLeft.setPower(leftSidePower * mode.getScaling());
+        backLeft.setPower(leftSidePower * mode.getScaling());
+        backRight.setPower(rightSidePower * mode.getScaling());
+        frontRight.setPower(rightSidePower * mode.getScaling());
+    }
+
+    /**
      * Ultimate Drive Controller
      * @param y Forward/Backward Force (GamePad Left Stick y)
      * @param x Left/Right (Strafe) Force (GamePad Left Stick x)

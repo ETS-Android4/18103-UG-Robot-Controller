@@ -29,9 +29,11 @@ public class Outtake extends Subsystem {
     @Override
     public void init(HardwareMap ahMap) {
         firstOuttake = ahMap.get(DcMotorEx.class, Constants.firstOuttake);
+        secondOuttake = ahMap.get(DcMotorEx.class, Constants.secondOuttake); //Needed a simple name and was lazy :/
         firstOuttake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         firstOuttake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        secondOuttake = ahMap.get(DcMotorEx.class, Constants.secondOuttake); //Needed a simple name and was lazy :/
+        secondOuttake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        secondOuttake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         transOut = ahMap.get(CRServo.class, Constants.transOut);
         elapsedTime = new ElapsedTime();
         firstOuttakeRPM = 0;
@@ -66,8 +68,8 @@ public class Outtake extends Subsystem {
     }
 
     private void updateDiagnostics() {
-        firstOuttakeRPM = ((firstOuttake.getCurrentPosition() - firstOuttakelastPos)/Constants.GOBILDA_5205_6000_TICKS_PER_ROTATION)/(elapsedTime.seconds()/60);
-        secondOuttakeRPM = ((secondOuttake.getCurrentPosition() - secondOuttakeLastPos)/Constants.GOBILDA_5205_6000_TICKS_PER_ROTATION)/(elapsedTime.seconds()/60);
+        firstOuttakeRPM = ((firstOuttake.getCurrentPosition() - firstOuttakelastPos)/Constants.GOBILDA_5202_6000_TICKS_PER_ROTATION)/(elapsedTime.seconds()/60);
+        secondOuttakeRPM = ((secondOuttake.getCurrentPosition() - secondOuttakeLastPos)/Constants.GOBILDA_5202_6000_TICKS_PER_ROTATION)/(elapsedTime.seconds()/60);
         elapsedTime.reset();
         firstOuttakelastPos = firstOuttake.getCurrentPosition();
         secondOuttakeLastPos = secondOuttake.getCurrentPosition();
