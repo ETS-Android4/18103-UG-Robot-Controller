@@ -65,18 +65,18 @@ public class Robot {
 
     public void Telemetry(Telemetry telemetry) {
         // Robot Init
-        telemetry.addLine()
-                .addData("Robot Initialized: ", true);
-
-        // Game State
-        telemetry.addLine()
-                .addData("Game State: ", getGameState().getName());
-
-        // IMU Measurements
-        telemetry.addLine()
-                .addData("IMU Roll: ", getImu().getRoll())
-                .addData("IMU Pitch: ", getImu().getPitch())
-                .addData("IMU Heading: ", getImu().getHeading());
+//        telemetry.addLine()
+//                .addData("Robot Initialized: ", true);
+//
+//        // Game State
+//        telemetry.addLine()
+//                .addData("Game State: ", getGameState().getName());
+//
+//        // IMU Measurements
+//        telemetry.addLine()
+//                .addData("IMU Roll: ", getImu().getRoll())
+//                .addData("IMU Pitch: ", getImu().getPitch())
+//                .addData("IMU Heading: ", getImu().getHeading());
         /*
         // Odometry
         telemetry.addLine()
@@ -90,17 +90,19 @@ public class Robot {
                 .addData("Vision Theta: ", getVision().getTheta());
          */
         // Data Fusion Model
-        telemetry.addLine()
-                .addData("Data Fusion X: ", getDriveSubsystem().getDataFusionX())
-                .addData("Data Fusion Y: ", getDriveSubsystem().getDataFusionY())
-                .addData("Data Fusion Theta: ", getDriveSubsystem().getDataFusionTheta());
-        // Collision Detection
-        telemetry.addLine()
-                .addData("Collision Detected: ", getImu().getCollision());
-        // Drive Mode
-        telemetry.addLine()
-                .addData("Drive Mode: ", getDriveSubsystem().getDriveMode().getName());
+//        telemetry.addLine()
+//                .addData("Data Fusion X: ", getDriveSubsystem().getDataFusionX())
+//                .addData("Data Fusion Y: ", getDriveSubsystem().getDataFusionY())
+//                .addData("Data Fusion Theta: ", getDriveSubsystem().getDataFusionTheta());
+//        // Collision Detection
+//        telemetry.addLine()
+//                .addData("Collision Detected: ", getImu().getCollision());
+//        // Drive Mode
+//        telemetry.addLine()
+//                .addData("Drive Mode: ", getDriveSubsystem().getDriveMode().getName());
 
+        telemetry.addLine().addData("First Outtake RPM: ", getOuttakeSubsystem().getFirstOuttakeRPM());
+        telemetry.addLine().addData("Second Outtake RPM: ", getOuttakeSubsystem().getSecondOuttakeRPM());
         telemetry.update();
 
     }
