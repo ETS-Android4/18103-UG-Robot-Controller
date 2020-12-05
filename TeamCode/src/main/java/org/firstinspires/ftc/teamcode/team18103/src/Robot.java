@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.team18103.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Outtake;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Transfer;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Wobble;
 
 /*
  * Author: Akhil G
@@ -29,6 +30,7 @@ public class Robot {
     Intake IntakeSubsystem = new Intake();
     Transfer TransferSubsystem = new Transfer();
     Outtake OuttakeSubsystem = new Outtake();
+    Wobble WobbleSubsystem = new Wobble();
 
     public Robot() {
 
@@ -36,7 +38,7 @@ public class Robot {
 
     public void init(HardwareMap hardwareMap, Telemetry telemetry) {
         subsystems = new Subsystem[]{DriveSubsystem, imu, MKEstimator, IntakeSubsystem,
-                TransferSubsystem, OuttakeSubsystem};
+                TransferSubsystem, OuttakeSubsystem, WobbleSubsystem};
 
         for (Subsystem subsystem : subsystems) {
             subsystem.init(hardwareMap);
@@ -138,6 +140,10 @@ public class Robot {
 
     public Transfer getTransferSubsystem() {
         return TransferSubsystem;
+    }
+
+    public Wobble getWobbleSubsystem() {
+        return WobbleSubsystem;
     }
 
     public void setGameState(GameState gameState) {
