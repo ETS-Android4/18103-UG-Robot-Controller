@@ -53,14 +53,16 @@ public class Outtake extends Subsystem {
     }
 
     public void runOuttake(double power) {
+        ElapsedTime timeout = new ElapsedTime();
         firstOuttake.setPower(power);
         secondOuttake.setPower(power);
-        //transOut.setPower(power);
+        do {} while(firstOuttakeRPM < 4000 || timeout.seconds() > 3);
+        transOut.setPower(power);
     }
 
     public void runOuttake(boolean on) {
         if (on) {
-            runOuttake(1);
+            runOuttake(0.9);
         } else {
             stopIntake();
         }
