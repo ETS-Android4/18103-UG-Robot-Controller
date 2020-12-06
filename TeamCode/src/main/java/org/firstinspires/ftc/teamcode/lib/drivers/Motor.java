@@ -11,6 +11,7 @@ public enum Motor {
     GoBILDA_435(435d, 383.6d),
     GoBILDA_312(312d, 537.6d),
     GoBILDA_223(223d, 753.2d),
+    GoBILDA_6000(6000d, 28),
     NeveRest_3_7(1780d, 103.6d),
     REV_Core_Hex(125d, 288d);
 

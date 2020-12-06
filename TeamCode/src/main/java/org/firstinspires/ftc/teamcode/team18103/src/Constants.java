@@ -19,7 +19,6 @@ public final class Constants {
     public static final double strafeScaling = 1.5;
     public static final double Dt = 0.01d;
     public static final double COLLISION_THRESHOLD_DELTA_G = 0.5;
-    public static final double GOBILDA_5202_6000_TICKS_PER_ROTATION = 28;
     // --------------------------
     //  Vision
     // --------------------------

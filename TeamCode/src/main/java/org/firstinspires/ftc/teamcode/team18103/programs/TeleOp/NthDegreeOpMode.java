@@ -31,8 +31,8 @@ public class NthDegreeOpMode extends OpMode {
         robot.getIntakeSubsystem().runIntake(gamepad1.a);
         robot.getTransferSubsystem().runTransfer(gamepad1.dpad_down ? 1 : gamepad1.dpad_up ? -1 : 0);
         robot.getOuttakeSubsystem().runOuttake(gamepad1.y);
-        robot.getWobbleSubsystem().moveJoint(gamepad1.right_trigger - gamepad1.left_trigger);
-        robot.getWobbleSubsystem().moveLatch(gamepad1.dpad_up ? 1 : gamepad1.dpad_down ? 0 : -1);
+        //robot.getWobbleSubsystem().moveJoint(gamepad1.right_trigger - gamepad1.left_trigger);
+        //robot.getWobbleSubsystem().moveLatch(gamepad1.dpad_up ? 1 : gamepad1.dpad_down ? 0 : -1);
     }
 
     public void launchShooter(boolean shooting) {

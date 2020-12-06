@@ -6,13 +6,12 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 
 public class Outtake extends Subsystem {
     DcMotorEx firstOuttake;
     DcMotorEx secondOuttake;
-    CRServo transOut;
-
     ElapsedTime elapsedTime;
 
     double firstOuttakeRPM;
@@ -34,7 +33,6 @@ public class Outtake extends Subsystem {
         firstOuttake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         secondOuttake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         secondOuttake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        transOut = ahMap.get(CRServo.class, Constants.transOut);
         elapsedTime = new ElapsedTime();
         firstOuttakeRPM = 0;
         secondOuttakeRPM = 0;
@@ -56,8 +54,7 @@ public class Outtake extends Subsystem {
         ElapsedTime timeout = new ElapsedTime();
         firstOuttake.setPower(power);
         secondOuttake.setPower(power);
-        do {} while(firstOuttakeRPM < 4000 || timeout.seconds() > 3);
-        transOut.setPower(power);
+        //do {} while(firstOuttakeRPM < 4000 || timeout.seconds() > 3);
     }
 
     public void runOuttake(boolean on) {
@@ -69,9 +66,13 @@ public class Outtake extends Subsystem {
         updateDiagnostics();
     }
 
+    public void PIDOuttake() {
+
+    }
+
     private void updateDiagnostics() {
-        firstOuttakeRPM = ((firstOuttake.getCurrentPosition() - firstOuttakelastPos)/Constants.GOBILDA_5202_6000_TICKS_PER_ROTATION)/(elapsedTime.seconds()/60);
-        secondOuttakeRPM = ((secondOuttake.getCurrentPosition() - secondOuttakeLastPos)/Constants.GOBILDA_5202_6000_TICKS_PER_ROTATION)/(elapsedTime.seconds()/60);
+        firstOuttakeRPM = ((firstOuttake.getCurrentPosition() - firstOuttakelastPos)/ Motor.GoBILDA_6000.getENCODER_TICKS_PER_REVOLUTION())/(elapsedTime.seconds()/60);
+        secondOuttakeRPM = ((secondOuttake.getCurrentPosition() - secondOuttakeLastPos)/Motor.GoBILDA_6000.getENCODER_TICKS_PER_REVOLUTION())/(elapsedTime.seconds()/60);
         elapsedTime.reset();
         firstOuttakelastPos = firstOuttake.getCurrentPosition();
         secondOuttakeLastPos = secondOuttake.getCurrentPosition();

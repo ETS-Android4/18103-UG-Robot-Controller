@@ -30,7 +30,7 @@ public class Robot {
     Intake IntakeSubsystem = new Intake();
     Transfer TransferSubsystem = new Transfer();
     Outtake OuttakeSubsystem = new Outtake();
-    Wobble WobbleSubsystem = new Wobble();
+    //Wobble WobbleSubsystem = new Wobble();
 
     public Robot() {
 
@@ -38,7 +38,7 @@ public class Robot {
 
     public void init(HardwareMap hardwareMap, Telemetry telemetry) {
         subsystems = new Subsystem[]{DriveSubsystem, imu, MKEstimator, IntakeSubsystem,
-                TransferSubsystem, OuttakeSubsystem, WobbleSubsystem};
+                TransferSubsystem, OuttakeSubsystem, /*WobbleSubsystem*/};
 
         for (Subsystem subsystem : subsystems) {
             subsystem.init(hardwareMap);
@@ -143,7 +143,7 @@ public class Robot {
     }
 
     public Wobble getWobbleSubsystem() {
-        return WobbleSubsystem;
+        return null; //WobbleSubsystem;
     }
 
     public void setGameState(GameState gameState) {
