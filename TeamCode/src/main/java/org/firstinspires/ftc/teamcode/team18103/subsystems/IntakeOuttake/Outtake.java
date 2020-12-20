@@ -62,7 +62,7 @@ public class Outtake extends Subsystem {
 
     public void runOuttake(boolean on) {
         if (on) {
-            runOuttake(0.9);
+            runOuttake(0.85);
         } else {
             stopIntake();
         }

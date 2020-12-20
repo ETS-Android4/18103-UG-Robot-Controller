@@ -34,6 +34,10 @@ public class Transfer extends Subsystem {
         transfer.setPower(power);
     }
 
+    public double getTransferPower() {
+        return transfer.getPower();
+    }
+
     public void runTransfer(boolean on) {
         if (on) {
             runTransfer(1);
