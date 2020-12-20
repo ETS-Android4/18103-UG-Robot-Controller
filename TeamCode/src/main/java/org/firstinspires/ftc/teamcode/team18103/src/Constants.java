@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.team18103.src;
 
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.teamcode.lib.geometry.Point;
 import org.firstinspires.ftc.teamcode.lib.util.MathFx;
 
 /*
@@ -53,11 +54,15 @@ public final class Constants {
     public static final int dt = 100;
     public static final String horizontal = "Horizontal";
     // ------------------
-    //  Intake Subsystem
+    //  Intake-Outtake Subsystem
     // ------------------
     public static final String intake = "Intake";
     public static final String transfer = "Transfer";
     public static final String firstOuttake = "Outtake";
     public static final String secondOuttake = "Second Outtake";
-    public static final String transOut = "TransOut";
+    //public static final String transOut = "TransOut";
+    public static final Point leftGoal = new Point(0, 0, 0);
+    public static final Point rightGoal = new Point(0, 0, 0);
+    public static final double theta = 40;
+    public static final double wheelDiam = 0.072;
 }

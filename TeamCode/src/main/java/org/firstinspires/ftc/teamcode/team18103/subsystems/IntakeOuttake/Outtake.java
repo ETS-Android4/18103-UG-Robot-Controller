@@ -1,13 +1,16 @@
-package org.firstinspires.ftc.teamcode.team18103.subsystems;
+package org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake;
 
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.lib.control.PIDSVA;
 import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
+import org.firstinspires.ftc.teamcode.lib.geometry.Point;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 
 public class Outtake extends Subsystem {
     DcMotorEx firstOuttake;
@@ -47,7 +50,7 @@ public class Outtake extends Subsystem {
 
     @Override
     public void update() {
-
+        updateDiagnostics();
     }
 
     public void runOuttake(double power) {
@@ -66,7 +69,31 @@ public class Outtake extends Subsystem {
         updateDiagnostics();
     }
 
-    public void PIDOuttake() {
+    public void PIDOuttake(double omega) {
+        PIDSVA controller = new PIDSVA(0.5, 0, 0, 0d, 0, 0);
+        double error = omega;
+        while (error > 10) {
+            error = omega - getFirstOuttakeRPM();
+            double output = controller.getOutput(error, 0, 0);
+        }
+    }
+
+    public void OuttakeFromPoint(Point location) {
+        Point targetGoal = Constants.leftGoal;
+
+        if (location.getX() > 0) {
+            targetGoal = Constants.rightGoal;
+        }
+
+        double dw = location.getXYDist(targetGoal);
+        double dz = targetGoal.getZ() - location.getZ();
+
+        double v = Math.sqrt((9.8*(dw*dw))/(2 * Math.cos(Constants.theta) *
+                (dw*Math.sin(Constants.theta)-dz*Math.cos(Constants.theta))));
+
+        double omega = (v*60*2*2)/(Constants.wheelDiam*Math.PI);
+
+        PIDOuttake(omega);
 
     }
 

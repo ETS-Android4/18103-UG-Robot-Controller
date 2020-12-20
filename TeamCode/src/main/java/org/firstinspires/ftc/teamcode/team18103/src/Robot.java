@@ -8,10 +8,10 @@ import org.firstinspires.ftc.teamcode.lib.physics.MecanumKinematicEstimator;
 import org.firstinspires.ftc.teamcode.team18103.states.GameState;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.REV_IMU;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.Outtake;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake.Intake;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake.Outtake;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.Transfer;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake.Transfer;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Wobble;
 
 /*
@@ -67,18 +67,18 @@ public class Robot {
 
     public void Telemetry(Telemetry telemetry) {
         // Robot Init
-//        telemetry.addLine()
-//                .addData("Robot Initialized: ", true);
-//
-//        // Game State
+        telemetry.addLine()
+                .addData("Robot Initialized: ", true);
+
+        // Game State
 //        telemetry.addLine()
 //                .addData("Game State: ", getGameState().getName());
 //
-//        // IMU Measurements
-//        telemetry.addLine()
-//                .addData("IMU Roll: ", getImu().getRoll())
-//                .addData("IMU Pitch: ", getImu().getPitch())
-//                .addData("IMU Heading: ", getImu().getHeading());
+        // IMU Measurements
+        telemetry.addLine()
+                .addData("IMU Roll: ", getImu().getRoll())
+                .addData("IMU Pitch: ", getImu().getPitch())
+                .addData("IMU Heading: ", getImu().getHeading());
         /*
         // Odometry
         telemetry.addLine()

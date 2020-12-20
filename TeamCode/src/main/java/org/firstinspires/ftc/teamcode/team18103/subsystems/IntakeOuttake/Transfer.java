@@ -1,10 +1,11 @@
-package org.firstinspires.ftc.teamcode.team18103.subsystems;
+package org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 
 public class Transfer extends Subsystem {
     DcMotorEx transfer;
