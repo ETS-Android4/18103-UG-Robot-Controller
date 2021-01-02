@@ -40,8 +40,16 @@ public enum Motor {
         return getENCODER_TICKS_PER_REVOLUTION()/(100 * Math.PI);
     }
 
+    public double getTicksPerMM(double diam) {
+        return getENCODER_TICKS_PER_REVOLUTION()/(diam * Math.PI);
+    }
+
     public double getTicksPerInch() {
         return getTicksPerMM()/ Constants.mmPerInch;
+    }
+
+    public double getTicksPerInch(double diam) {
+        return getTicksPerMM(diam)/ Constants.mmPerInch;
     }
 
     public double getMMPerSec() {

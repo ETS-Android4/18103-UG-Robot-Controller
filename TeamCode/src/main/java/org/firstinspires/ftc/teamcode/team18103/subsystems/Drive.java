@@ -48,6 +48,15 @@ public class Drive extends Subsystem {
         update();
     }
 
+    public Drive(IMU imu, TriWheelOdometryGPS odometry, MecanumKinematicEstimator estimator) {
+        this.imu = imu;
+        this.odometry = odometry;
+        this.vision = vision;
+        this.MKEstimator = estimator;
+        model = new MeanOptimizedDataFusionModel();
+        update();
+    }
+
     public Drive(IMU imu, MecanumKinematicEstimator estimator) {
         this.imu = imu;
         this.odometry = null;

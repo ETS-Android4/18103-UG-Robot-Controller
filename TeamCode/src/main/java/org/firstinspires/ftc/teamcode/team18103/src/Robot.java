@@ -4,12 +4,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
 import org.firstinspires.ftc.teamcode.lib.physics.MecanumKinematicEstimator;
 import org.firstinspires.ftc.teamcode.team18103.states.GameState;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.REV_IMU;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake.Intake;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake.Outtake;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry.TriWheelOdometryGPS;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake.Transfer;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Wobble;
@@ -25,8 +27,9 @@ public class Robot {
     Subsystem[] subsystems;
 
     REV_IMU imu = new REV_IMU();
+    TriWheelOdometryGPS odometry = new TriWheelOdometryGPS(Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
     MecanumKinematicEstimator MKEstimator = new MecanumKinematicEstimator();
-    Drive DriveSubsystem = new Drive(imu, MKEstimator);
+    Drive DriveSubsystem = new Drive(imu, odometry, MKEstimator);
     Intake IntakeSubsystem = new Intake();
     Transfer TransferSubsystem = new Transfer();
     Outtake OuttakeSubsystem = new Outtake();
@@ -37,8 +40,8 @@ public class Robot {
     }
 
     public void init(HardwareMap hardwareMap, Telemetry telemetry) {
-        subsystems = new Subsystem[]{DriveSubsystem, imu, MKEstimator, IntakeSubsystem,
-                TransferSubsystem, OuttakeSubsystem, /*WobbleSubsystem*/};
+        subsystems = new Subsystem[]{DriveSubsystem, imu, odometry, MKEstimator, IntakeSubsystem,
+                TransferSubsystem, OuttakeSubsystem /*WobbleSubsystem*/};
 
         for (Subsystem subsystem : subsystems) {
             subsystem.init(hardwareMap);
@@ -79,18 +82,17 @@ public class Robot {
                 .addData("IMU Roll: ", getImu().getRoll())
                 .addData("IMU Pitch: ", getImu().getPitch())
                 .addData("IMU Heading: ", getImu().getHeading());
-        /*
-        // Odometry
+                // Odometry
         telemetry.addLine()
                 .addData("Odometry X: ", getOdometry().getX())
                 .addData("Odometry Y: ", getOdometry().getY())
                 .addData("Odometry Theta: ", getOdometry().getTheta());
         // Vision
-        telemetry.addLine()
+        /*telemetry.addLine()
                 .addData("Vision X: ", getVision().getX())
                 .addData("Vision Y: ", getVision().getY())
                 .addData("Vision Theta: ", getVision().getTheta());
-         */
+        */
         // Data Fusion Model
 //        telemetry.addLine()
 //                .addData("Data Fusion X: ", getDriveSubsystem().getDataFusionX())
@@ -150,9 +152,9 @@ public class Robot {
         this.gameState = gameState;
     }
 
-    //public TriWheelOdometryGPS getOdometry() {
-    //    return odometry;
-    //}
+    public TriWheelOdometryGPS getOdometry() {
+        return odometry;
+    }
 
     //public VuforiaVision getVuforiaVision() {
     //    return vuforiaVision;
