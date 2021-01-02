@@ -78,11 +78,11 @@ public class Robot {
 //                .addData("Game State: ", getGameState().getName());
 //
         // IMU Measurements
-        telemetry.addLine()
-                .addData("IMU Roll: ", getImu().getRoll())
-                .addData("IMU Pitch: ", getImu().getPitch())
-                .addData("IMU Heading: ", getImu().getHeading());
-                // Odometry
+        //telemetry.addLine()
+        //        .addData("IMU Roll: ", getImu().getRoll())
+        //        .addData("IMU Pitch: ", getImu().getPitch())
+        //        .addData("IMU Heading: ", getImu().getHeading());
+        // Odometry
         telemetry.addLine()
                 .addData("Odometry X: ", getOdometry().getX())
                 .addData("Odometry Y: ", getOdometry().getY())
