@@ -17,12 +17,19 @@ public class TriWheelOdometryGPS extends Odometry {
     private double x = 0, y = 0, theta = 0;
     private double r_0 = 0, l_0 = 0, s_0 = 0;
 
-    public TriWheelOdometryGPS(double ticksPerInch, int dt) {
+    public TriWheelOdometryGPS(DcMotor left, DcMotor right, DcMotor horizontal, double ticksPerInch, int dt) {
+        this.left = left;
+        this.right = right;
+        this.horizontal = horizontal;
         this.ticksPerInch = ticksPerInch;
         this.dt = dt;
     }
 
-    public TriWheelOdometryGPS(double ticksPerInch, int dt, double x0, double y0, double theta0) {
+    public TriWheelOdometryGPS(DcMotor left, DcMotor right, DcMotor horizontal,
+                               double ticksPerInch, int dt, double x0, double y0, double theta0) {
+        this.left = left;
+        this.right = right;
+        this.horizontal = horizontal;
         this.ticksPerInch = ticksPerInch;
         this.dt = dt;
         x = x0;
@@ -37,11 +44,15 @@ public class TriWheelOdometryGPS extends Odometry {
 
     @Override
     public void init(HardwareMap ahMap) {
-        left = ahMap.get(DcMotor.class, Constants.frontLeft);
-        right = ahMap.get(DcMotor.class, Constants.frontRight);
-        horizontal = ahMap.get(DcMotor.class, Constants.horizontal);
+        //left = ahMap.get(DcMotor.class, Constants.left);
+        //right = ahMap.get(DcMotor.class, Constants.right);
+        //horizontal = ahMap.get(DcMotor.class, Constants.horizontal);
 
-        right.setDirection(DcMotor.Direction.REVERSE);
+        left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        horizontal.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //right.setDirection(DcMotor.Direction.REVERSE);
     }
 
     @Override
@@ -61,12 +72,14 @@ public class TriWheelOdometryGPS extends Odometry {
         double sPose = (getHorizontal().getCurrentPosition() * getTicksPerInch());
         double ds = (sPose - s_0) - (dTheta * Constants.HORIZONTAL_OFFSET);
 
-        double p = ((dr + dl) / (2 * theta));
+        double p = ((dr + dl) / (2));
 
         //Calculate and update the position values
-        double dx = p * Math.sin(dTheta);
-        double dy = -dx * Math.tan(dTheta /2) + ds * Math.cos(dTheta /2);
+        double dx = p * Math.cos(dTheta/2);
+        //double dy = -dx * Math.tan(dTheta /2) + ds * Math.cos(dTheta /2);
+        double dy = p * Math.sin(dTheta/2);
         dx += ds * Math.sin(dTheta /2);
+        dy += ds * Math.cos(dTheta/2);
 
         x += dx;
         y += dy;
@@ -81,20 +94,20 @@ public class TriWheelOdometryGPS extends Odometry {
 
     @Override
     public double getX() {
-        run();
-        return x;
+        //run();
+        return left.getCurrentPosition();
     }
 
     @Override
     public double getY() {
         run();
-        return y;
+        return right.getCurrentPosition();
     }
 
     @Override
     public double getTheta() {
         run();
-        return theta;
+        return horizontal.getCurrentPosition();
     }
 
     public DcMotor getHorizontal() {

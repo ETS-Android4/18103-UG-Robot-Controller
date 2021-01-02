@@ -52,9 +52,9 @@ public final class Constants {
     public static final double ENCODER_DIFFERENCE = 12.8;
     public static final double HORIZONTAL_OFFSET = 0;
     public static final int dt = 100;
-    public static final String horizontal = "Horizontal";
-    public static final String left = "Left";
-    public static final String right = "Right";
+    public static final String horizontal = "Back Right";
+    public static final String left = "Front Left";
+    public static final String right = "Front Right";
     // ------------------
     //  Intake-Outtake Subsystem
     // ------------------
