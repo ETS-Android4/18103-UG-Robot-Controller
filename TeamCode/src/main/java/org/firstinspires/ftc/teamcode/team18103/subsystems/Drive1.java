@@ -22,10 +22,6 @@ import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.VuforiaVision;
 
 import java.util.Arrays;
 
-/*
- * Author: Akhil G
- */
-
 public class Drive1 extends Subsystem {
 
     public DcMotorEx frontLeft, frontRight, backLeft, backRight;
@@ -40,6 +36,11 @@ public class Drive1 extends Subsystem {
 
     public Drive1() {
         model = new MeanOptimizedDataFusionModel();
+    }
+
+    public Drive1(TriWheelOdometryGPS odometry) {
+        model = new MeanOptimizedDataFusionModel();
+        this.odometry = odometry;
     }
 
     /*public Drive1(IMU imu, TriWheelOdometryGPS odometry, VuforiaVision vision) {
@@ -88,11 +89,7 @@ public class Drive1 extends Subsystem {
         }
 
         imu.init(ahMap);
-
-        //odometry = new TriWheelOdometryGPS(frontLeft, frontRight, backRight,
-        //        Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
-
-        //odometry.init(ahMap);
+        odometry.init(ahMap);
 
     }
 
@@ -254,7 +251,7 @@ public class Drive1 extends Subsystem {
      * @param mode Drivetrain Speed Setting (Sport, Normal, Economy)
      */
     public void POVMecanumDrive(double y, double x, double turn, DriveMode mode) {
-
+        turn *= 0.75; //Custom reduction bc it was requested.
         double v1 = -(y - (turn * Constants.strafeScaling) - (x/Constants.turnScaling));
         double v2 = -(y - (turn * Constants.strafeScaling) + (x/Constants.turnScaling));
         double v3 = -(y + (turn * Constants.strafeScaling) - (x/Constants.turnScaling));

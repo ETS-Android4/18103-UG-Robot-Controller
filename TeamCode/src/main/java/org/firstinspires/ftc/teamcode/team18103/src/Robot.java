@@ -27,12 +27,12 @@ public class Robot {
 
     Subsystem[] subsystems;
 
-    //TriWheelOdometryGPS odometry = new TriWheelOdometryGPS(Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
-    //MecanumKinematicEstimator MKEstimator = new MecanumKinematicEstimator();
-    Drive1 DriveSubsystem = new Drive1();
+    MecanumKinematicEstimator MKEstimator = new MecanumKinematicEstimator();
     Intake IntakeSubsystem = new Intake();
     Transfer TransferSubsystem = new Transfer();
     Outtake OuttakeSubsystem = new Outtake();
+    TriWheelOdometryGPS odometry = new TriWheelOdometryGPS(TransferSubsystem.getTransfer(), IntakeSubsystem.getIntake(), OuttakeSubsystem.getFirstOuttake(), Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
+    Drive1 DriveSubsystem = new Drive1(odometry);
     //Wobble WobbleSubsystem = new Wobble();
 
     public Robot() {
@@ -105,8 +105,8 @@ public class Robot {
 //        telemetry.addLine()
 //                .addData("Drive Mode: ", getDriveSubsystem().getDriveMode().getName());
 
-        telemetry.addLine().addData("First Outtake RPM: ", getOuttakeSubsystem().getFirstOuttakeRPM());
-        telemetry.addLine().addData("Second Outtake RPM: ", getOuttakeSubsystem().getSecondOuttakeRPM());
+//        telemetry.addLine().addData("First Outtake RPM: ", getOuttakeSubsystem().getFirstOuttakeRPM());
+//        telemetry.addLine().addData("Second Outtake RPM: ", getOuttakeSubsystem().getSecondOuttakeRPM());
         telemetry.update();
 
     }

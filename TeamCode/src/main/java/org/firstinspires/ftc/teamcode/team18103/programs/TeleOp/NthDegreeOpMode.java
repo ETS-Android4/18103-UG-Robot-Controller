@@ -12,10 +12,15 @@ import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
 public class NthDegreeOpMode extends OpMode {
 
     Robot robot = new Robot();
+    DcMotor shooter1;
+    DcMotor shooter2;
 
     @Override
     public void init() {
+
         robot.init(hardwareMap, telemetry);
+        shooter1 = robot.getOuttakeSubsystem().getFirstOuttake();
+        shooter2 = robot.getOuttakeSubsystem().getSecondOuttake();
     }
 
     @Override
@@ -32,8 +37,7 @@ public class NthDegreeOpMode extends OpMode {
         telemetry.addData("Horizontal: ", robot.getDriveSubsystem().backRight.getCurrentPosition());
         telemetry.addData("Chosen One: ", robot.getDriveSubsystem().backLeft.getCurrentPosition());
 
-        robot.getDriveSubsystem().POVMecanumDrive(gamepad1.left_stick_y, gamepad1.left_stick_x,
-                gamepad1.right_stick_x, DriveMode.Sport);
+        robot.getDriveSubsystem().POVMecanumDrive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, DriveMode.Sport);
 
         robot.getIntakeSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
@@ -43,10 +47,15 @@ public class NthDegreeOpMode extends OpMode {
             robot.getTransferSubsystem().runTransfer(robot.getTransferSubsystem().getTransferPower() == 1 ? 0 : 1);
         }
 
-        robot.getOuttakeSubsystem().runOuttake(gamepad1.y);
+        if(gamepad1.y) {
+            robot.getOuttakeSubsystem().runOuttake(0.8);
+        } else {
+            robot.getOuttakeSubsystem().runOuttake(0);
+        }
 
         //robot.getWobbleSubsystem().moveJoint(gamepad1.right_trigger - gamepad1.left_trigger);
         //robot.getWobbleSubsystem().moveLatch(gamepad1.dpad_up ? 1 : gamepad1.dpad_down ? 0 : -1);
+
     }
 
     public void launchShooter(boolean shooting) {

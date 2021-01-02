@@ -17,6 +17,8 @@ public class TriWheelOdometryGPS extends Odometry {
     private double x = 0, y = 0, theta = 0;
     private double r_0 = 0, l_0 = 0, s_0 = 0;
 
+
+    //We can only pass by reference or else it breaks.
     public TriWheelOdometryGPS(DcMotor left, DcMotor right, DcMotor horizontal, double ticksPerInch, int dt) {
         this.left = left;
         this.right = right;
@@ -44,15 +46,11 @@ public class TriWheelOdometryGPS extends Odometry {
 
     @Override
     public void init(HardwareMap ahMap) {
-        //left = ahMap.get(DcMotor.class, Constants.left);
-        //right = ahMap.get(DcMotor.class, Constants.right);
-        //horizontal = ahMap.get(DcMotor.class, Constants.horizontal);
-
         left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         horizontal.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        //right.setDirection(DcMotor.Direction.REVERSE);
+        right.setDirection(DcMotor.Direction.REVERSE);
     }
 
     @Override

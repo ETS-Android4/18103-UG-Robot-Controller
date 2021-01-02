@@ -48,4 +48,8 @@ public class Intake extends Subsystem {
         runIntake(power);
     }
 
+    public DcMotorEx getIntake() {
+        return intake;
+    }
+
 }

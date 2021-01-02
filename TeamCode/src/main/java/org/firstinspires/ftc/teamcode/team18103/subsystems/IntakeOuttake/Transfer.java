@@ -50,4 +50,8 @@ public class Transfer extends Subsystem {
         runTransfer(0);
     }
 
+    public DcMotorEx getTransfer() {
+        return transfer;
+    }
+
 }
