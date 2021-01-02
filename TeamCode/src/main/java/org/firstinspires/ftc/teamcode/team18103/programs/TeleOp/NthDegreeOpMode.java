@@ -26,7 +26,7 @@ public class NthDegreeOpMode extends OpMode {
     @Override
     public void loop() {
         //robot.loop(telemetry);
-        
+
         telemetry.addData("Left: ", robot.getDriveSubsystem().frontLeft.getCurrentPosition());
         telemetry.addData("Right: ", robot.getDriveSubsystem().frontRight.getCurrentPosition());
         telemetry.addData("Horizontal: ", robot.getDriveSubsystem().backRight.getCurrentPosition());
