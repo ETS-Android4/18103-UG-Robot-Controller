@@ -16,7 +16,7 @@ public class Cry extends OpMode {
 
     @Override
     public void init() {
-        frontLeft = hardwareMap.get(DcMotorEx.class, Constants.frontLeft);
+        frontLeft = hardwareMap.get(DcMotorEx.class, Constants.transfer);
         frontRight = hardwareMap.get(DcMotorEx.class, Constants.frontRight);
         backLeft = hardwareMap.get(DcMotorEx.class, Constants.backLeft);
         backRight = hardwareMap.get(DcMotorEx.class, Constants.backRight);
@@ -30,7 +30,7 @@ public class Cry extends OpMode {
             //motor.setPositionPIDFCoefficients(Constants.DRIVE_P);
             motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
