@@ -1,8 +1,6 @@
-package org.firstinspires.ftc.teamcode.team18103.subsystems;
+package org.firstinspires.ftc.teamcode.legacy;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -16,58 +14,67 @@ import org.firstinspires.ftc.teamcode.lib.util.MeanOptimizedDataFusionModel;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.IMU;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.REV_IMU;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry.TriWheelOdometryGPS;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.VuforiaVision;
 
 import java.util.Arrays;
 
-public class Drive1 extends Subsystem {
+/*
+ * Author: Akhil G
+ */
 
-    public DcMotorEx frontLeft, frontRight, backLeft, backRight;
+public class Drive extends Subsystem {
+
+    DcMotorEx frontLeft, frontRight, backLeft, backRight;
     DcMotorEx[] driveMotors;
 
-    REV_IMU imu = new REV_IMU();
-    TriWheelOdometryGPS odometry;
-    VuforiaVision vision;
-    MeanOptimizedDataFusionModel model;
-
+    DriveMode driveMode = DriveMode.Balanced;
+    int driveType = 1; // 0 - Field-Centric, 1 - POV
+    ProfileState driveState;
     double x, y, theta;
 
-    public Drive1() {
-        model = new MeanOptimizedDataFusionModel();
-    }
+    IMU imu;
+    TriWheelOdometryGPS odometry;
+    VuforiaVision vision;
+    MecanumKinematicEstimator MKEstimator;
+    MeanOptimizedDataFusionModel model;
 
-    public Drive1(TriWheelOdometryGPS odometry) {
-        model = new MeanOptimizedDataFusionModel();
-        this.odometry = odometry;
-    }
-
-    /*public Drive1(IMU imu, TriWheelOdometryGPS odometry, VuforiaVision vision) {
+    public Drive(IMU imu, TriWheelOdometryGPS odometry, VuforiaVision vision, MecanumKinematicEstimator estimator) {
         this.imu = imu;
         this.odometry = odometry;
         this.vision = vision;
+        this.MKEstimator = estimator;
         model = new MeanOptimizedDataFusionModel();
         update();
     }
 
-    public Drive1(IMU imu, TriWheelOdometryGPS odometry) {
+    public Drive(IMU imu, TriWheelOdometryGPS odometry, MecanumKinematicEstimator estimator) {
         this.imu = imu;
         this.odometry = odometry;
         this.vision = vision;
+        this.MKEstimator = estimator;
         model = new MeanOptimizedDataFusionModel();
         update();
     }
 
-    public Drive1(IMU imu) {
+    public Drive(IMU imu, MecanumKinematicEstimator estimator) {
         this.imu = imu;
         this.odometry = null;
         this.vision = null;
+        this.MKEstimator = estimator;
         model = new MeanOptimizedDataFusionModel();
         //update();
     }
 
-     */
+    public Drive(IMU imu) {
+        this.imu = imu;
+        this.odometry = null;
+        this.vision = null;
+        this.MKEstimator = null;
+        model = new MeanOptimizedDataFusionModel();
+        //update();
+    }
 
     @Override
     public void init(HardwareMap ahMap) {
@@ -84,12 +91,7 @@ public class Drive1 extends Subsystem {
         for (DcMotorEx motor : driveMotors) {
             //motor.setPositionPIDFCoefficients(Constants.DRIVE_P);
             motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
-
-        imu.init(ahMap);
-        odometry.init(ahMap);
 
     }
 
@@ -251,7 +253,7 @@ public class Drive1 extends Subsystem {
      * @param mode Drivetrain Speed Setting (Sport, Normal, Economy)
      */
     public void POVMecanumDrive(double y, double x, double turn, DriveMode mode) {
-        turn *= 0.75; //Custom reduction bc it was requested.
+
         double v1 = -(y - (turn * Constants.strafeScaling) - (x/Constants.turnScaling));
         double v2 = -(y - (turn * Constants.strafeScaling) + (x/Constants.turnScaling));
         double v3 = -(y + (turn * Constants.strafeScaling) - (x/Constants.turnScaling));
@@ -349,27 +351,26 @@ public class Drive1 extends Subsystem {
                                         float right_trigger, boolean left_bumper,
                                         boolean right_bumper, boolean button) {
 
-        //double mode = driveMode.getId();
-        //double modeChange = right_trigger - left_trigger;
-        //if (Math.abs(modeChange) > 0.5) {
-        //    mode = MathFx.scale(-1, 1, Math.round(mode + modeChange));
-        //}
+        double mode = driveMode.getId();
+        double modeChange = right_trigger - left_trigger;
+        if (Math.abs(modeChange) > 0.5) {
+            mode = MathFx.scale(-1, 1, Math.round(mode + modeChange));
+        }
 
-        //setDriveMode(getDMbyID(mode));
+        setDriveMode(getDMbyID(mode));
 
         if (left_bumper) {
-            //setDriveType(0);
+            setDriveType(0);
         }
 
         if (right_bumper) {
-            //setDriveType(1);
+            setDriveType(1);
         }
 
         if (button) {
             zeroYaw();
         }
 
-        /*
         switch (driveType) {
             case 0:
                 fieldCentricMecanumDrive(y, x, turn, driveMode);
@@ -378,8 +379,6 @@ public class Drive1 extends Subsystem {
                 POVMecanumDrive(y, x, turn, driveMode);
                 break;
         }
-
-         */
 
 
     }
@@ -395,15 +394,13 @@ public class Drive1 extends Subsystem {
         model.setBias(-getDataFusionTheta());
     }
 
-    /*public DriveMode getDriveMode() {
+    public DriveMode getDriveMode() {
         return driveMode;
     }
 
     public void setDriveMode(DriveMode driveMode) {
         this.driveMode = driveMode;
     }
-
-     */
 
     public DriveMode getDMbyID(double id) {
         if (id == -1) {
@@ -415,15 +412,13 @@ public class Drive1 extends Subsystem {
         }
     }
 
-    /*public double getDriveType() {
+    public double getDriveType() {
         return driveType;
     }
 
     public void setDriveType(int driveType) {
         this.driveType = driveType;
     }
-
-     */
 
     public TriWheelOdometryGPS getOdometry() {
         return odometry;
@@ -434,26 +429,26 @@ public class Drive1 extends Subsystem {
     }
 
     public double getDataFusionTheta() {
-        setTheta(model.fuse(new double[]{/*imu.getHeading(),*/ odometry.getTheta()}));
+        setTheta(model.fuse(new double[]{/*imu.getHeading(),*/ MKEstimator.getTheta()}));
         return theta;
     }
 
     public double getDataFusionX() {
-        setX(model.fuse(new double[]{odometry.getX()}));
+        setX(model.fuse(new double[]{MKEstimator.getX()}));
         return x;
     }
 
     public double getDataFusionY() {
-        setY(model.fuse(new double[]{odometry.getY()}));
+        setY(model.fuse(new double[]{MKEstimator.getY()}));
         return y;
     }
 
     public void setDriveState(ProfileState driveState) {
-        //this.driveState = driveState;
+        this.driveState = driveState;
     }
 
     public ProfileState getDriveState() {
-        return null; //driveState;
+        return driveState;
     }
 
     public MeanOptimizedDataFusionModel getModel() {

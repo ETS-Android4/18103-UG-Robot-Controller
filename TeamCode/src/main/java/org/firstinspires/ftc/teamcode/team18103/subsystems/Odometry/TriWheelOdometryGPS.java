@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
@@ -39,6 +40,11 @@ public class TriWheelOdometryGPS extends Odometry {
         theta = theta0;
     }
 
+    public TriWheelOdometryGPS(double ticksPerInch, int dt) {
+        this.ticksPerInch = ticksPerInch;
+        this.dt = dt;
+    }
+
     @Override
     public void start() {
 
@@ -46,6 +52,10 @@ public class TriWheelOdometryGPS extends Odometry {
 
     @Override
     public void init(HardwareMap ahMap) {
+        left = ahMap.get(DcMotor.class, Constants.left);
+        right = ahMap.get(DcMotor.class, Constants.right);
+        horizontal = ahMap.get(DcMotor.class, Constants.horizontal);
+
         left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         horizontal.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -73,11 +83,9 @@ public class TriWheelOdometryGPS extends Odometry {
         double p = ((dr + dl) / (2));
 
         //Calculate and update the position values
-        double dx = p * Math.cos(dTheta/2);
+        double dx = p * Math.cos(dTheta/2) + ds * Math.sin(dTheta /2);
         //double dy = -dx * Math.tan(dTheta /2) + ds * Math.cos(dTheta /2);
-        double dy = p * Math.sin(dTheta/2);
-        dx += ds * Math.sin(dTheta /2);
-        dy += ds * Math.cos(dTheta/2);
+        double dy = p * Math.sin(dTheta/2) + ds * Math.cos(dTheta/2);
 
         x += dx;
         y += dy;
@@ -92,20 +100,20 @@ public class TriWheelOdometryGPS extends Odometry {
 
     @Override
     public double getX() {
-        //run();
-        return left.getCurrentPosition();
+        run();
+        return x;
     }
 
     @Override
     public double getY() {
         run();
-        return right.getCurrentPosition();
+        return y;
     }
 
     @Override
     public double getTheta() {
         run();
-        return horizontal.getCurrentPosition();
+        return theta;
     }
 
     public DcMotor getHorizontal() {

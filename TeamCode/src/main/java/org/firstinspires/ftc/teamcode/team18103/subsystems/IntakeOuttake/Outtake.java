@@ -23,6 +23,8 @@ public class Outtake extends Subsystem {
      * I have a feeling it has something to do with the run diagnostics in the update and runOuttake method
      *
      * The PID stuff, although commented wasn't being used so I don't think that was the main issue.
+     *
+     * To David: Alr, I saw this last rip, we can deal w/ it later ig
      */
 
 

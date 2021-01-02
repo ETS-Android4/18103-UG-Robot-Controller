@@ -4,15 +4,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
 import org.firstinspires.ftc.teamcode.lib.physics.MecanumKinematicEstimator;
 import org.firstinspires.ftc.teamcode.team18103.states.GameState;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Drive;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.Drive1;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.REV_IMU;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake.Intake;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake.Outtake;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry.TriWheelOdometryGPS;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake.Transfer;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Wobble;
@@ -27,12 +23,10 @@ public class Robot {
 
     Subsystem[] subsystems;
 
-    MecanumKinematicEstimator MKEstimator = new MecanumKinematicEstimator();
     Intake IntakeSubsystem = new Intake();
     Transfer TransferSubsystem = new Transfer();
     Outtake OuttakeSubsystem = new Outtake();
-    TriWheelOdometryGPS odometry = new TriWheelOdometryGPS(TransferSubsystem.getTransfer(), IntakeSubsystem.getIntake(), OuttakeSubsystem.getFirstOuttake(), Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
-    Drive1 DriveSubsystem = new Drive1(odometry);
+    Drive DriveSubsystem = new Drive();
     //Wobble WobbleSubsystem = new Wobble();
 
     public Robot() {
@@ -74,14 +68,14 @@ public class Robot {
                 .addData("Robot Initialized: ", true);
 
         // Game State
-//        telemetry.addLine()
-//                .addData("Game State: ", getGameState().getName());
-//
+        telemetry.addLine()
+                .addData("Game State: ", getGameState().getName());
+
         // IMU Measurements
-        //telemetry.addLine()
-        //        .addData("IMU Roll: ", getImu().getRoll())
-        //        .addData("IMU Pitch: ", getImu().getPitch())
-        //        .addData("IMU Heading: ", getImu().getHeading());
+        telemetry.addLine()
+                .addData("IMU Roll: ", getDriveSubsystem().getImu().getRoll())
+                .addData("IMU Pitch: ", getDriveSubsystem().getImu().getPitch())
+                .addData("IMU Heading: ", getDriveSubsystem().getImu().getHeading());
         // Odometry
         telemetry.addLine()
                 .addData("Odometry X: ", getDriveSubsystem().getOdometry().getX())
@@ -89,9 +83,9 @@ public class Robot {
                 .addData("Odometry Theta: ", getDriveSubsystem().getOdometry().getTheta());
         // Vision
         /*telemetry.addLine()
-                .addData("Vision X: ", getVision().getX())
-                .addData("Vision Y: ", getVision().getY())
-                .addData("Vision Theta: ", getVision().getTheta());
+                .addData("Vision X: ", getDriveSubsystem().getVision().getX())
+                .addData("Vision Y: ", getDriveSubsystem().getVision().getY())
+                .addData("Vision Theta: ", getDriveSubsystem().getVision().getTheta());
         */
         // Data Fusion Model
         telemetry.addLine()
@@ -99,14 +93,14 @@ public class Robot {
                 .addData("Data Fusion Y: ", getDriveSubsystem().getDataFusionY())
                 .addData("Data Fusion Theta: ", getDriveSubsystem().getDataFusionTheta());
         // Collision Detection
-//        telemetry.addLine()
-//                .addData("Collision Detected: ", getImu().getCollision());
-//        // Drive Mode
-//        telemetry.addLine()
-//                .addData("Drive Mode: ", getDriveSubsystem().getDriveMode().getName());
+        telemetry.addLine()
+                .addData("Collision Detected: ", getDriveSubsystem().getImu().getCollision());
+        // Drive Mode
+        telemetry.addLine()
+                .addData("Drive Mode: ", getDriveSubsystem().getDriveMode().getName());
 
-//        telemetry.addLine().addData("First Outtake RPM: ", getOuttakeSubsystem().getFirstOuttakeRPM());
-//        telemetry.addLine().addData("Second Outtake RPM: ", getOuttakeSubsystem().getSecondOuttakeRPM());
+        //telemetry.addLine().addData("First Outtake RPM: ", getOuttakeSubsystem().getFirstOuttakeRPM());
+        //telemetry.addLine().addData("Second Outtake RPM: ", getOuttakeSubsystem().getSecondOuttakeRPM());
         telemetry.update();
 
     }
@@ -124,7 +118,7 @@ public class Robot {
         elapsedTime.reset();
     }
 
-    public Drive1 getDriveSubsystem() {
+    public Drive getDriveSubsystem() {
         return DriveSubsystem;
     }
 
@@ -147,9 +141,5 @@ public class Robot {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
-
-    //public VuforiaVision getVuforiaVision() {
-    //    return vuforiaVision;
-    //}
 
 }
