@@ -26,6 +26,11 @@ public class NthDegreeOpMode extends OpMode {
     @Override
     public void loop() {
         //robot.loop(telemetry);
+        
+        telemetry.addData("Left: ", robot.getDriveSubsystem().frontLeft.getCurrentPosition());
+        telemetry.addData("Right: ", robot.getDriveSubsystem().frontRight.getCurrentPosition());
+        telemetry.addData("Horizontal: ", robot.getDriveSubsystem().backRight.getCurrentPosition());
+        telemetry.addData("Chosen One: ", robot.getDriveSubsystem().backLeft.getCurrentPosition());
 
         robot.getDriveSubsystem().POVMecanumDrive(gamepad1.left_stick_y, gamepad1.left_stick_x,
                 gamepad1.right_stick_x, DriveMode.Sport);

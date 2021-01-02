@@ -51,7 +51,7 @@ public class Robot {
 
         resetElapsedTime();
 
-        Telemetry(telemetry);
+        //Telemetry(telemetry);
     }
 
     public void start() {

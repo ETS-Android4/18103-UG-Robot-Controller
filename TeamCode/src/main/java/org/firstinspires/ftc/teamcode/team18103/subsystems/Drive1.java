@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.team18103.subsystems;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -27,7 +28,7 @@ import java.util.Arrays;
 
 public class Drive1 extends Subsystem {
 
-    DcMotorEx frontLeft, frontRight, backLeft, backRight;
+    public DcMotorEx frontLeft, frontRight, backLeft, backRight;
     DcMotorEx[] driveMotors;
 
     REV_IMU imu = new REV_IMU();
@@ -82,14 +83,16 @@ public class Drive1 extends Subsystem {
         for (DcMotorEx motor : driveMotors) {
             //motor.setPositionPIDFCoefficients(Constants.DRIVE_P);
             motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
 
         imu.init(ahMap);
 
-        odometry = new TriWheelOdometryGPS(frontLeft, frontRight, backRight,
-                Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
+        //odometry = new TriWheelOdometryGPS(frontLeft, frontRight, backRight,
+        //        Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
 
-        odometry.init(ahMap);
+        //odometry.init(ahMap);
 
     }
 
