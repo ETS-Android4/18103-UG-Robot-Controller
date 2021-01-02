@@ -13,7 +13,8 @@ public enum Motor {
     GoBILDA_223(223d, 753.2d),
     GoBILDA_6000(6000d, 28),
     NeveRest_3_7(1780d, 103.6d),
-    REV_Core_Hex(125d, 288d);
+    REV_Core_Hex(125d, 288d),
+    REV_Encoder(10000,8129);
 
     private final double RPM;
     private final double ENCODER_TICKS_PER_REVOLUTION;
