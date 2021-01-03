@@ -34,15 +34,12 @@ public class Robot {
     }
 
     public void init(HardwareMap hardwareMap, Telemetry telemetry) {
-        subsystems = new Subsystem[]{IntakeSubsystem,
-                TransferSubsystem, OuttakeSubsystem, DriveSubsystem /*WobbleSubsystem*/};
+        subsystems = new Subsystem[]{DriveSubsystem, IntakeSubsystem,
+                TransferSubsystem, OuttakeSubsystem /*WobbleSubsystem*/};
 
         for (Subsystem subsystem : subsystems) {
             subsystem.init(hardwareMap);
         }
-
-        getDriveSubsystem().setOdometry(hardwareMap, TransferSubsystem.getTransfer(), IntakeSubsystem.getIntake(),
-                OuttakeSubsystem.getFirstOuttake());
 
         setGameState(GameState.TeleOp);
 

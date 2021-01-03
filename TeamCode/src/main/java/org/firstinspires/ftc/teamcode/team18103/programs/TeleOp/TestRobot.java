@@ -53,9 +53,6 @@ public class TestRobot extends OpMode {
         robot.getDriveSubsystem().POVMecanumDrive(gamepad1.left_stick_y, gamepad1.left_stick_x,
                 gamepad1.right_stick_x, DriveMode.Balanced); // Half Speed
 
-        //telemetry.addData("Dl ", robot.getDriveSubsystem().getOdometry().getLeft().getCurrentPosition());
-        //telemetry.addData("Dr ", robot.getDriveSubsystem().getOdometry().getRight().getCurrentPosition());
-
         robot.getIntakeSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
         if(gamepad1.right_bumper) {
