@@ -43,9 +43,10 @@ public class Drive extends Subsystem {
         model = new MeanOptimizedDataFusionModel();
     }
 
-    public Drive(TriWheelOdometryGPS odometry) {
+    public Drive(DcMotor Left, DcMotor Right, DcMotor Horizontal) {
         model = new MeanOptimizedDataFusionModel();
-        this.odometry = odometry;
+        this.odometry = new TriWheelOdometryGPS(Left, Right, Horizontal,
+                Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
     }
 
     @Override
@@ -72,12 +73,18 @@ public class Drive extends Subsystem {
         imu = new REV_IMU();
         imu.init(ahMap);
         // Odometry Init
-        odometry = new TriWheelOdometryGPS(Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
-        odometry.init(ahMap);
+
         // Vision Init
 
         // MKE Init
 
+    }
+
+    public void setOdometry(HardwareMap ahMap, DcMotor Left, DcMotor Right, DcMotor Horizontal) {
+        odometry = new TriWheelOdometryGPS(Left, Right, Horizontal,
+                Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
+
+        odometry.init(ahMap);
     }
 
     @Override

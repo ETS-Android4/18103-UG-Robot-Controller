@@ -52,9 +52,9 @@ public class TriWheelOdometryGPS extends Odometry {
 
     @Override
     public void init(HardwareMap ahMap) {
-        left = ahMap.get(DcMotor.class, Constants.left);
-        right = ahMap.get(DcMotor.class, Constants.right);
-        horizontal = ahMap.get(DcMotor.class, Constants.horizontal);
+        //left = ahMap.get(DcMotor.class, Constants.left);
+        //right = ahMap.get(DcMotor.class, Constants.right);
+        //horizontal = ahMap.get(DcMotor.class, Constants.horizontal);
 
         left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -76,21 +76,27 @@ public class TriWheelOdometryGPS extends Odometry {
         double dTheta = (dl - dr) / (Constants.ENCODER_DIFFERENCE);
         theta += dTheta;
 
-        //Get the components of the motion
-        double sPose = (getHorizontal().getCurrentPosition() * getTicksPerInch());
-        double ds = (sPose - s_0) - (dTheta * Constants.HORIZONTAL_OFFSET);
+        if (Math.abs(dTheta) < 1 && dl != 0) {
 
-        double p = ((dr + dl) / (2));
+            //Get the components of the motion
+            double sPose = (getHorizontal().getCurrentPosition() * getTicksPerInch());
+            double ds = (sPose - s_0) - (dTheta * Constants.HORIZONTAL_OFFSET);
 
-        //Calculate and update the position values
-        double dx = p * Math.cos(dTheta/2) + ds * Math.sin(dTheta /2);
-        //double dy = -dx * Math.tan(dTheta /2) + ds * Math.cos(dTheta /2);
-        double dy = p * Math.sin(dTheta/2) + ds * Math.cos(dTheta/2);
+            double p = ((dr + dl) / (2 * dTheta));
 
-        x += dx;
-        y += dy;
+            //Calculate and update the position values
+            double dx = p * Math.sin(dTheta);
+            double dy = -dx * Math.tan(dTheta / 2) + ds * Math.cos(dTheta/2);
 
-        setZeros(lPos, rPos, sPose);
+            dx += ds * Math.sin(dTheta/2);
+
+            x += dx;
+            y += dy;
+
+            setZeros(lPos, rPos, sPose);
+
+        }
+
     }
 
     @Override
