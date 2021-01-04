@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.team18103.subsystems;
+package org.firstinspires.ftc.teamcode.legacy.minibot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -10,11 +10,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Author: Akhil G
  */
 
-public class Minibot {
+public class MinibotSubsystem {
 
     DcMotorEx motor;
 
-    public Minibot() {
+    public MinibotSubsystem() {
 
     }
 

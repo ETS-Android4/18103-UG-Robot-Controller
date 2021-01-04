@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode.team18103.subsystems;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.R;
 import org.firstinspires.ftc.teamcode.lib.control.PIDSVA;
 import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
 import org.firstinspires.ftc.teamcode.lib.motion.ProfileState;
@@ -16,9 +13,9 @@ import org.firstinspires.ftc.teamcode.lib.util.MathFx;
 import org.firstinspires.ftc.teamcode.lib.util.MeanOptimizedDataFusionModel;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.IMU;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.REV_IMU;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry.TriWheelOdometryGPS;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.TFVision;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.VuforiaVision;
 
 import java.util.Arrays;
@@ -30,7 +27,8 @@ public class Drive extends Subsystem {
 
     REV_IMU imu;
     TriWheelOdometryGPS odometry;
-    VuforiaVision vision;
+    VuforiaVision visualOdometry;
+    TFVision visionProcessing;
     MecanumKinematicEstimator MKEstimator;
     MeanOptimizedDataFusionModel model;
 
@@ -41,11 +39,6 @@ public class Drive extends Subsystem {
 
     public Drive() {
         model = new MeanOptimizedDataFusionModel();
-    }
-
-    public Drive(TriWheelOdometryGPS odometry) {
-        model = new MeanOptimizedDataFusionModel();
-        this.odometry = odometry;
     }
 
     @Override
@@ -64,25 +57,38 @@ public class Drive extends Subsystem {
         for (DcMotorEx motor : driveMotors) {
             //motor.setPositionPIDFCoefficients(Constants.DRIVE_P);
             motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         }
 
         // IMU Init
         imu = new REV_IMU();
         imu.init(ahMap);
+
         // Odometry Init
         odometry = new TriWheelOdometryGPS(Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
         odometry.init(ahMap);
-        // Vision Init
+
+        // Visual Odometry Init
+        visualOdometry = new VuforiaVision();
+        visualOdometry.init(ahMap);
+
+        // Vision Processing Init
+        visionProcessing = new TFVision();
+        visionProcessing.init(ahMap);
 
         // MKE Init
-
+        MKEstimator = new MecanumKinematicEstimator();
+        MKEstimator.init(ahMap);
     }
 
     @Override
     public void start() {
-
+        imu.start();
+        odometry.start();
+        visualOdometry.start();
+        visionProcessing.start();
+        MKEstimator.start();
     }
 
     // Autonomous Algorithms
@@ -409,8 +415,8 @@ public class Drive extends Subsystem {
         return odometry;
     }
 
-    public VuforiaVision getVision() {
-        return vision;
+    public VuforiaVision getVisualOdometry() {
+        return visualOdometry;
     }
 
     public MecanumKinematicEstimator getMKEstimator() {
@@ -422,17 +428,18 @@ public class Drive extends Subsystem {
     }
 
     public double getDataFusionTheta() {
-        setTheta(model.fuse(new double[]{imu.getHeading(), odometry.getTheta()}));
+        setTheta(model.fuse(new double[]{imu.getHeading(), odometry.getTheta(),
+                visualOdometry.getTheta(), MKEstimator.getTheta()}));
         return theta;
     }
 
     public double getDataFusionX() {
-        setX(model.fuse(new double[]{odometry.getX()}));
+        setX(model.fuse(new double[]{odometry.getX(), visualOdometry.getX(), MKEstimator.getX()}));
         return x;
     }
 
     public double getDataFusionY() {
-        setY(model.fuse(new double[]{odometry.getY()}));
+        setY(model.fuse(new double[]{odometry.getY(), visualOdometry.getY(), MKEstimator.getY()}));
         return y;
     }
 

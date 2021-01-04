@@ -74,7 +74,7 @@ public class MecanumKinematicEstimator extends Subsystem {
 
         double dx = (bl + fr - (fl + br))/4;
         double dy = (bl + fr + fl + br)/4;
-        double dTheta = (fl + bl - (fr + br))/(4 * Constants.ENCODER_DIFFERENCE * Math.PI / 360);
+        double dTheta = (fl + bl - (fr + br))/(4 * Constants.ENCODER_DIFFERENCE * Math.PI); // Todo Fix, Add Wheel Diameter Calculations
 
         x += dx * dt;
         y += dy * dt;

@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -12,27 +11,14 @@ import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 
 public class TriWheelOdometryGPS extends Odometry {
 
-    private DcMotor left, right, horizontal;
-    private double ticksPerInch, dt;
+    private DcMotorEx left, right, horizontal;
+    private final double ticksPerInch;
+    private double dt;
 
     private double x = 0, y = 0, theta = 0;
     private double r_0 = 0, l_0 = 0, s_0 = 0;
 
-
-    //We can only pass by reference or else it breaks.
-    public TriWheelOdometryGPS(DcMotor left, DcMotor right, DcMotor horizontal, double ticksPerInch, int dt) {
-        this.left = left;
-        this.right = right;
-        this.horizontal = horizontal;
-        this.ticksPerInch = ticksPerInch;
-        this.dt = dt;
-    }
-
-    public TriWheelOdometryGPS(DcMotor left, DcMotor right, DcMotor horizontal,
-                               double ticksPerInch, int dt, double x0, double y0, double theta0) {
-        this.left = left;
-        this.right = right;
-        this.horizontal = horizontal;
+    public TriWheelOdometryGPS(double ticksPerInch, int dt, double x0, double y0, double theta0) {
         this.ticksPerInch = ticksPerInch;
         this.dt = dt;
         x = x0;
@@ -46,21 +32,21 @@ public class TriWheelOdometryGPS extends Odometry {
     }
 
     @Override
-    public void start() {
+    public void init(HardwareMap ahMap) {
+        left = ahMap.get(DcMotorEx.class, Constants.left);
+        right = ahMap.get(DcMotorEx.class, Constants.right);
+        horizontal = ahMap.get(DcMotorEx.class, Constants.horizontal);
 
+        left.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        right.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        horizontal.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+
+        right.setDirection(DcMotorEx.Direction.REVERSE);
     }
 
     @Override
-    public void init(HardwareMap ahMap) {
-        left = ahMap.get(DcMotor.class, Constants.left);
-        right = ahMap.get(DcMotor.class, Constants.right);
-        horizontal = ahMap.get(DcMotor.class, Constants.horizontal);
+    public void start() {
 
-        left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        horizontal.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        right.setDirection(DcMotor.Direction.REVERSE);
     }
 
     @Override
@@ -78,7 +64,7 @@ public class TriWheelOdometryGPS extends Odometry {
 
         //Get the components of the motion
         double sPose = (getHorizontal().getCurrentPosition() * getTicksPerInch());
-        double ds = (sPose - s_0) - (dTheta * Constants.HORIZONTAL_OFFSET);
+        double ds = (sPose - getS_0()) - (dTheta * Constants.HORIZONTAL_OFFSET);
 
         double p = ((dr + dl) / (2));
 
@@ -116,15 +102,15 @@ public class TriWheelOdometryGPS extends Odometry {
         return theta;
     }
 
-    public DcMotor getHorizontal() {
+    public DcMotorEx getHorizontal() {
         return horizontal;
     }
 
-    public DcMotor getLeft() {
+    public DcMotorEx getLeft() {
         return left;
     }
 
-    public DcMotor getRight() {
+    public DcMotorEx getRight() {
         return right;
     }
 

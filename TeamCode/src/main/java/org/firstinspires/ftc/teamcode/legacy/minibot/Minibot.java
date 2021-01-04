@@ -1,7 +1,5 @@
-package org.firstinspires.ftc.teamcode.team18103.src;
+package org.firstinspires.ftc.teamcode.legacy.minibot;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -12,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Minibot {
 
-    org.firstinspires.ftc.teamcode.team18103.subsystems.Minibot bot = new org.firstinspires.ftc.teamcode.team18103.subsystems.Minibot();
+    MinibotSubsystem bot = new MinibotSubsystem();
 
     public Minibot() {
 

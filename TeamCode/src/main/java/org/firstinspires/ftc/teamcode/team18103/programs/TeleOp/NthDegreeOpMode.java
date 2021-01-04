@@ -19,8 +19,8 @@ public class NthDegreeOpMode extends OpMode {
     public void init() {
 
         robot.init(hardwareMap, telemetry);
-        shooter1 = robot.getOuttakeSubsystem().getFirstOuttake();
-        shooter2 = robot.getOuttakeSubsystem().getSecondOuttake();
+        //shooter1 = robot.getOuttakeSubsystem().getFirstOuttake();
+        //shooter2 = robot.getOuttakeSubsystem().getSecondOuttake();
     }
 
     @Override
@@ -39,18 +39,18 @@ public class NthDegreeOpMode extends OpMode {
 
         robot.getDriveSubsystem().POVMecanumDrive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, DriveMode.Sport);
 
-        robot.getIntakeSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
+        //robot.getIntakeSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
         if(gamepad1.right_bumper) {
-            robot.getTransferSubsystem().runTransfer(robot.getTransferSubsystem().getTransferPower() == -1 ? 0 : -1);
+            //robot.getTransferSubsystem().runTransfer(robot.getTransferSubsystem().getTransferPower() == -1 ? 0 : -1);
         } else if(gamepad1.left_bumper) {
-            robot.getTransferSubsystem().runTransfer(robot.getTransferSubsystem().getTransferPower() == 1 ? 0 : 1);
+            //robot.getTransferSubsystem().runTransfer(robot.getTransferSubsystem().getTransferPower() == 1 ? 0 : 1);
         }
 
         if(gamepad1.y) {
-            robot.getOuttakeSubsystem().runOuttake(0.8);
+            //robot.getOuttakeSubsystem().runOuttake(0.8);
         } else {
-            robot.getOuttakeSubsystem().runOuttake(0);
+            //robot.getOuttakeSubsystem().runOuttake(0);
         }
 
         //robot.getWobbleSubsystem().moveJoint(gamepad1.right_trigger - gamepad1.left_trigger);
@@ -59,7 +59,7 @@ public class NthDegreeOpMode extends OpMode {
     }
 
     public void launchShooter(boolean shooting) {
-        robot.getOuttakeSubsystem().runOuttake(shooting);
-        robot.getTransferSubsystem().runTransfer(shooting);
+        //robot.getOuttakeSubsystem().runOuttake(shooting);
+        //robot.getTransferSubsystem().runTransfer(shooting);
     }
 }

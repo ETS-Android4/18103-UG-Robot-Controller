@@ -51,9 +51,9 @@ public class TFVision extends Subsystem {
 
     public AutoMode getAutoMode() {
         for (Recognition i : search()) {
-            if (i.getLabel() == LABEL_FIRST_ELEMENT) {
+            if (i.getLabel().equals(LABEL_FIRST_ELEMENT)) {
                 return AutoMode.FourRings;
-            } else if (i.getLabel() == LABEL_SECOND_ELEMENT) {
+            } else if (i.getLabel().equals(LABEL_SECOND_ELEMENT)) {
                 return AutoMode.OneRing;
             }
         }
@@ -61,10 +61,10 @@ public class TFVision extends Subsystem {
     }
 
     private void initVuforia() {
-       VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-       parameters.vuforiaLicenseKey = VUFORIA_KEY;
-       parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-       vuforia = ClassFactory.getInstance().createVuforia(parameters);
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
     }
 
     private void initTfod(HardwareMap hardwareMap) {

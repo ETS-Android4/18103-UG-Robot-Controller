@@ -2,11 +2,8 @@ package org.firstinspires.ftc.teamcode.team18103.programs.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.team18103.src.Constants;
-import org.firstinspires.ftc.teamcode.team18103.src.Minibot;
+import org.firstinspires.ftc.teamcode.legacy.minibot.Minibot;
 
 @TeleOp
 public class CryFinale extends OpMode {

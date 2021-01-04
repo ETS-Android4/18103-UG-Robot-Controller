@@ -51,9 +51,9 @@ public class TestChassis extends OpMode {
         //        gamepad1.left_bumper, gamepad1.right_bumper, gamepad1.x);
 
         robot.getDriveSubsystem().setDriveMotors(gamepad1.left_stick_y);
-        robot.getIntakeSubsystem().runIntake(gamepad1.a);
-        robot.getTransferSubsystem().runTransfer(gamepad1.b);
-        robot.getOuttakeSubsystem().runOuttake(gamepad1.y);
+        //robot.getIntakeSubsystem().runIntake(gamepad1.a);
+        //robot.getTransferSubsystem().runTransfer(gamepad1.b);
+        //robot.getOuttakeSubsystem().runOuttake(gamepad1.y);
 
     }
 
