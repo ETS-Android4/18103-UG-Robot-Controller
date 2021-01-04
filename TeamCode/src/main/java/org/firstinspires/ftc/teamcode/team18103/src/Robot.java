@@ -64,17 +64,23 @@ public class Robot {
         telemetry.addLine()
                 .addData("Game State: ", getGameState().getName());*/
 
-        /* IMU Measurements
+        /* IMU Measurements */
         telemetry.addLine()
                 .addData("IMU Roll: ", getDriveSubsystem().getImu().getRoll())
                 .addData("IMU Pitch: ", getDriveSubsystem().getImu().getPitch())
-                .addData("IMU Heading: ", getDriveSubsystem().getImu().getHeading());*/
+                .addData("IMU Heading: ", getDriveSubsystem().getImu().getHeading());//*/
 
-        /* Odometry
+        /* Odometry */
         telemetry.addLine()
                 .addData("Odometry X: ", getDriveSubsystem().getOdometry().getX())
                 .addData("Odometry Y: ", getDriveSubsystem().getOdometry().getY())
-                .addData("Odometry Theta: ", getDriveSubsystem().getOdometry().getTheta());*/
+                .addData("Odometry Theta: ", getDriveSubsystem().getOdometry().getTheta());//*/
+
+        /* Odometry Debugging */
+        telemetry.addLine()
+                .addData("Odometry Left: ", getDriveSubsystem().getOdometry().getLeft().getCurrentPosition())
+                .addData("Odometry Right: ", getDriveSubsystem().getOdometry().getRight().getCurrentPosition())
+                .addData("Odometry Horizontal: ", getDriveSubsystem().getOdometry().getHorizontal().getCurrentPosition());//*/
 
         /* Visual Odometry
         telemetry.addLine()

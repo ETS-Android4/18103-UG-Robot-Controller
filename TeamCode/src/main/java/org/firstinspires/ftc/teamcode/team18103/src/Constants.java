@@ -54,13 +54,13 @@ public final class Constants {
     public static final int dt = 100;
     public static final String horizontal = "Intake";
     public static final String left = "Transfer";
-    public static final String right = "Outtake";
+    public static final String right = "First Outtake";
     // ------------------
     //  Intake-Outtake Subsystem
     // ------------------
     public static final String intake = "Intake";
     public static final String transfer = "Transfer";
-    public static final String firstOuttake = "Outtake";
+    public static final String firstOuttake = "First Outtake";
     public static final String secondOuttake = "Second Outtake";
     //public static final String transOut = "TransOut";
     public static final Point leftGoal = new Point(0, 0, 0);
