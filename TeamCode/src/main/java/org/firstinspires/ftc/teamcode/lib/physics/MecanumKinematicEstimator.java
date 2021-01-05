@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
+import org.firstinspires.ftc.teamcode.lib.util.MathFx;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 
@@ -86,6 +87,8 @@ public class MecanumKinematicEstimator extends Subsystem {
         x += dx;
         y += dy;
         theta += dTheta;
+
+        theta = MathFx.angleWrap(-180, 180, theta);
 
         fl_0 = fl_1;
         fr_0 = fr_1;

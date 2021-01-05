@@ -27,4 +27,17 @@ public class MathFx {
         return matrix.formatAsTransform();
     }
 
+    public static double angleWrap(double lower, double upper, double angle) {
+        while (angle < lower) {
+            angle += 360;
+        }
+
+        while (angle > upper) {
+            angle -= 360;
+        }
+
+        return angle;
+
+    }
+
 }

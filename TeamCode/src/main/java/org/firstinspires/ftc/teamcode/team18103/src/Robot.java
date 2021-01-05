@@ -88,19 +88,6 @@ public class Robot {
                 .addData("MKE Y: ", getDriveSubsystem().getMKEstimator().getY())
                 .addData("MKE Theta: ", getDriveSubsystem().getMKEstimator().getTheta());//*/
 
-        /* MKE Delta */
-        telemetry.addLine()
-                .addData("MKE dX: ", getDriveSubsystem().getMKEstimator().getDx())
-                .addData("MKE dY: ", getDriveSubsystem().getMKEstimator().getDy())
-                .addData("MKE dTheta: ", getDriveSubsystem().getMKEstimator().getDTheta());//*/
-
-        /* MKE Debugging */
-        telemetry.addLine()
-                .addData("MKE Fr: ", getDriveSubsystem().getMKEstimator().getFrontRight().getCurrentPosition())
-                .addData("MKE Fl: ", getDriveSubsystem().getMKEstimator().getFrontLeft().getCurrentPosition())
-                .addData("MKE Bl: ", getDriveSubsystem().getMKEstimator().getBackLeft().getCurrentPosition())
-                .addData("MKE Br: ", getDriveSubsystem().getMKEstimator().getBackRight().getCurrentPosition());//*/
-
         /* Visual Odometry
         telemetry.addLine()
                 .addData("Vision X: ", getDriveSubsystem().getVisualOdometry().getX())
