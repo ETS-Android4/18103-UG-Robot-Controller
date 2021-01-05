@@ -104,4 +104,19 @@ public class MecanumKinematicEstimator extends Subsystem {
         return theta;
     }
 
+    public DcMotorEx getFrontLeft() {
+        return frontLeft;
+    }
+
+    public DcMotorEx getFrontRight() {
+        return frontRight;
+    }
+
+    public DcMotorEx getBackLeft() {
+        return backLeft;
+    }
+
+    public DcMotorEx getBackRight() {
+        return backRight;
+    }
 }

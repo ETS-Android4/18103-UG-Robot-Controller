@@ -78,9 +78,22 @@ public class Robot {
 
         /* Odometry Debugging */
         telemetry.addLine()
-                .addData("Odometry Left: ", getDriveSubsystem().getOdometry().getLeft().getCurrentPosition())
-                .addData("Odometry Right: ", getDriveSubsystem().getOdometry().getRight().getCurrentPosition())
-                .addData("Odometry Horizontal: ", getDriveSubsystem().getOdometry().getHorizontal().getCurrentPosition());//*/
+                .addData("Left: ", getDriveSubsystem().getOdometry().getLeft().getCurrentPosition())
+                .addData("Right: ", getDriveSubsystem().getOdometry().getRight().getCurrentPosition())
+                .addData("Horz: ", getDriveSubsystem().getOdometry().getHorizontal().getCurrentPosition());//*/
+
+        /* MKE */
+        telemetry.addLine()
+                .addData("MKE X: ", getDriveSubsystem().getMKEstimator().getX())
+                .addData("MKE Y: ", getDriveSubsystem().getMKEstimator().getY())
+                .addData("MKE Theta: ", getDriveSubsystem().getMKEstimator().getTheta());//*/
+
+        /* MKE Debugging */
+        telemetry.addLine()
+                .addData("MKE Fr: ", getDriveSubsystem().getMKEstimator().getFrontRight().getCurrentPosition())
+                .addData("MKE Fl: ", getDriveSubsystem().getMKEstimator().getFrontLeft().getCurrentPosition())
+                .addData("MKE Bl: ", getDriveSubsystem().getMKEstimator().getBackLeft().getCurrentPosition())
+                .addData("MKE Br: ", getDriveSubsystem().getMKEstimator().getBackRight().getCurrentPosition());//*/
 
         /* Visual Odometry
         telemetry.addLine()
