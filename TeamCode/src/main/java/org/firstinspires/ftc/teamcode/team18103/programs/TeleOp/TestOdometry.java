@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.team18103.programs.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -34,6 +35,7 @@ import java.util.Arrays;
  */
 
 @TeleOp
+@Disabled
 public class TestOdometry extends OpMode {
     public DcMotorEx frontLeft, frontRight, backLeft, backRight;
     DcMotorEx[] driveMotors;

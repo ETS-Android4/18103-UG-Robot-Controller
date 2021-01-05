@@ -64,19 +64,19 @@ public class Robot {
         telemetry.addLine()
                 .addData("Game State: ", getGameState().getName());*/
 
-        /* IMU Measurements */
+        /* IMU Measurements
         telemetry.addLine()
                 .addData("IMU Roll: ", getDriveSubsystem().getImu().getRoll())
                 .addData("IMU Pitch: ", getDriveSubsystem().getImu().getPitch())
                 .addData("IMU Heading: ", getDriveSubsystem().getImu().getHeading());//*/
 
-        /* Odometry */
+        /* Odometry
         telemetry.addLine()
                 .addData("Odometry X: ", getDriveSubsystem().getOdometry().getX())
                 .addData("Odometry Y: ", getDriveSubsystem().getOdometry().getY())
                 .addData("Odometry Theta: ", getDriveSubsystem().getOdometry().getTheta());//*/
 
-        /* Odometry Debugging */
+        /* Odometry Debugging
         telemetry.addLine()
                 .addData("Left: ", getDriveSubsystem().getOdometry().getLeft().getCurrentPosition())
                 .addData("Right: ", getDriveSubsystem().getOdometry().getRight().getCurrentPosition())
@@ -87,6 +87,12 @@ public class Robot {
                 .addData("MKE X: ", getDriveSubsystem().getMKEstimator().getX())
                 .addData("MKE Y: ", getDriveSubsystem().getMKEstimator().getY())
                 .addData("MKE Theta: ", getDriveSubsystem().getMKEstimator().getTheta());//*/
+
+        /* MKE Delta */
+        telemetry.addLine()
+                .addData("MKE dX: ", getDriveSubsystem().getMKEstimator().getDx())
+                .addData("MKE dY: ", getDriveSubsystem().getMKEstimator().getDy())
+                .addData("MKE dTheta: ", getDriveSubsystem().getMKEstimator().getDTheta());//*/
 
         /* MKE Debugging */
         telemetry.addLine()

@@ -17,11 +17,11 @@ public enum Motor {
     REV_Encoder(10000,8129);
 
     private final double RPM;
-    private final double ENCODER_TICKS_PER_REVOLUTION;
+    private final double TicksPerRev;
 
     Motor(double RPM, double encoderTicksPerRevolution) {
         this.RPM = RPM;
-        this.ENCODER_TICKS_PER_REVOLUTION = encoderTicksPerRevolution;
+        this.TicksPerRev = encoderTicksPerRevolution;
     }
 
     public double maxAngularVelocity() {
@@ -32,24 +32,28 @@ public enum Motor {
         return RPM;
     }
 
-    public double getENCODER_TICKS_PER_REVOLUTION() {
-        return ENCODER_TICKS_PER_REVOLUTION;
+    public double getTicksPerRev() {
+        return TicksPerRev;
+    }
+
+    public double getTicksPerDegree() {
+        return (getTicksPerInch() * (Constants.ENCODER_DIFFERENCE * Math.PI)) / 180;
     }
 
     public double getTicksPerMM() {
-        return getENCODER_TICKS_PER_REVOLUTION()/(100 * Math.PI);
+        return getTicksPerRev()/(100 * Math.PI);
     }
 
     public double getTicksPerMM(double diam) {
-        return getENCODER_TICKS_PER_REVOLUTION()/(diam * Math.PI);
+        return getTicksPerRev()/(diam * Math.PI);
     }
 
     public double getTicksPerInch() {
-        return getTicksPerMM()/ Constants.mmPerInch;
+        return getTicksPerMM() * Constants.mmPerInch;
     }
 
     public double getTicksPerInch(double diam) {
-        return getTicksPerMM(diam)/ Constants.mmPerInch;
+        return getTicksPerMM(diam) * Constants.mmPerInch;
     }
 
     public double getMMPerSec() {

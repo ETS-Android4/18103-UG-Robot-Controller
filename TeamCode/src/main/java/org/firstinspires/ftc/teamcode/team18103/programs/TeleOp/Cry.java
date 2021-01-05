@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.team18103.programs.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.team18103.src.Robot;
 import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
 
 @TeleOp
+@Disabled
 public class Cry extends OpMode {
     DcMotor firstOuttake;
     DcMotor secondOuttake;

@@ -8,15 +8,17 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 
 public class MecanumKinematicEstimator extends Subsystem {
 
-    double x, y, theta;
+    double x, y, theta, dx, dy, dTheta;
     ElapsedTime time = new ElapsedTime();
     double t_0;
     DcMotorEx frontLeft, frontRight, backLeft, backRight;
+    DcMotorEx[] driveMotors;
     double fl, fr, bl, br, fl_0, fr_0, bl_0, br_0;
 
     public MecanumKinematicEstimator() {
@@ -42,11 +44,20 @@ public class MecanumKinematicEstimator extends Subsystem {
 
         frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
         backLeft.setDirection(DcMotorEx.Direction.REVERSE);
+
+        driveMotors = new DcMotorEx[]{frontLeft, frontRight, backLeft, backRight};
+
+        for (DcMotorEx motor : driveMotors) {
+            //motor.setPositionPIDFCoefficients(Constants.DRIVE_P);
+            motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+            motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        }
+
     }
 
     @Override
     public void start() {
-        time.startTime();
         fl_0 = 0;
         bl_0 = 0;
         fr_0 = 0;
@@ -54,36 +65,32 @@ public class MecanumKinematicEstimator extends Subsystem {
     }
 
     public void run() {
-        double dt = (time.milliseconds() - t_0)/1000;
-        t_0 = time.milliseconds();
+        double fl_1 = frontLeft.getCurrentPosition();
+        double fr_1 = frontRight.getCurrentPosition();
+        double bl_1 = backLeft.getCurrentPosition();
+        double br_1 = backRight.getCurrentPosition();
 
-        fl = frontLeft.getVelocity();
-        fr = frontRight.getVelocity();
-        bl = backLeft.getVelocity();
-        br = backRight.getVelocity();
+        fl = fl_1 - fl_0;
+        fr = fr_1 - fr_0;
+        bl = bl_1 - bl_0;
+        br = br_1 - br_0;
 
-        fl += fl_0;
-        fr += fr_0;
-        bl += bl_0;
-        br += br_0;
+        dx = (fl + br - (fr + bl))/4;
+        dy = (bl + fr + fl + br)/4;
+        dTheta = (fl + bl - (fr + br))/(4);
 
-        fl /= 2;
-        fr /= 2;
-        bl /= 2;
-        br /= 2;
+        dx /= Motor.GoBILDA_435.getTicksPerInch();
+        dy /= Motor.GoBILDA_435.getTicksPerInch();
+        dTheta /= Motor.GoBILDA_435.getTicksPerDegree();
 
-        double dx = (bl + fr - (fl + br))/4;
-        double dy = (bl + fr + fl + br)/4;
-        double dTheta = (fl + bl - (fr + br))/(4 * Constants.ENCODER_DIFFERENCE * Math.PI); // Todo Fix, Add Wheel Diameter Calculations
+        x += dx;
+        y += dy;
+        theta += dTheta;
 
-        x += dx * dt;
-        y += dy * dt;
-        theta += dTheta * dt;
-
-        fl_0 = frontLeft.getVelocity();
-        fr_0 = frontRight.getVelocity();
-        bl_0 = backLeft.getVelocity();
-        br_0 = backRight.getVelocity();
+        fl_0 = fl_1;
+        fr_0 = fr_1;
+        bl_0 = bl_1;
+        br_0 = br_1;
 
     }
 
@@ -119,4 +126,17 @@ public class MecanumKinematicEstimator extends Subsystem {
     public DcMotorEx getBackRight() {
         return backRight;
     }
+
+    public double getDx() {
+        return dx;
+    }
+
+    public double getDTheta() {
+        return dTheta;
+    }
+
+    public double getDy() {
+        return dy;
+    }
+
 }

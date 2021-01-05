@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.team18103.programs.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -29,6 +30,7 @@ import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
  */
 
 @TeleOp
+@Disabled
 public class TestChassis extends OpMode {
     Robot robot = new Robot();
 
