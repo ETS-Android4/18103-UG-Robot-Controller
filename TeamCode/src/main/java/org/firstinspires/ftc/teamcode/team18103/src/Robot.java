@@ -13,6 +13,8 @@ import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.legacy.Transfer;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Wobble;
 
+import java.text.DecimalFormat;
+
 /*
  * Author: Akhil G
  */
@@ -20,6 +22,7 @@ import org.firstinspires.ftc.teamcode.team18103.subsystems.Wobble;
 public class Robot {
     ElapsedTime elapsedTime = new ElapsedTime();
     GameState gameState;
+    DecimalFormat df = new DecimalFormat("#.##");
 
     Subsystem[] subsystems;
 
@@ -72,15 +75,15 @@ public class Robot {
 
         /* Odometry
         telemetry.addLine()
-                .addData("Odometry X: ", getDriveSubsystem().getOdometry().getX())
-                .addData("Odometry Y: ", getDriveSubsystem().getOdometry().getY())
-                .addData("Odometry Theta: ", getDriveSubsystem().getOdometry().getTheta());//*/
+                .addData("Odo X: ", df.format(getDriveSubsystem().getOdometry().getX()))
+                .addData("Odo Y: ", df.format(getDriveSubsystem().getOdometry().getY()))
+                .addData("Odo Theta: ", df.format(getDriveSubsystem().getOdometry().getTheta()));//*/
 
         /* Odometry Debugging
         telemetry.addLine()
-                .addData("Left: ", getDriveSubsystem().getOdometry().getLeft().getCurrentPosition())
-                .addData("Right: ", getDriveSubsystem().getOdometry().getRight().getCurrentPosition())
-                .addData("Horz: ", getDriveSubsystem().getOdometry().getHorizontal().getCurrentPosition());//*/
+                .addData("Left: ", df.format(getDriveSubsystem().getOdometry().getLeft().getCurrentPosition() / getDriveSubsystem().getOdometry().getTicksPerInch()))
+                .addData("Right: ", df.format(getDriveSubsystem().getOdometry().getRight().getCurrentPosition() / getDriveSubsystem().getOdometry().getTicksPerInch()))
+                .addData("Horz: ", df.format(getDriveSubsystem().getOdometry().getHorizontal().getCurrentPosition() / getDriveSubsystem().getOdometry().getTicksPerInch()));//*/
 
         /* MKE */
         telemetry.addLine()
@@ -94,11 +97,11 @@ public class Robot {
                 .addData("Vision Y: ", getDriveSubsystem().getVisualOdometry().getY())
                 .addData("Vision Theta: ", getDriveSubsystem().getVisualOdometry().getTheta());*/
 
-        // Data Fusion Model
+        /* Data Fusion Model
         telemetry.addLine()
                 .addData("Data Fusion X: ", getDriveSubsystem().getDataFusionX())
                 .addData("Data Fusion Y: ", getDriveSubsystem().getDataFusionY())
-                .addData("Data Fusion Theta: ", getDriveSubsystem().getDataFusionTheta());
+                .addData("Data Fusion Theta: ", getDriveSubsystem().getDataFusionTheta()); //*/
 
         /* Collision Detection
         telemetry.addLine()

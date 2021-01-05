@@ -16,8 +16,6 @@ import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 public class MecanumKinematicEstimator extends Subsystem {
 
     double x, y, theta, dx, dy, dTheta;
-    ElapsedTime time = new ElapsedTime();
-    double t_0;
     DcMotorEx frontLeft, frontRight, backLeft, backRight;
     DcMotorEx[] driveMotors;
     double fl, fr, bl, br, fl_0, fr_0, bl_0, br_0;
@@ -26,14 +24,12 @@ public class MecanumKinematicEstimator extends Subsystem {
         x = 0;
         y = 0;
         theta = 0;
-        t_0 = 0;
     }
 
     public MecanumKinematicEstimator(double x, double y, double theta) {
         this.x = x;
         this.y = y;
         this.theta = theta;
-        t_0 = 0;
     }
 
     @Override
@@ -84,11 +80,11 @@ public class MecanumKinematicEstimator extends Subsystem {
         dy /= Motor.GoBILDA_435.getTicksPerInch();
         dTheta /= Motor.GoBILDA_435.getTicksPerDegree();
 
-        x += dx;
-        y += dy;
         theta += dTheta;
-
         theta = MathFx.angleWrap(-180, 180, theta);
+
+        x += dx * Math.cos(Math.toRadians(-theta)) - dy * Math.sin(Math.toRadians(-theta));
+        y += dx * Math.sin(Math.toRadians(-theta)) + dy * Math.cos(Math.toRadians(-theta));
 
         fl_0 = fl_1;
         fr_0 = fr_1;

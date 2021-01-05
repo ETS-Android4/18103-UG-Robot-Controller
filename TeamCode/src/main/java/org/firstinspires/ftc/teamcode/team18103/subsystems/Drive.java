@@ -66,7 +66,7 @@ public class Drive extends Subsystem {
         imu.init(ahMap);
 
         // Odometry Init
-        odometry = new TriWheelOdometryGPS(Motor.REV_Encoder.getTicksPerInch(35), Constants.dt);
+        odometry = new TriWheelOdometryGPS();
         odometry.init(ahMap);
 
         /* Visual Odometry Init

@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
+import org.firstinspires.ftc.teamcode.lib.util.MathFx;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 
 /*
@@ -12,23 +14,17 @@ import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 public class TriWheelOdometryGPS extends Odometry {
 
     private DcMotorEx left, right, horizontal;
-    private final double ticksPerInch;
-    private double dt;
 
     private double x = 0, y = 0, theta = 0;
     private double r_0 = 0, l_0 = 0, s_0 = 0;
+    private double ticksPerInch = Motor.REV_Encoder.getTicksPerInch(35);
 
-    public TriWheelOdometryGPS(double ticksPerInch, int dt, double x0, double y0, double theta0) {
-        this.ticksPerInch = ticksPerInch;
-        this.dt = dt;
+    public TriWheelOdometryGPS() {}
+
+    public TriWheelOdometryGPS(double x0, double y0, double theta0) {
         x = x0;
         y = y0;
         theta = theta0;
-    }
-
-    public TriWheelOdometryGPS(double ticksPerInch, int dt) {
-        this.ticksPerInch = ticksPerInch;
-        this.dt = dt;
     }
 
     @Override
@@ -52,8 +48,8 @@ public class TriWheelOdometryGPS extends Odometry {
     @Override
     public void run() {
         //Get Current Positions
-        double lPos = (getLeft().getCurrentPosition() * getTicksPerInch());
-        double rPos = (getRight().getCurrentPosition() * getTicksPerInch());
+        double lPos = (getLeft().getCurrentPosition() / getTicksPerInch());
+        double rPos = (getRight().getCurrentPosition() / getTicksPerInch());
 
         double dl = lPos - getL_0();
         double dr = rPos - getR_0();
@@ -63,7 +59,7 @@ public class TriWheelOdometryGPS extends Odometry {
         theta += dTheta;
 
         //Get the components of the motion
-        double sPose = (getHorizontal().getCurrentPosition() * getTicksPerInch());
+        double sPose = (getHorizontal().getCurrentPosition() / getTicksPerInch());
         double ds = (sPose - getS_0()) - (dTheta * Constants.HORIZONTAL_OFFSET);
 
         double p = ((dr + dl) / (2));
@@ -76,6 +72,8 @@ public class TriWheelOdometryGPS extends Odometry {
         x += dx;
         y += dy;
 
+        theta = MathFx.angleWrap(-180, 180, theta);
+
         setZeros(lPos, rPos, sPose);
     }
 
@@ -86,19 +84,16 @@ public class TriWheelOdometryGPS extends Odometry {
 
     @Override
     public double getX() {
-        run();
         return x;
     }
 
     @Override
     public double getY() {
-        run();
         return y;
     }
 
     @Override
     public double getTheta() {
-        run();
         return theta;
     }
 
