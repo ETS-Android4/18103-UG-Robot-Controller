@@ -51,7 +51,7 @@ public class TestRobot extends OpMode {
                 gamepad1.left_bumper, gamepad1.right_bumper, gamepad1.x);*/
 
         robot.getDriveSubsystem().POVMecanumDrive(gamepad1.left_stick_y, gamepad1.left_stick_x,
-                gamepad1.right_stick_x, DriveMode.Sport); // Half Speed
+                gamepad1.right_stick_x, DriveMode.Balanced); // Half Speed
 
         robot.getIOSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
@@ -59,11 +59,15 @@ public class TestRobot extends OpMode {
 
         robot.getIOSubsystem().runTransfer(-(gamepad1.right_trigger - gamepad1.left_trigger));
 
+        /*
+
         if(gamepad1.right_bumper) {
             robot.getIOSubsystem().runTransfer(robot.getIOSubsystem().getTransferPower() == -1 ? 0 : -1);
         } else if(gamepad1.left_bumper) {
             robot.getIOSubsystem().runTransfer(robot.getIOSubsystem().getTransferPower() == 1 ? 0 : 1);
         }
+
+         */
 
         /*
         if(gamepad1.y) {

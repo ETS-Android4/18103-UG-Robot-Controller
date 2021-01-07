@@ -73,19 +73,19 @@ public class Robot {
                 .addData("IMU Pitch: ", getDriveSubsystem().getImu().getPitch())
                 .addData("IMU Heading: ", getDriveSubsystem().getImu().getHeading());//*/
 
-        /* Odometry
+        /* Odometry */
         telemetry.addLine()
                 .addData("Odo X: ", df.format(getDriveSubsystem().getOdometry().getX()))
                 .addData("Odo Y: ", df.format(getDriveSubsystem().getOdometry().getY()))
                 .addData("Odo Theta: ", df.format(getDriveSubsystem().getOdometry().getTheta()));//*/
 
-        /* Odometry Debugging
+        /* Odometry Debugging */
         telemetry.addLine()
-                .addData("Left: ", df.format(getDriveSubsystem().getOdometry().getLeft().getCurrentPosition() / getDriveSubsystem().getOdometry().getTicksPerInch()))
-                .addData("Right: ", df.format(getDriveSubsystem().getOdometry().getRight().getCurrentPosition() / getDriveSubsystem().getOdometry().getTicksPerInch()))
-                .addData("Horz: ", df.format(getDriveSubsystem().getOdometry().getHorizontal().getCurrentPosition() / getDriveSubsystem().getOdometry().getTicksPerInch()));//*/
+                .addData("Left: ", df.format(getDriveSubsystem().getOdometry().getlPos()))
+                .addData("Right: ", df.format(getDriveSubsystem().getOdometry().getrPos()))
+                .addData("Horz: ", df.format(getDriveSubsystem().getOdometry().getsPos()));//*/
 
-        /* MKE */
+        /* MKE
         telemetry.addLine()
                 .addData("MKE X: ", getDriveSubsystem().getMKEstimator().getX())
                 .addData("MKE Y: ", getDriveSubsystem().getMKEstimator().getY())

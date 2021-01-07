@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.team18103.programs.TeleOp;
+package org.firstinspires.ftc.teamcode.legacy.minibot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
-import org.firstinspires.ftc.teamcode.team18103.src.Robot;
 import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
 
 import java.util.Arrays;
@@ -36,45 +35,23 @@ import java.util.Arrays;
 
 @TeleOp
 @Disabled
-public class TestOdometry extends OpMode {
-    public DcMotorEx frontLeft, frontRight, backLeft, backRight;
-    DcMotorEx[] driveMotors;
+public class TestMinibot extends OpMode {
+    public DcMotorEx frontLeft;
 
-    private DcMotorEx left, right, horizontal;
-    private final double ticksPerInch = Motor.REV_Encoder.getTicksPerInch(35);
-    private double dt = Constants.Dt;
-
-    private double x = 0, y = 0, theta = 0;
-    private double r_0 = 0, l_0 = 0, s_0 = 0;
+    private DcMotorEx left;
 
     @Override
     public void init() {
-        frontLeft = hardwareMap.get(DcMotorEx.class, Constants.frontLeft);
-        frontRight = hardwareMap.get(DcMotorEx.class, Constants.frontRight);
-        backLeft = hardwareMap.get(DcMotorEx.class, Constants.backLeft);
-        backRight = hardwareMap.get(DcMotorEx.class, Constants.backRight);
+        frontLeft = hardwareMap.get(DcMotorEx.class, "motor");
 
-        frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
-        backLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        //frontLeft.setDirection(DcMotorEx.Direction.REVERSE);
+        frontLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        frontLeft.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-        driveMotors = new DcMotorEx[]{frontLeft, frontRight, backLeft, backRight};
-
-        for (DcMotorEx motor : driveMotors) {
-            //motor.setPositionPIDFCoefficients(Constants.DRIVE_P);
-            motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-            motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        }
-
-        left = hardwareMap.get(DcMotorEx.class, Constants.left);
-        right = hardwareMap.get(DcMotorEx.class, Constants.right);
-        horizontal = hardwareMap.get(DcMotorEx.class, Constants.horizontal);
+        left = hardwareMap.get(DcMotorEx.class, "motor");
 
         left.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        right.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        horizontal.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-
-        right.setDirection(DcMotorEx.Direction.REVERSE);
     }
 
     public void POVMecanumDrive(double y, double x, double turn, DriveMode mode) {
@@ -96,9 +73,9 @@ public class TestOdometry extends OpMode {
         }
 
         frontLeft.setPower(v1 * mode.getScaling());
-        backLeft.setPower(v2 * mode.getScaling());
-        backRight.setPower(v3 * mode.getScaling());
-        frontRight.setPower(v4 * mode.getScaling());
+        //backLeft.setPower(v2 * mode.getScaling());
+        //backRight.setPower(v3 * mode.getScaling());
+        //frontRight.setPower(v4 * mode.getScaling());
     }
 
     @Override
@@ -113,12 +90,12 @@ public class TestOdometry extends OpMode {
 
         telemetry.addLine()
                 .addData("Odometry Left: ", getLeft().getCurrentPosition())
-                .addData("Odometry Right: ", getRight().getCurrentPosition())
-                .addData("Odometry Horizontal: ", getHorizontal().getCurrentPosition())
-                .addData("Front Left", frontLeft.getCurrentPosition())
-                .addData("Front Right", frontRight.getCurrentPosition())
-                .addData("Back Left", backLeft.getCurrentPosition())
-                .addData("Back Right", backRight.getCurrentPosition());
+                //.addData("Odometry Right: ", getRight().getCurrentPosition())
+                //.addData("Odometry Horizontal: ", getHorizontal().getCurrentPosition())
+                .addData("Front Left", frontLeft.getCurrentPosition());
+                //.addData("Front Right", frontRight.getCurrentPosition())
+                //.addData("Back Left", backLeft.getCurrentPosition())
+                //.addData("Back Right", backRight.getCurrentPosition());
 
         /*robot.getDriveSubsystem().ultimateDriveController(gamepad1.left_stick_y, gamepad1.left_stick_x,
                 gamepad1.right_stick_x, gamepad1.left_trigger, gamepad1.right_trigger,
@@ -129,16 +106,20 @@ public class TestOdometry extends OpMode {
 
     }
 
-    public DcMotorEx getRight() {
+    /*public DcMotorEx getRight() {
         return right;
-    }
+    } */
 
     public DcMotorEx getLeft() {
         return left;
     }
 
+    /*
+
     public DcMotorEx getHorizontal() {
         return horizontal;
     }
+
+     */
 
 }

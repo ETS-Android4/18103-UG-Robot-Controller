@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -16,8 +17,8 @@ public class TriWheelOdometryGPS extends Odometry {
     private DcMotorEx left, right, horizontal;
 
     private double x = 0, y = 0, theta = 0;
-    private double r_0 = 0, l_0 = 0, s_0 = 0;
-    private double ticksPerInch = Motor.REV_Encoder.getTicksPerInch(35);
+    private double r_0 = 0, l_0 = 0, s_0 = 0, lPos, rPos, sPos;
+    private final double ticksPerInch = Motor.REV_Encoder.getTicksPerInch(35);
 
     public TriWheelOdometryGPS() {}
 
@@ -33,6 +34,10 @@ public class TriWheelOdometryGPS extends Odometry {
         right = ahMap.get(DcMotorEx.class, Constants.right);
         horizontal = ahMap.get(DcMotorEx.class, Constants.horizontal);
 
+        left.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        right.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        horizontal.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
         left.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         right.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         horizontal.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -47,14 +52,14 @@ public class TriWheelOdometryGPS extends Odometry {
 
     @Override
     public void run() {
-        //Get Current Positions
-        double lPos = (getLeft().getCurrentPosition() / getTicksPerInch());
-        double rPos = (getRight().getCurrentPosition() / getTicksPerInch());
+        // Get Current Positions
+        lPos = (getLeft().getCurrentPosition() / getTicksPerInch());
+        rPos = (getRight().getCurrentPosition() / getTicksPerInch());
 
         double dl = lPos - getL_0();
         double dr = rPos - getR_0();
 
-        //Calculate Angle
+        // Calculate Angle
         double dTheta = (dl - dr) / (Constants.ENCODER_DIFFERENCE);
         theta += dTheta;
 
@@ -74,7 +79,7 @@ public class TriWheelOdometryGPS extends Odometry {
 
         theta = MathFx.angleWrap(-180, 180, theta);
 
-        setZeros(lPos, rPos, sPose);
+        setZeros(lPos, rPos, sPos);
     }
 
     @Override
@@ -129,6 +134,18 @@ public class TriWheelOdometryGPS extends Odometry {
         this.l_0 = l_0;
         this.r_0 = r_0;
         this.s_0 = s_0;
+    }
+
+    public double getlPos() {
+        return lPos;
+    }
+
+    public double getrPos() {
+        return rPos;
+    }
+
+    public double getsPos() {
+        return sPos;
     }
 
 }
