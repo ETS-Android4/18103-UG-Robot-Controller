@@ -25,8 +25,6 @@ public class TFVision extends Subsystem {
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
 
-    private List<Recognition> updatedRecognitions;
-
     @Override
     public void init(HardwareMap ahMap) {
         initVuforia();
@@ -45,8 +43,7 @@ public class TFVision extends Subsystem {
     }
 
     private List<Recognition> search() {
-        updatedRecognitions = tfod.getUpdatedRecognitions();
-        return updatedRecognitions;
+        return tfod.getUpdatedRecognitions();
     }
 
     public AutoMode getAutoMode() {

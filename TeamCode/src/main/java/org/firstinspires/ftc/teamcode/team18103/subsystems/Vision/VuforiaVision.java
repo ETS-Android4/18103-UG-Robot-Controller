@@ -78,6 +78,16 @@ public class VuforiaVision extends Subsystem {
         }
     }
 
+    public List<VuforiaTrackable> search() {
+        List<VuforiaTrackable> visible = new ArrayList<VuforiaTrackable>();
+        for (VuforiaTrackable trackable : allTrackables) {
+            if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
+                visible.add(trackable);
+            }
+        }
+        return visible;
+    }
+
     public void getRobotLocation() {
         boolean targetVisible = false;
         for (VuforiaTrackable trackable : allTrackables) {
@@ -99,7 +109,8 @@ public class VuforiaVision extends Subsystem {
 
     @Override
     public void update() {
-        getRobotLocation();
+
+        //getRobotLocation();
     }
 
     private void initVuforia() {

@@ -73,13 +73,13 @@ public class Robot {
                 .addData("IMU Pitch: ", getDriveSubsystem().getImu().getPitch())
                 .addData("IMU Heading: ", getDriveSubsystem().getImu().getHeading());//*/
 
-        /* Odometry */
+        /* Odometry
         telemetry.addLine()
                 .addData("Odo X: ", df.format(getDriveSubsystem().getOdometry().getX()))
                 .addData("Odo Y: ", df.format(getDriveSubsystem().getOdometry().getY()))
                 .addData("Odo Theta: ", df.format(getDriveSubsystem().getOdometry().getTheta()));//*/
 
-        /* Odometry Debugging */
+        /* Odometry Debugging
         telemetry.addLine()
                 .addData("Left: ", df.format(getDriveSubsystem().getOdometry().getlPos()))
                 .addData("Right: ", df.format(getDriveSubsystem().getOdometry().getrPos()))

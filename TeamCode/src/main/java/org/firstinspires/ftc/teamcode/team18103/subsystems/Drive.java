@@ -27,7 +27,7 @@ public class Drive extends Subsystem {
 
     REV_IMU imu;
     TriWheelOdometryGPS odometry;
-    //VuforiaVision visualOdometry;
+    VuforiaVision visualOdometry;
     //TFVision visionProcessing;
     MecanumKinematicEstimator MKEstimator;
     MeanOptimizedDataFusionModel model;
@@ -69,11 +69,11 @@ public class Drive extends Subsystem {
         odometry = new TriWheelOdometryGPS();
         odometry.init(ahMap);
 
-        /* Visual Odometry Init
+        /* Visual Odometry Init */
         visualOdometry = new VuforiaVision();
         visualOdometry.init(ahMap);
 
-        // Vision Processing Init
+        /* Vision Processing Init
         visionProcessing = new TFVision();
         visionProcessing.init(ahMap);*/
 
