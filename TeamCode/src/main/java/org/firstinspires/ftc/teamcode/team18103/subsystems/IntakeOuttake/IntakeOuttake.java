@@ -99,7 +99,8 @@ public class IntakeOuttake extends Subsystem {
         PIDSVA controller = new PIDSVA(0.5, 0, 0, 0d, 0, 0);
         double error = omega;
         while (Math.abs(error) > 10) {
-            error = omega - getFirstOuttake().getVelocity();
+            error = omega - secondOuttake.getVelocity();
+            System.out.println(secondOuttake.getVelocity());
             double output = controller.getOutput(error, 0, 0);
             getFirstOuttake().setPower(output);
             getSecondOuttake().setPower(output);
@@ -117,11 +118,10 @@ public class IntakeOuttake extends Subsystem {
         double dw = 60; //location.getXYDist(targetGoal);
         double dz = 35-14.25; //targetGoal.getZ() - location.getZ();
 
-        double v = Math.sqrt((9.8*(dw*dw))/(2 * Math.cos(Constants.theta) *
-                (dw*Math.sin(Constants.theta)-dz*Math.cos(Constants.theta))));
+        double v = Math.sqrt(Math.abs((9.8*(dw*dw))/(2 * Math.cos(Constants.theta) *
+                (dw*Math.sin(Constants.theta)-dz*Math.cos(Constants.theta)))));
 
         double omega = (v*60*2*2)/(Constants.wheelDiam*Math.PI);
-
         PIDOuttake(omega);
 
     }

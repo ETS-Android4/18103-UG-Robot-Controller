@@ -58,7 +58,8 @@ public class TestRobot extends OpMode {
 
         robot.getIOSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
-        robot.getIOSubsystem().OuttakeFromPoint(Constants.leftGoal);
+        if(gamepad1.y)
+            robot.getIOSubsystem().OuttakeFromPoint(Constants.leftGoal);
 
         robot.getIOSubsystem().runTransfer(-(gamepad1.left_trigger));
 
