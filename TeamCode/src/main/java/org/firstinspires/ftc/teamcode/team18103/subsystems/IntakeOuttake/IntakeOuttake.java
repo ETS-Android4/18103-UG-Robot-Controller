@@ -101,18 +101,21 @@ public class IntakeOuttake extends Subsystem {
         while (error > 10) {
             error = omega - getFirstOuttake().getVelocity();
             double output = controller.getOutput(error, 0, 0);
+            getFirstOuttake().setPower(output);
+            getSecondOuttake().setPower(output);
         }
+
     }
 
     public void OuttakeFromPoint(Point location) {
-        Point targetGoal = Constants.leftGoal;
+        //Point targetGoal = Constants.leftGoal;
 
-        if (location.getX() > 0) {
-            targetGoal = Constants.rightGoal;
-        }
+        //if (location.getX() > 0) {
+            //targetGoal = Constants.rightGoal;
+        //}
 
-        double dw = location.getXYDist(targetGoal);
-        double dz = targetGoal.getZ() - location.getZ();
+        double dw = 60; //location.getXYDist(targetGoal);
+        double dz = 35-14.25; //targetGoal.getZ() - location.getZ();
 
         double v = Math.sqrt((9.8*(dw*dw))/(2 * Math.cos(Constants.theta) *
                 (dw*Math.sin(Constants.theta)-dz*Math.cos(Constants.theta))));

@@ -26,11 +26,13 @@ public class Drive extends Subsystem {
     DcMotorEx[] driveMotors;
 
     REV_IMU imu;
-    TriWheelOdometryGPS odometry;
-    VuforiaVision visualOdometry;
+    //TriWheelOdometryGPS odometry;
+    //VuforiaVision visualOdometry;
     //TFVision visionProcessing;
     MecanumKinematicEstimator MKEstimator;
-    MeanOptimizedDataFusionModel model;
+    MeanOptimizedDataFusionModel ThetaModel;
+    MeanOptimizedDataFusionModel XModel;
+    MeanOptimizedDataFusionModel YModel;
 
     DriveMode driveMode = DriveMode.Balanced;
     int driveType = 1; // 0 - Field-Centric, 1 - POV
@@ -38,7 +40,9 @@ public class Drive extends Subsystem {
     double x, y, theta;
 
     public Drive() {
-        model = new MeanOptimizedDataFusionModel();
+        ThetaModel = new MeanOptimizedDataFusionModel();
+        YModel = new MeanOptimizedDataFusionModel();
+        XModel = new MeanOptimizedDataFusionModel();
     }
 
     @Override
@@ -66,12 +70,12 @@ public class Drive extends Subsystem {
         imu.init(ahMap);
 
         // Odometry Init
-        odometry = new TriWheelOdometryGPS();
-        odometry.init(ahMap);
+        //odometry = new TriWheelOdometryGPS();
+        //odometry.init(ahMap);
 
         /* Visual Odometry Init */
-        visualOdometry = new VuforiaVision();
-        visualOdometry.init(ahMap);
+        //visualOdometry = new VuforiaVision();
+        //visualOdometry.init(ahMap);
 
         /* Vision Processing Init
         visionProcessing = new TFVision();
@@ -85,7 +89,7 @@ public class Drive extends Subsystem {
     @Override
     public void start() {
         imu.start();
-        odometry.start();
+        //odometry.start();
         //visualOdometry.start();
         //visionProcessing.start();
         MKEstimator.start();
@@ -267,6 +271,14 @@ public class Drive extends Subsystem {
         frontRight.setPower(v4 * mode.getScaling());
     }
 
+    public void zeroCoords(boolean button) {
+        if (button) {
+            zeroYaw();
+            zeroX();
+            zeroY();
+        }
+    }
+
     /**
      * Field-Centric Mecanum Drive Control
      * @param y Forward/Backward Force (GamePad Left Stick y)
@@ -377,7 +389,7 @@ public class Drive extends Subsystem {
     @Override
     public void update() {
         imu.update();
-        odometry.update();
+        //odometry.update();
         //visualOdometry.update();
         //visionProcessing.update();
         MKEstimator.update();
@@ -387,7 +399,15 @@ public class Drive extends Subsystem {
     }
 
     public void zeroYaw() {
-        model.setBias(-getDataFusionTheta());
+        ThetaModel.setBias(-getDataFusionTheta());
+    }
+
+    public void zeroX() {
+        XModel.setBias(-getDataFusionX());
+    }
+
+    public void zeroY() {
+        YModel.setBias(-getDataFusionY());
     }
 
     public DriveMode getDriveMode() {
@@ -417,7 +437,7 @@ public class Drive extends Subsystem {
     }
 
     public TriWheelOdometryGPS getOdometry() {
-        return odometry;
+        return null; //odometry;
     }
 
     public VuforiaVision getVisualOdometry() {
@@ -433,18 +453,18 @@ public class Drive extends Subsystem {
     }
 
     public double getDataFusionTheta() {
-        setTheta(model.fuse(new double[]{imu.getHeading(), odometry.getTheta(),
+        setTheta(ThetaModel.fuse(new double[]{/*imu.getHeading(), odometry.getTheta(),
                 /*visualOdometry.getTheta(),*/ MKEstimator.getTheta()}));
         return theta;
     }
 
     public double getDataFusionX() {
-        setX(model.fuse(new double[]{odometry.getX(), /*visualOdometry.getX(),*/ MKEstimator.getX()}));
+        setX(XModel.fuse(new double[]{/*odometry.getX(),*/ /*visualOdometry.getX(),*/ MKEstimator.getX()}));
         return x;
     }
 
     public double getDataFusionY() {
-        setY(model.fuse(new double[]{odometry.getY(), /*visualOdometry.getY(),*/ MKEstimator.getY()}));
+        setY(YModel.fuse(new double[]{/*odometry.getY(),*/ /*visualOdometry.getY(),*/ MKEstimator.getY()}));
         return y;
     }
 
@@ -456,8 +476,8 @@ public class Drive extends Subsystem {
         return driveState;
     }
 
-    public MeanOptimizedDataFusionModel getModel() {
-        return model;
+    public MeanOptimizedDataFusionModel getThetaModel() {
+        return ThetaModel;
     }
 
     public double getX() {
