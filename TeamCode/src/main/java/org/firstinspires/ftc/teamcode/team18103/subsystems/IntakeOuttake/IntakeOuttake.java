@@ -98,7 +98,7 @@ public class IntakeOuttake extends Subsystem {
     public void PIDOuttake(double omega) {
         PIDSVA controller = new PIDSVA(0.5, 0, 0, 0d, 0, 0);
         double error = omega;
-        while (error > 10) {
+        while (Math.abs(error) > 10) {
             error = omega - getFirstOuttake().getVelocity();
             double output = controller.getOutput(error, 0, 0);
             getFirstOuttake().setPower(output);
