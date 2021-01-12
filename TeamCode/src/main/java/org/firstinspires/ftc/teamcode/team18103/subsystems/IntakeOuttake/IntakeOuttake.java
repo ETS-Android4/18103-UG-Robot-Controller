@@ -108,20 +108,22 @@ public class IntakeOuttake extends Subsystem {
 
     }
 
-    public void OuttakeFromPoint(Point location) {
+    public void OuttakeFromPoint() {
         //Point targetGoal = Constants.leftGoal;
 
         //if (location.getX() > 0) {
-            //targetGoal = Constants.rightGoal;
+        //targetGoal = Constants.rightGoal;
         //}
 
-        double dw = 60; //location.getXYDist(targetGoal);
-        double dz = 35-14.25; //targetGoal.getZ() - location.getZ();
+        double dw = 70.75 * Constants.mmPerInch / 1000; //location.getXYDist(targetGoal);
+        double dz = (35.5 - 14.5) * Constants.mmPerInch / 1000; //targetGoal.getZ() - location.getZ();
 
-        double v = Math.sqrt(Math.abs((9.8*(dw*dw))/(2 * Math.cos(Constants.theta) *
-                (dw*Math.sin(Constants.theta)-dz*Math.cos(Constants.theta)))));
+        double v = Math.sqrt((9.8 * (dw * dw)) / (2 * Math.cos(Math.toRadians(Constants.theta)) *
+                (dw * Math.sin(Math.toRadians(Constants.theta)) -
+                        dz * Math.cos(Math.toRadians(Constants.theta)))));
 
-        double omega = (v*60*2*2)/(Constants.wheelDiam*Math.PI);
+        double omega =  (v * 60 * 2 * 2) / (Constants.wheelDiam * Math.PI);
+
         PIDOuttake(omega);
 
     }
