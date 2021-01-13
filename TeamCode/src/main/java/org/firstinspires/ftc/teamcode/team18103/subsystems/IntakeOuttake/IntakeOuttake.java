@@ -27,6 +27,9 @@ public class IntakeOuttake extends Subsystem {
         secondOuttake.setDirection(DcMotorEx.Direction.REVERSE);
         firstOuttake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         secondOuttake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+        secondOuttake.setVelocityPIDFCoefficients(0.5,0, 0, 0);
+
     }
 
     @Override
@@ -107,6 +110,11 @@ public class IntakeOuttake extends Subsystem {
             getSecondOuttake().setPower(getSecondOuttake().getPower() + output);
         }
         //runOuttake(false);
+    }
+
+    public void PIDOuttake2(double omega) {
+        secondOuttake.setVelocity(omega);
+        firstOuttake.setPower(secondOuttake.getPower());
     }
 
     public void OuttakeFromPoint() {
