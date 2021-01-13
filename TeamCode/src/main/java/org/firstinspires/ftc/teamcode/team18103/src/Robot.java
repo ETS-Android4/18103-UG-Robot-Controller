@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.team18103.states.GameState;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Drive;
-import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.IntakeOuttake.IntakeOuttake;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Wobble;
 

@@ -2,10 +2,6 @@ package org.firstinspires.ftc.teamcode.lib.control;
 
 import static org.firstinspires.ftc.teamcode.team18103.src.Constants.Dt;
 
-/*
- * Author: Akhil G
- */
-
 public class PIDSVA {
     double kp, ki, kd, ks, kv, ka;
     double prev_error, integral, derivative;
