@@ -57,8 +57,8 @@ public class Robot {
 
     public void Telemetry(Telemetry telemetry) {
         // Robot Init
-        telemetry.addLine()
-                .addData("Robot Initialized: ", true);
+//        telemetry.addLine()
+//                .addData("Robot Initialized: ", true);
 
         /* Game State
         telemetry.addLine()
@@ -83,22 +83,22 @@ public class Robot {
                 .addData("Horz: ", df.format(getDriveSubsystem().getOdometry().getsPos()));//*/
 
         /* MKE */
-        telemetry.addLine()
-                .addData("MKE X: ", df.format(getDriveSubsystem().getMKEstimator().getX()))
-                .addData("MKE Y: ", df.format(getDriveSubsystem().getMKEstimator().getY()))
-                .addData("MKE Theta: ", df.format(getDriveSubsystem().getMKEstimator().getTheta()));//*/
-
-        /* Visual Odometry
-        telemetry.addLine()
-                .addData("Vision X: ", getDriveSubsystem().getVisualOdometry().getX())
-                .addData("Vision Y: ", getDriveSubsystem().getVisualOdometry().getY())
-                .addData("Vision Theta: ", getDriveSubsystem().getVisualOdometry().getTheta());*/
-
-        /* Data Fusion Model */
-        telemetry.addLine()
-                .addData("Data Fusion X: ", df.format(getDriveSubsystem().getDataFusionX()))
-                .addData("Data Fusion Y: ", df.format(getDriveSubsystem().getDataFusionY()))
-                .addData("Data Fusion Theta: ", df.format(getDriveSubsystem().getDataFusionTheta())); //*/
+//        telemetry.addLine()
+//                .addData("MKE X: ", df.format(getDriveSubsystem().getMKEstimator().getX()))
+//                .addData("MKE Y: ", df.format(getDriveSubsystem().getMKEstimator().getY()))
+//                .addData("MKE Theta: ", df.format(getDriveSubsystem().getMKEstimator().getTheta()));//*/
+//
+//        /* Visual Odometry
+//        telemetry.addLine()
+//                .addData("Vision X: ", getDriveSubsystem().getVisualOdometry().getX())
+//                .addData("Vision Y: ", getDriveSubsystem().getVisualOdometry().getY())
+//                .addData("Vision Theta: ", getDriveSubsystem().getVisualOdometry().getTheta());*/
+//
+//        /* Data Fusion Model */
+//        telemetry.addLine()
+//                .addData("Data Fusion X: ", df.format(getDriveSubsystem().getDataFusionX()))
+//                .addData("Data Fusion Y: ", df.format(getDriveSubsystem().getDataFusionY()))
+//                .addData("Data Fusion Theta: ", df.format(getDriveSubsystem().getDataFusionTheta())); //*/
 
         /* Collision Detection
         telemetry.addLine()
