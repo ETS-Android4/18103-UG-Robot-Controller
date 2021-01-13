@@ -122,6 +122,9 @@ public class IntakeOuttake extends Subsystem {
                         dz * Math.cos(Math.toRadians(Constants.theta)))));
 
         double omega =  (v * 60 * 2 * 2) / (Constants.wheelDiam * Math.PI);
+
+        omega *= 28.0/60;
+
         PIDOuttake(omega);
 
     }
