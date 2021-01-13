@@ -96,15 +96,17 @@ public class IntakeOuttake extends Subsystem {
     }
 
     public void PIDOuttake(double omega) {
-        PIDSVA controller = new PIDSVA(0.01, 0, 0, 0d, 0, 0);
+        PIDSVA controller = new PIDSVA(0.5, 0, 0, 0d, 0, 0);
         double error = omega;
+        double output = 0;
         while (Math.abs(error) > 10) {
             error = omega - secondOuttake.getVelocity();
-            double output = controller.getOutput(error, 0, 0);
-            getFirstOuttake().setPower(output);
-            getSecondOuttake().setPower(output);
-        }
+            System.out.println(error);
+            output = controller.getOutput(error, 0, 0);
 
+            getFirstOuttake().setPower(getSecondOuttake().getPower() + output);
+            getSecondOuttake().setPower(getSecondOuttake().getPower() + output);
+        }
     }
 
     public void OuttakeFromPoint() {
@@ -125,8 +127,7 @@ public class IntakeOuttake extends Subsystem {
 
         omega *= 28.0/60;
 
-        PIDOuttake(omega);
-
+        PIDOuttake(1500);
     }
 
     public double[] shooterDiagnostics() {
