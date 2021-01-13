@@ -98,11 +98,13 @@ public class IntakeOuttake extends Subsystem {
     public void PIDOuttake(double omega) {
         PIDSVA controller = new PIDSVA(0.01, 0, 0, 0d, 0, 0);
         double error = omega;
+        double target_output = 0;
         while (Math.abs(error) > 10) {
             error = omega - secondOuttake.getVelocity();
             double output = controller.getOutput(error, 0, 0);
-            getFirstOuttake().setPower(output);
-            getSecondOuttake().setPower(output);
+            target_output += output;
+            getFirstOuttake().setPower(target_output);
+            getSecondOuttake().setPower(target_output);
         }
 
     }
