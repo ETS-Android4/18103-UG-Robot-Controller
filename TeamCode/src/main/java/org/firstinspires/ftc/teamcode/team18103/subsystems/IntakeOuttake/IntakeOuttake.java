@@ -28,7 +28,7 @@ public class IntakeOuttake extends Subsystem {
         firstOuttake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         secondOuttake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-        secondOuttake.setVelocityPIDFCoefficients(0.5,0, 0, 0);
+        secondOuttake.setVelocityPIDFCoefficients(200,0, 0, 0);
 
     }
 
@@ -135,7 +135,7 @@ public class IntakeOuttake extends Subsystem {
 
         omega *= 28.0/60;
 
-        PIDOuttake(1000);
+        PIDOuttake2(1000);
     }
 
     public double[] shooterDiagnostics() {
