@@ -4,9 +4,15 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.lib.control.PIDSVA;
+import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
 import org.firstinspires.ftc.teamcode.lib.geometry.Point;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.pow;
+import static java.lang.Math.sin;
+import static java.lang.Math.toRadians;
 
 public class IntakeOuttake extends Subsystem {
 
@@ -127,15 +133,29 @@ public class IntakeOuttake extends Subsystem {
         double dw = 70.75 * Constants.mmPerInch / 1000; //location.getXYDist(targetGoal);
         double dz = (35.5 - 14.5) * Constants.mmPerInch / 1000; //targetGoal.getZ() - location.getZ();
 
-        double v = Math.sqrt((9.8 * (dw * dw)) / (2 * Math.cos(Math.toRadians(Constants.theta)) *
-                (dw * Math.sin(Math.toRadians(Constants.theta)) -
-                        dz * Math.cos(Math.toRadians(Constants.theta)))));
+        double v = Math.sqrt((9.8 * (dw * dw)) / (2 * cos(Math.toRadians(Constants.theta)) *
+                (dw * sin(Math.toRadians(Constants.theta)) -
+                        dz * cos(Math.toRadians(Constants.theta)))));
 
         double omega =  (v * 60 * 2 * 2) / (Constants.wheelDiam * Math.PI);
 
         omega *= 28.0/60;
 
         PIDOuttake2(1000);
+    }
+
+    public void outtakeFromPoint2() {
+        double dw = 70.75 * Constants.mmPerInch / 1000;
+        double dz = (35.5 - 14.5) * Constants.mmPerInch / 1000;
+
+        double t = 3.0;
+        double v = (dw * Motor.GoBILDA_6000.getTicksPerInch())/t;
+        while (v/cos(toRadians(40)) > 2000 && (dz/t) - 0.5*9.8*t != v/sin(toRadians(40))) {
+            v = (dw * Motor.GoBILDA_6000.getTicksPerInch())/t;
+            t-=0.1;
+        }
+        t+=0.1;
+        v = (dw * Motor.GoBILDA_6000.getTicksPerInch())/t;
     }
 
     public double[] shooterDiagnostics() {
