@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.team18103.subsystems.Vision;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
@@ -27,7 +29,7 @@ public class TFVision extends Subsystem {
 
     @Override
     public void init(HardwareMap ahMap) {
-        initVuforia();
+        initVuforia(ahMap);
         initTfod(ahMap);
         tfod.activate();
     }
@@ -42,7 +44,20 @@ public class TFVision extends Subsystem {
 
     }
 
-    private List<Recognition> search() {
+    public void searchTele(Telemetry telemetry) {
+        int i = 0;
+        if (search() != null) {
+            for (Recognition recognition : search()) {
+                telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                        recognition.getLeft(), recognition.getTop());
+                telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                        recognition.getRight(), recognition.getBottom());
+            }
+        }
+    }
+
+    public List<Recognition> search() {
         return tfod.getUpdatedRecognitions();
     }
 
@@ -57,9 +72,10 @@ public class TFVision extends Subsystem {
         return AutoMode.NoRings;
     }
 
-    private void initVuforia() {
+    private void initVuforia(HardwareMap hardwareMap) {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
     }

@@ -28,7 +28,7 @@ public class Drive extends Subsystem {
     REV_IMU imu;
     //TriWheelOdometryGPS odometry;
     //VuforiaVision visualOdometry;
-    //TFVision visionProcessing;
+    TFVision visionProcessing;
     MecanumKinematicEstimator MKEstimator;
     MeanOptimizedDataFusionModel ThetaModel;
     MeanOptimizedDataFusionModel XModel;
@@ -77,9 +77,9 @@ public class Drive extends Subsystem {
         //visualOdometry = new VuforiaVision();
         //visualOdometry.init(ahMap);
 
-        /* Vision Processing Init
+        /* Vision Processing Init */
         visionProcessing = new TFVision();
-        visionProcessing.init(ahMap);*/
+        visionProcessing.init(ahMap);//*/
 
         // MKE Init
         MKEstimator = new MecanumKinematicEstimator();
@@ -91,7 +91,7 @@ public class Drive extends Subsystem {
         imu.start();
         //odometry.start();
         //visualOdometry.start();
-        //visionProcessing.start();
+        visionProcessing.start();
         MKEstimator.start();
     }
 
@@ -391,7 +391,7 @@ public class Drive extends Subsystem {
         imu.update();
         //odometry.update();
         //visualOdometry.update();
-        //visionProcessing.update();
+        visionProcessing.update();
         MKEstimator.update();
         getDataFusionX();
         getDataFusionY();
@@ -502,5 +502,9 @@ public class Drive extends Subsystem {
 
     public void setTheta(double theta) {
         this.theta = theta;
+    }
+
+    public TFVision getVisionProcessing() {
+        return visionProcessing;
     }
 }

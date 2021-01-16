@@ -87,6 +87,8 @@ public class Robot {
                 .addData("MKE X: ", df.format(getDriveSubsystem().getMKEstimator().getX()))
                 .addData("MKE Y: ", df.format(getDriveSubsystem().getMKEstimator().getY()))
                 .addData("MKE Theta: ", df.format(getDriveSubsystem().getMKEstimator().getTheta()));//*/
+
+        DriveSubsystem.getVisionProcessing().searchTele(telemetry);
 //
 //        /* Visual Odometry
 //        telemetry.addLine()
