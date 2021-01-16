@@ -34,8 +34,8 @@ public class IntakeOuttake extends Subsystem {
         firstOuttake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         secondOuttake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-        secondOuttake.setVelocityPIDFCoefficients(200,0, 0, 0);
-        firstOuttake.setVelocityPIDFCoefficients(200,0, 0, 0);
+        secondOuttake.setVelocityPIDFCoefficients(200,0, 0, 12.5);
+        firstOuttake.setVelocityPIDFCoefficients(200,0, 0, 12.5);
 
     }
 
@@ -141,6 +141,20 @@ public class IntakeOuttake extends Subsystem {
         double omega =  (v * 60 * 1.5 * 2) / (Constants.wheelDiam * Math.PI);
 
         omega *= 28.0/60;
+
+        if (omega > 1953.5) {
+            omega = 1953.5 + (omega - 1953.5) * 1/500;
+        }
+
+        //omega *= 2040.0/2939.0;
+
+        PIDOuttake2(omega);
+
+        return omega;
+    }
+
+    public double outtakeFromPoint3(double dw) {
+        double omega = 120.0/48 * dw + 1650;
 
         PIDOuttake2(omega);
 
