@@ -124,7 +124,7 @@ public class IntakeOuttake extends Subsystem {
         firstOuttake.setVelocity(omega);
     }
 
-    public void OuttakeFromPoint() {
+    public double OuttakeFromPoint() {
         //Point targetGoal = Constants.leftGoal;
 
         //if (location.getX() > 0) {
@@ -132,7 +132,7 @@ public class IntakeOuttake extends Subsystem {
         //}
 
         double dw = 70.75 * Constants.mmPerInch / 1000; //location.getXYDist(targetGoal);
-        double dz = (35.5 - 14.5) * Constants.mmPerInch / 1000; //targetGoal.getZ() - location.getZ();
+        double dz = (35.5 - 32.5) * Constants.mmPerInch / 1000; //targetGoal.getZ() - location.getZ();
 
         double v = Math.sqrt((9.8 * (dw * dw)) / (2 * cos(Math.toRadians(Constants.theta)) *
                 (dw * sin(Math.toRadians(Constants.theta)) -
@@ -142,21 +142,24 @@ public class IntakeOuttake extends Subsystem {
 
         omega *= 28.0/60;
 
-        PIDOuttake2(1000);
+        PIDOuttake2(omega);
+
+        return omega;
     }
 
-    public void outtakeFromPoint2() {
+    public double outtakeFromPoint2() {
         double dw = 70.75 * Constants.mmPerInch / 1000;
         double dz = (35.5 - 14.5) * Constants.mmPerInch / 1000;
 
         double t = 3.0;
-        double v = (dw * Motor.GoBILDA_6000.getTicksPerInch())/t;
+        double v = (dw * Motor.GoBILDA_6000.getTicksPerMM()*1000)/t;
         while (v/cos(toRadians(40)) > 2000 && (dz/t) - 0.5*9.8*t != v/sin(toRadians(40))) {
-            v = (dw * Motor.GoBILDA_6000.getTicksPerInch())/t;
+            v = (dw * Motor.GoBILDA_6000.getTicksPerMM() * 1000)/t;
             t-=0.1;
         }
         t+=0.1;
-        v = (dw * Motor.GoBILDA_6000.getTicksPerInch())/t;
+        v = (dw * Motor.GoBILDA_6000.getTicksPerMM() * 1000)/t;
+        return v;
     }
 
     public double[] shooterDiagnostics() {

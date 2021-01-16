@@ -83,10 +83,10 @@ public class Robot {
                 .addData("Horz: ", df.format(getDriveSubsystem().getOdometry().getsPos()));//*/
 
         /* MKE */
-//        telemetry.addLine()
-//                .addData("MKE X: ", df.format(getDriveSubsystem().getMKEstimator().getX()))
-//                .addData("MKE Y: ", df.format(getDriveSubsystem().getMKEstimator().getY()))
-//                .addData("MKE Theta: ", df.format(getDriveSubsystem().getMKEstimator().getTheta()));//*/
+        telemetry.addLine()
+                .addData("MKE X: ", df.format(getDriveSubsystem().getMKEstimator().getX()))
+                .addData("MKE Y: ", df.format(getDriveSubsystem().getMKEstimator().getY()))
+                .addData("MKE Theta: ", df.format(getDriveSubsystem().getMKEstimator().getTheta()));//*/
 //
 //        /* Visual Odometry
 //        telemetry.addLine()
