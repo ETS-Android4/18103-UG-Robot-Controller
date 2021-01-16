@@ -6,11 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.team18103.src.Robot;
 
-/*
- * Author: Akhil G
- */
-
-@Disabled
 @Autonomous
 public class DriveNShootAuto extends LinearOpMode {
     Robot robot = new Robot();
@@ -21,7 +16,15 @@ public class DriveNShootAuto extends LinearOpMode {
         waitForStart();
         robot.start();
         robot.getDriveSubsystem().setDriveMotors(0.5);
+        do {
+            //run
+        } while (robot.getDriveSubsystem().getDataFusionY() < 72);
+        robot.getDriveSubsystem().setDriveMotors(0);
 
-
+        robot.getIOSubsystem().OuttakeFromPoint();
+        sleep(1000);
+        robot.getIOSubsystem().runTransfer(true);
+        sleep(3000);
+        robot.getIOSubsystem().runTransfer(false);
     }
 }
