@@ -131,14 +131,14 @@ public class IntakeOuttake extends Subsystem {
         //targetGoal = Constants.rightGoal;
         //}
 
-        double dw = 70.75 * Constants.mmPerInch / 1000; //location.getXYDist(targetGoal);
-        double dz = (35.5 - 32.5) * Constants.mmPerInch / 1000; //targetGoal.getZ() - location.getZ();
+        double dw = 108 * Constants.mmPerInch / 1000; //location.getXYDist(targetGoal);
+        double dz = (35.5 - 14.5) * Constants.mmPerInch / 1000; //targetGoal.getZ() - location.getZ();
 
         double v = Math.sqrt((9.8 * (dw * dw)) / (2 * cos(Math.toRadians(Constants.theta)) *
                 (dw * sin(Math.toRadians(Constants.theta)) -
                         dz * cos(Math.toRadians(Constants.theta)))));
 
-        double omega =  (v * 60 * 2 * 2) / (Constants.wheelDiam * Math.PI);
+        double omega =  (v * 60 * 1.5 * 2) / (Constants.wheelDiam * Math.PI);
 
         omega *= 28.0/60;
 
