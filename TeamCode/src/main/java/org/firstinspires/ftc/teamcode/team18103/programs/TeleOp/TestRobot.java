@@ -49,7 +49,7 @@ public class TestRobot extends OpMode {
 
         telemetry.addData("Velocity 2:", robot.getIOSubsystem().getSecondOuttake().getVelocity());
         telemetry.addData("Velocity 1:", robot.getIOSubsystem().getSecondOuttake().getVelocity());
-        telemetry.addData("Omega", robot.getIOSubsystem().outtakeFromPoint3(84));
+        telemetry.addData("Omega", robot.getIOSubsystem().outtakeFromPoint3(60));
 
         /*robot.getDriveSubsystem().ultimateDriveController(gamepad1.left_stick_y, gamepad1.left_stick_x,
                 gamepad1.right_stick_x, gamepad1.left_trigger, gamepad1.right_trigger,
