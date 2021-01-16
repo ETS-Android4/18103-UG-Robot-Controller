@@ -49,7 +49,7 @@ public class TestRobot extends OpMode {
 
         telemetry.addData("Velocity 2:", robot.getIOSubsystem().getSecondOuttake().getVelocity());
         telemetry.addData("Velocity 1:", robot.getIOSubsystem().getSecondOuttake().getVelocity());
-        telemetry.addData("Omega", robot.getIOSubsystem().OuttakeFromPoint());
+        telemetry.addData("Omega", robot.getIOSubsystem().outtakeFromPoint3(84));
 
         /*robot.getDriveSubsystem().ultimateDriveController(gamepad1.left_stick_y, gamepad1.left_stick_x,
                 gamepad1.right_stick_x, gamepad1.left_trigger, gamepad1.right_trigger,
@@ -63,7 +63,7 @@ public class TestRobot extends OpMode {
         robot.getIOSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
         //if(gamepad1.y)
-        //    telemetry.addData("Omega", robot.getIOSubsystem().OuttakeFromPoint());
+            //robot.getIOSubsystem().runOuttake(1);
             //telemetry.addData("", robot.getIOSubsystem().outtakeFromPoint2());
 
         robot.getIOSubsystem().runTransfer(-(gamepad1.left_trigger));
