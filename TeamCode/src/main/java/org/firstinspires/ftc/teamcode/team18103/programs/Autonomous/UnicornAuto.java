@@ -107,11 +107,19 @@ public class UnicornAuto extends LinearOpMode {
         robot.getIOSubsystem().runTransfer(true);
         robot.getIOSubsystem().runTransfer(false);
         robot.getIOSubsystem().runOuttake(false);*/
+        while (robot.getDriveSubsystem().getDataFusionX() > -3) {
+            robot.getDriveSubsystem().setStrafeMotors(-0.25);
+            robot.loop(telemetry);
+        }
+        robot.getDriveSubsystem().setDriveMotors(0);
+        sleep(500);
+
         robot.getIOSubsystem().runTransfer(true);
         robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
                 108 - robot.getDriveSubsystem().getDataFusionY(),
                 Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
         sleep(2000);
+
 
     }
 }
