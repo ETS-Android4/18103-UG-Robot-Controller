@@ -79,7 +79,7 @@ public class IntakeOuttake extends Subsystem {
 
     public void runTransfer(boolean on) {
         if (on) {
-            runTransfer(1);
+            runTransfer(-1);
         } else {
             stopTransfer();
         }
