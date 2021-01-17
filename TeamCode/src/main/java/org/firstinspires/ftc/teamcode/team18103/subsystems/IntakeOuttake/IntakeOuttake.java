@@ -154,6 +154,7 @@ public class IntakeOuttake extends Subsystem {
     }
 
     public double outtakeFromPoint3(double dw) {
+
         double omega = 120.0/48 * dw + 1650;
 
         PIDOuttake2(omega);

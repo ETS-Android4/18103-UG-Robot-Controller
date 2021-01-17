@@ -32,11 +32,12 @@ public class TFVision extends Subsystem {
         initVuforia(ahMap);
         initTfod(ahMap);
         tfod.activate();
+        //tfod.setZoom(2.5, 16.0/9.0);
     }
 
     @Override
     public void start() {
-        search();
+        //search();
     }
 
     @Override
@@ -46,8 +47,9 @@ public class TFVision extends Subsystem {
 
     public void searchTele(Telemetry telemetry) {
         int i = 0;
-        if (search() != null) {
-            for (Recognition recognition : search()) {
+        List<Recognition> search = search();
+        if (search != null) {
+            for (Recognition recognition : search) {
                 telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                 telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                         recognition.getLeft(), recognition.getTop());

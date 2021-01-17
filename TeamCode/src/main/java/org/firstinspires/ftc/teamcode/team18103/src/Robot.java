@@ -82,25 +82,25 @@ public class Robot {
                 .addData("Right: ", df.format(getDriveSubsystem().getOdometry().getrPos()))
                 .addData("Horz: ", df.format(getDriveSubsystem().getOdometry().getsPos()));//*/
 
-        /* MKE */
+        /* MKE
         telemetry.addLine()
                 .addData("MKE X: ", df.format(getDriveSubsystem().getMKEstimator().getX()))
                 .addData("MKE Y: ", df.format(getDriveSubsystem().getMKEstimator().getY()))
                 .addData("MKE Theta: ", df.format(getDriveSubsystem().getMKEstimator().getTheta()));//*/
 
         DriveSubsystem.getVisionProcessing().searchTele(telemetry);
-//
-//        /* Visual Odometry
-//        telemetry.addLine()
-//                .addData("Vision X: ", getDriveSubsystem().getVisualOdometry().getX())
-//                .addData("Vision Y: ", getDriveSubsystem().getVisualOdometry().getY())
-//                .addData("Vision Theta: ", getDriveSubsystem().getVisualOdometry().getTheta());*/
-//
-//        /* Data Fusion Model */
-//        telemetry.addLine()
-//                .addData("Data Fusion X: ", df.format(getDriveSubsystem().getDataFusionX()))
-//                .addData("Data Fusion Y: ", df.format(getDriveSubsystem().getDataFusionY()))
-//                .addData("Data Fusion Theta: ", df.format(getDriveSubsystem().getDataFusionTheta())); //*/
+
+        /* Visual Odometry
+        telemetry.addLine()
+                .addData("Vision X: ", getDriveSubsystem().getVisualOdometry().getX())
+                .addData("Vision Y: ", getDriveSubsystem().getVisualOdometry().getY())
+                .addData("Vision Theta: ", getDriveSubsystem().getVisualOdometry().getTheta());*/
+
+        /* Data Fusion Model
+        telemetry.addLine()
+                .addData("Data Fusion X: ", df.format(getDriveSubsystem().getDataFusionX()))
+                .addData("Data Fusion Y: ", df.format(getDriveSubsystem().getDataFusionY()))
+                .addData("Data Fusion Theta: ", df.format(getDriveSubsystem().getDataFusionTheta())); //*/
 
         /* Collision Detection
         telemetry.addLine()
