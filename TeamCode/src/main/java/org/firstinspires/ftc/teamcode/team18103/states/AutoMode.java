@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.team18103.states;
 
 public enum AutoMode {
-    NoRings(60),
-    OneRing(84),
-    FourRings(108);
+    NoRings(51),
+    OneRing(73),
+    FourRings(99);
 
     private final double dist;
 
