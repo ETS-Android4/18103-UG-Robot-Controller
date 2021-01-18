@@ -30,7 +30,7 @@ public class UnicornAuto extends LinearOpMode {
         robot.getDriveSubsystem().setDriveMotors(0);
         sleep(500);
 
-        AutoMode mode = AutoMode.NoRings;//robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
+        AutoMode mode = AutoMode.FourRings;//robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
 
         while (robot.getDriveSubsystem().getDataFusionTheta() > 0) {
             robot.getDriveSubsystem().setRotateMotors(-0.25);
@@ -89,21 +89,129 @@ public class UnicornAuto extends LinearOpMode {
             sleep(3000);
             robot.getIOSubsystem().runTransfer(false);
             robot.getIOSubsystem().runOuttake(false);
-        } else if(mode == AutoMode.FourRings) {
-            while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist()) {
-                robot.getDriveSubsystem().setDriveMotors(0.5);
+        } else if(mode == AutoMode.OneRing) {
+            while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4) {
+                robot.getDriveSubsystem().setDriveMotors(0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
+            while(robot.getDriveSubsystem().getDataFusionTheta() < 45) {
+                robot.getDriveSubsystem().setRotateMotors(0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+            double currentDiagonalPosition = Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2));
+            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) < currentDiagonalPosition + 6) {
+                robot.getDriveSubsystem().setDriveMotors(0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) > currentDiagonalPosition - 6) {
+                robot.getDriveSubsystem().setDriveMotors(-0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+            while(robot.getDriveSubsystem().getDataFusionTheta() > 0) {
+                robot.getDriveSubsystem().setRotateMotors(-0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+            double currentPosY = robot.getDriveSubsystem().getDataFusionY();
+            while(robot.getDriveSubsystem().getDataFusionY() > currentPosY - 20) {
+                robot.getDriveSubsystem().setDriveMotors(-0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+            robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
+                    45 - robot.getDriveSubsystem().getDataFusionY(),
+                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
+            sleep(2000);
+            robot.getIOSubsystem().runTransfer(true);
+            sleep(3000);
+            robot.getIOSubsystem().runTransfer(false);
+            robot.getIOSubsystem().runOuttake(false);
         } else {
-            while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist()) {
-                robot.getDriveSubsystem().setDriveMotors(0.5);
+            while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4) {
+                robot.getDriveSubsystem().setDriveMotors(0.25);
+                if(Math.abs(robot.getDriveSubsystem().getDataFusionTheta()) > 5) {
+                    if (robot.getDriveSubsystem().getDataFusionTheta() < 0) {
+                        while(robot.getDriveSubsystem().getDataFusionTheta() < 0) {
+                            robot.getDriveSubsystem().setRotateMotors(0.25);
+                            robot.loop(telemetry);
+                        }
+                        robot.getDriveSubsystem().setDriveMotors(0);
+                        sleep(300);
+                    } else {
+                        while(robot.getDriveSubsystem().getDataFusionTheta() > 0) {
+                            robot.getDriveSubsystem().setRotateMotors(-0.25);
+                            robot.loop(telemetry);
+                        }
+                        robot.getDriveSubsystem().setDriveMotors(0);
+                        sleep(300);
+                    }
+                }
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-
+            while (robot.getDriveSubsystem().getDataFusionTheta() > -30) {
+                robot.getDriveSubsystem().setRotateMotors(-0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+            double currentDiagonalPosition = Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2));
+            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) < currentDiagonalPosition + 6) {
+                robot.getDriveSubsystem().setDriveMotors(0.25);
+                robot.loop(telemetry);
+            }
+            currentDiagonalPosition = Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2));
+            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) > currentDiagonalPosition - 12) {
+                robot.getDriveSubsystem().setDriveMotors(-0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+            while(robot.getDriveSubsystem().getDataFusionTheta() < 30) {
+                robot.getDriveSubsystem().setRotateMotors(0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+            currentDiagonalPosition = Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2));
+            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) > currentDiagonalPosition - 15) {
+                robot.getDriveSubsystem().setDriveMotors(-0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+            while(robot.getDriveSubsystem().getDataFusionTheta() > 0) {
+                robot.getDriveSubsystem().setRotateMotors(-0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+            double currentPositionY = robot.getDriveSubsystem().getDataFusionY();
+            while(robot.getDriveSubsystem().getDataFusionY() > currentPositionY - 25) {
+                robot.getDriveSubsystem().setDriveMotors(-0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(300);
+            robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
+                    45 - robot.getDriveSubsystem().getDataFusionY(),
+                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
+            sleep(2000);
+            robot.getIOSubsystem().runTransfer(true);
+            sleep(3000);
+            robot.getIOSubsystem().runTransfer(false);
+            robot.getIOSubsystem().runOuttake(false);
         }
 
 
