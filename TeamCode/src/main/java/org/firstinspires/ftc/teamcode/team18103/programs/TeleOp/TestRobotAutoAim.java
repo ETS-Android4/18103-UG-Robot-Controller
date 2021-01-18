@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.team18103.programs.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 import org.firstinspires.ftc.teamcode.team18103.src.Robot;
 import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
 
@@ -30,7 +29,7 @@ import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
  */
 
 @TeleOp
-public class TestRobot extends OpMode {
+public class TestRobotAutoAim extends OpMode {
     Robot robot = new Robot();
 
     @Override
@@ -62,9 +61,10 @@ public class TestRobot extends OpMode {
         robot.getIOSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
         if(gamepad1.y) {
-            telemetry.addData("Omega", robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
+            robot.getDriveSubsystem().rotateToShootingAngle();
+            robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
                     108 - robot.getDriveSubsystem().getDataFusionY(),
-                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36))));
+                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
         }
 
         robot.getIOSubsystem().runTransfer(-(gamepad1.left_trigger));

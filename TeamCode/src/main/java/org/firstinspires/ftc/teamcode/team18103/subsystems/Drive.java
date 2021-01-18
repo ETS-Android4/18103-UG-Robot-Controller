@@ -260,7 +260,11 @@ public class Drive extends Subsystem {
         }
 
         setDriveMotors(0);
+    }
 
+    public void rotateToShootingAngle() {
+        double targetTheta = -Math.toDegrees(Math.atan2((getDataFusionX() - 28.5), (108 - getDataFusionY())));
+        MecanumDriveToGlobalPoint(getDataFusionY(), getDataFusionX(), targetTheta, 0.3);
     }
 
     // TeleOp Methods

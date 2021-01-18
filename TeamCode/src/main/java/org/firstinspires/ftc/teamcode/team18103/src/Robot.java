@@ -82,13 +82,13 @@ public class Robot {
                 .addData("Right: ", df.format(getDriveSubsystem().getOdometry().getrPos()))
                 .addData("Horz: ", df.format(getDriveSubsystem().getOdometry().getsPos()));//*/
 
-        /* MKE */
+        /* MKE
         telemetry.addLine()
                 .addData("MKE X: ", df.format(getDriveSubsystem().getMKEstimator().getX()))
                 .addData("MKE Y: ", df.format(getDriveSubsystem().getMKEstimator().getY()))
                 .addData("MKE Theta: ", df.format(getDriveSubsystem().getMKEstimator().getTheta()));//*/
 
-        DriveSubsystem.getVisionProcessing().searchTele(telemetry);
+        //DriveSubsystem.getVisionProcessing().searchTele(telemetry);
 
         /* Visual Odometry
         telemetry.addLine()
@@ -96,7 +96,7 @@ public class Robot {
                 .addData("Vision Y: ", getDriveSubsystem().getVisualOdometry().getY())
                 .addData("Vision Theta: ", getDriveSubsystem().getVisualOdometry().getTheta());*/
 
-        /* Data Fusion Model
+        /* Data Fusion Model */
         telemetry.addLine()
                 .addData("Data Fusion X: ", df.format(getDriveSubsystem().getDataFusionX()))
                 .addData("Data Fusion Y: ", df.format(getDriveSubsystem().getDataFusionY()))
@@ -110,10 +110,10 @@ public class Robot {
         telemetry.addLine()
                 .addData("Drive Mode: ", getDriveSubsystem().getDriveMode().getName());*/
 
-        /* Outtake
+        /* Outtake */
         telemetry.addLine()
                 .addData("Shooter 1 RPM: ", getIOSubsystem().shooterDiagnostics()[0])
-                .addData("SShooter 2 RPM: ", getIOSubsystem().shooterDiagnostics()[1]);*/
+                .addData("SShooter 2 RPM: ", getIOSubsystem().shooterDiagnostics()[1]);//*/
 
         telemetry.update();
 
