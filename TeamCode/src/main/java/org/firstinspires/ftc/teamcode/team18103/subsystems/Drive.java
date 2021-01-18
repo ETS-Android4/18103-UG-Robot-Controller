@@ -226,6 +226,43 @@ public class Drive extends Subsystem {
         setDriveMotors(0);
     }
 
+    public void MecanumDriveToGlobalPoint(double y, double x, double theta, double power) {
+        double v1 = -(y - (theta) - (x));
+        double v2 = -(y - (theta) + (x));
+        double v3 = -(y + (theta) - (x));
+        double v4 = -(y + (theta) + (x));
+
+        Double[] v = new Double[]{Math.abs(v1), Math.abs(v2), Math.abs(v3), Math.abs(v4)};
+
+        Arrays.sort(v);
+
+        if (v[3] > 1) {
+            v1 /= v[3];
+            v2 /= v[3];
+            v3 /= v[3];
+            v4 /= v[3];
+        }
+
+        v1 *= power;
+        v2 *= power;
+        v3 *= power;
+        v4 *= power;
+
+        while ((Math.abs(y - getDataFusionY()) > 30) &&
+                (Math.abs(x - getDataFusionX()) > 30) &&
+                (Math.abs(theta - getDataFusionTheta()) > 10)) {
+
+            frontLeft.setVelocity(v1);
+            backLeft.setVelocity(v2);
+            backRight.setVelocity(v3);
+            frontRight.setVelocity(v4);
+
+        }
+
+        setDriveMotors(0);
+
+    }
+
     // TeleOp Methods
 
     /**
