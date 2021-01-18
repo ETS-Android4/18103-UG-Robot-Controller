@@ -30,27 +30,29 @@ public class NthDegreeOpMode extends OpMode {
 
     @Override
     public void loop() {
-        //robot.loop(telemetry);
+        robot.loop(telemetry);
 
-        telemetry.addData("Left: ", robot.getDriveSubsystem().frontLeft.getCurrentPosition());
-        telemetry.addData("Right: ", robot.getDriveSubsystem().frontRight.getCurrentPosition());
-        telemetry.addData("Horizontal: ", robot.getDriveSubsystem().backRight.getCurrentPosition());
-        telemetry.addData("Chosen One: ", robot.getDriveSubsystem().backLeft.getCurrentPosition());
+//        telemetry.addData("Left: ", robot.getDriveSubsystem().frontLeft.getCurrentPosition());
+//        telemetry.addData("Right: ", robot.getDriveSubsystem().frontRight.getCurrentPosition());
+//        telemetry.addData("Horizontal: ", robot.getDriveSubsystem().backRight.getCurrentPosition());
+//        telemetry.addData("Chosen One: ", robot.getDriveSubsystem().backLeft.getCurrentPosition());
 
-        robot.getDriveSubsystem().POVMecanumDrive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, DriveMode.Sport);
+        robot.getDriveSubsystem().POVMecanumDrive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, DriveMode.Balanced);
 
-        //robot.getIntakeSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
+        robot.getIOSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
         if(gamepad1.right_bumper) {
-            //robot.getTransferSubsystem().runTransfer(robot.getTransferSubsystem().getTransferPower() == -1 ? 0 : -1);
+            robot.getIOSubsystem().runTransfer(robot.getIOSubsystem().getTransferPower() == -1 ? 0 : -1);
         } else if(gamepad1.left_bumper) {
-            //robot.getTransferSubsystem().runTransfer(robot.getTransferSubsystem().getTransferPower() == 1 ? 0 : 1);
+            robot.getIOSubsystem().runTransfer(robot.getIOSubsystem().getTransferPower() == 1 ? 0 : 1);
         }
 
         if(gamepad1.y) {
-            //robot.getOuttakeSubsystem().runOuttake(0.8);
+            robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
+                    45 - robot.getDriveSubsystem().getDataFusionY(),
+                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
         } else {
-            //robot.getOuttakeSubsystem().runOuttake(0);
+            robot.getIOSubsystem().runOuttake(0);
         }
 
         //robot.getWobbleSubsystem().moveJoint(gamepad1.right_trigger - gamepad1.left_trigger);
