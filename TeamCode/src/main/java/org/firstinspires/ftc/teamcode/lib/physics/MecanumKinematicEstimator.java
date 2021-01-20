@@ -99,14 +99,17 @@ public class MecanumKinematicEstimator extends Subsystem {
     }
 
     public double getY() {
+        run();
         return y;
     }
 
     public double getX() {
+        run();
         return x;
     }
 
     public double getTheta() {
+        run();
         return theta;
     }
 

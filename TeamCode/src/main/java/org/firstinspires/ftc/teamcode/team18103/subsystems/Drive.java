@@ -229,45 +229,42 @@ public class Drive extends Subsystem {
         setDriveMotors(0);
     }
 
-    public void MecanumDriveToGlobalPoint(double y, double x, double theta, double power) {
-        double v1 = -(y - (theta) - (x));
-        double v2 = -(y - (theta) + (x));
-        double v3 = -(y + (theta) - (x));
-        double v4 = -(y + (theta) + (x));
+    public void MecanumDriveToGlobalPoint(double y, double x, double theta) {
 
-        Double[] v = new Double[]{Math.abs(v1), Math.abs(v2), Math.abs(v3), Math.abs(v4)};
+        double maxY = y;
+        double maxX = x;
 
-        Arrays.sort(v);
-
-        if (v[3] > 1) {
-            v1 /= v[3];
-            v2 /= v[3];
-            v3 /= v[3];
-            v4 /= v[3];
-        }
-
-        v1 *= power;
-        v2 *= power;
-        v3 *= power;
-        v4 *= power;
-
-        while ((Math.abs(y - getDataFusionY()) > 30) &&
-                (Math.abs(x - getDataFusionX()) > 30) &&
+        while ((Math.abs(y - getDataFusionY()) > 10) &&
+                (Math.abs(x - getDataFusionX()) > 10) &&
                 (Math.abs(theta - getDataFusionTheta()) > 10)) {
+            POVMecanumDrive(y/maxY, x/maxX, theta/360, DriveMode.Balanced);
+        }
+        setDriveMotors(0);
+    }
 
-            frontLeft.setVelocity(v1);
-            backLeft.setVelocity(v2);
-            backRight.setVelocity(v3);
-            frontRight.setVelocity(v4);
+    public void MecanumDriveSraightToGlobalPoint(double y, double power) {
+
+        double maxVel = y - getDataFusionY();
+
+        while ((Math.abs(y - getDataFusionY()) > 30)) {
+            //frontLeft.setVelocity(power);
+            //backLeft.setVelocity();
+            //backRight.setVelocity();
+            //frontRight.setVelocity();
 
         }
 
         setDriveMotors(0);
     }
 
-    public void rotateToShootingAngle() {
-        double targetTheta = -Math.toDegrees(Math.atan2((getDataFusionX() - 28.5), (108 - getDataFusionY())));
-        MecanumDriveToGlobalPoint(getDataFusionY(), getDataFusionX(), targetTheta, 0.3);
+    public double rotateToShootingAngle() {
+        double targetTheta = Math.toDegrees(Math.atan2((getDataFusionX() - 28.5), (108 - getDataFusionY()))) - 10;
+        //double dist = targetTheta - getDataFusionTheta();
+        //while (Math.abs(targetTheta - getDataFusionTheta()) > 50) {
+        //    POVMecanumDrive(0, 0, dist, DriveMode.Balanced);
+        //}
+        //setDriveMotors(0);
+        return targetTheta;
     }
 
     // TeleOp Methods
