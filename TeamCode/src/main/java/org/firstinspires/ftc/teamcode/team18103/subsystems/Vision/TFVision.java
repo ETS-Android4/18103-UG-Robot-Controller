@@ -66,12 +66,12 @@ public class TFVision extends Subsystem {
     public AutoMode getAutoMode() {
         for (Recognition i : search()) {
             if (i.getLabel().equals(LABEL_FIRST_ELEMENT)) {
-                return AutoMode.FourRings;
+                return AutoMode.Four;
             } else if (i.getLabel().equals(LABEL_SECOND_ELEMENT)) {
-                return AutoMode.OneRing;
+                return AutoMode.One;
             }
         }
-        return AutoMode.NoRings;
+        return AutoMode.None;
     }
 
     private void initVuforia(HardwareMap hardwareMap) {

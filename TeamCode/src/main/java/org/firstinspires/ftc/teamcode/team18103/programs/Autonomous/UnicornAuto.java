@@ -30,7 +30,7 @@ public class UnicornAuto extends LinearOpMode {
         robot.getDriveSubsystem().setDriveMotors(0);
         sleep(500);
 
-        AutoMode mode = AutoMode.FourRings;//robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
+        AutoMode mode = AutoMode.Four;//robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
 
         while (robot.getDriveSubsystem().getDataFusionTheta() > 0) {
             robot.getDriveSubsystem().setRotateMotors(-0.25);
@@ -41,7 +41,7 @@ public class UnicornAuto extends LinearOpMode {
 
         double currentPos = robot.getDriveSubsystem().getDataFusionY();
 
-        if(mode == AutoMode.NoRings) {
+        if(mode == AutoMode.None) {
             while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4) {
                 robot.getDriveSubsystem().setDriveMotors(0.25);
                 robot.loop(telemetry);
@@ -89,7 +89,7 @@ public class UnicornAuto extends LinearOpMode {
             sleep(3000);
             robot.getIOSubsystem().runTransfer(false);
             robot.getIOSubsystem().runOuttake(false);
-        } else if(mode == AutoMode.OneRing) {
+        } else if(mode == AutoMode.One) {
             while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4) {
                 robot.getDriveSubsystem().setDriveMotors(0.25);
                 robot.loop(telemetry);

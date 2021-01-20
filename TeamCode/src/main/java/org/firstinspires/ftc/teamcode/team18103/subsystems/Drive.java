@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.IMU.REV_IMU;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Odometry.TriWheelOdometryGPS;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.EOCVision;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.TFVision;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Vision.VuforiaVision;
 
@@ -28,7 +29,8 @@ public class Drive extends Subsystem {
     REV_IMU imu;
     //TriWheelOdometryGPS odometry;
     //VuforiaVision visualOdometry;
-    TFVision visionProcessing;
+    //TFVision visionProcessing;
+    EOCVision visionProcessing;
     MecanumKinematicEstimator MKEstimator;
     MeanOptimizedDataFusionModel ThetaModel;
     MeanOptimizedDataFusionModel XModel;
@@ -78,7 +80,8 @@ public class Drive extends Subsystem {
         //visualOdometry.init(ahMap);
 
         /* Vision Processing Init */
-        visionProcessing = new TFVision();
+        //visionProcessing = new TFVision();
+        visionProcessing = new EOCVision();
         visionProcessing.init(ahMap);//*/
 
         // MKE Init
@@ -545,7 +548,7 @@ public class Drive extends Subsystem {
         this.theta = theta;
     }
 
-    public TFVision getVisionProcessing() {
+    public /*TFVision*/ EOCVision getVisionProcessing() {
         return visionProcessing;
     }
 }

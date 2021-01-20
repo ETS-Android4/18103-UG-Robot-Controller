@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.team18103.src;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.teamcode.lib.geometry.Point;
 import org.firstinspires.ftc.teamcode.lib.util.MathFx;
+import org.opencv.core.Scalar;
 
 /*
  * Author: Akhil G
@@ -46,6 +47,15 @@ public final class Constants {
     public static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     public static final String LABEL_FIRST_ELEMENT = "Quad";
     public static final String LABEL_SECOND_ELEMENT = "Single";
+    // EOCVision
+    public static final Scalar BLUE = new Scalar(0, 0, 255);
+    public static final Scalar GREEN = new Scalar(0, 255, 0);
+    public static final org.opencv.core.Point REGION1_TOP_LEFT_ANCHOR_POINT = new org.opencv.core.Point(181,98);
+    public static final int REGION_WIDTH = 35;
+    public static final int REGION_HEIGHT = 25;
+    public static final int FOUR_RING_THRESHOLD = 150;
+    public static final int ONE_RING_THRESHOLD = 135;
+
     // --------------------------
     //  Wheel-Based Odometry
     // --------------------------
