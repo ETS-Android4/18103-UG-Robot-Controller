@@ -19,7 +19,11 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class EOCVision extends Subsystem {
 
     OpenCvCamera webcam;
-    UGDeterminationPipeline pipeline;
+    public UGDeterminationPipeline pipeline;
+    public static int pointAX;
+    public int pointAY;
+    public int pointBX;
+    public int pointBY;
 
     @Override
     public void init(HardwareMap ahMap) {
@@ -27,11 +31,12 @@ public class EOCVision extends Subsystem {
         webcam = OpenCvCameraFactory.getInstance().createWebcam(ahMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         pipeline = new UGDeterminationPipeline();
         webcam.setPipeline(pipeline);
+        webcam.openCameraDevice();
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
         // out when the RC activity is in portrait. We do our actual image processing assuming
         // landscape orientation, though.
-        webcam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
+        //webcam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
@@ -51,6 +56,13 @@ public class EOCVision extends Subsystem {
         Point region1_pointB = new Point(
                 Constants.REGION1_TOP_LEFT_ANCHOR_POINT.x + Constants.REGION_WIDTH,
                 Constants.REGION1_TOP_LEFT_ANCHOR_POINT.y + Constants.REGION_HEIGHT);
+
+        public void getRegion1_pointA() {
+            System.out.println("Bottom Left X: " + region1_pointA.x);
+            System.out.println("Bottom Left Y: " + region1_pointA.y);
+            System.out.println("Top Left X: " + region1_pointB.x);
+            System.out.println("Top Left Y: " + region1_pointB.y);
+        }
 
         /*
          * Working variables
@@ -79,6 +91,7 @@ public class EOCVision extends Subsystem {
             inputToCb(firstFrame);
 
             region1_Cb = Cb.submat(new Rect(region1_pointA, region1_pointB));
+            getRegion1_pointA();
         }
 
         @Override
@@ -109,7 +122,7 @@ public class EOCVision extends Subsystem {
                     region1_pointA, // First point which defines the rectangle
                     region1_pointB, // Second point which defines the rectangle
                     Constants.GREEN, // The color the rectangle is drawn in
-                    -1); // Negative thickness means solid fill
+                    0); // Negative thickness means solid fill
 
             return input;
         }

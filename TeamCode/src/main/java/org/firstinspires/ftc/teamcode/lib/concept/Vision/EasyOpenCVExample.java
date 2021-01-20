@@ -99,13 +99,13 @@ public class EasyOpenCVExample extends LinearOpMode
         /*
          * The core values which define the location and size of the sample regions
          */
-        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(181,98); //Need to change to where rings are
+        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(20,150); //Need to change to where rings are
 
-        static final int REGION_WIDTH = 35;
-        static final int REGION_HEIGHT = 25;
+        static final int REGION_WIDTH = 120;
+        static final int REGION_HEIGHT = 100;
 
-        final int FOUR_RING_THRESHOLD = 150;
-        final int ONE_RING_THRESHOLD = 135;
+        final int FOUR_RING_THRESHOLD = 130;
+        final int ONE_RING_THRESHOLD = 125;
 
         Point region1_pointA = new Point(
                 REGION1_TOPLEFT_ANCHOR_POINT.x,
@@ -171,7 +171,7 @@ public class EasyOpenCVExample extends LinearOpMode
                     region1_pointA, // First point which defines the rectangle
                     region1_pointB, // Second point which defines the rectangle
                     GREEN, // The color the rectangle is drawn in
-                    -1); // Negative thickness means solid fill
+                    0); // Negative thickness means solid fill
 
             return input;
         }
