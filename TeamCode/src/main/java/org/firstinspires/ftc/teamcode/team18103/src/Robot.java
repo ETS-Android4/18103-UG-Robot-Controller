@@ -25,7 +25,7 @@ public class Robot {
 
     Drive DriveSubsystem = new Drive();
     IntakeOuttake IOSubsystem = new IntakeOuttake();
-    //Wobble WobbleSubsystem = new Wobble();
+    Wobble WobbleSubsystem = new Wobble();
 
     public void init(HardwareMap hardwareMap, Telemetry telemetry) {
         subsystems = new Subsystem[]{DriveSubsystem, IOSubsystem, /*WobbleSubsystem*/};
