@@ -16,6 +16,7 @@ public class UnicornAuto3 extends LinearOpMode {
         robot.init(hardwareMap,telemetry);
         waitForStart();
         robot.start();
+
         AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
         while (robot.getDriveSubsystem().getDataFusionY() < 18) {
             robot.getDriveSubsystem().setDriveMotors(0.25);
@@ -37,7 +38,7 @@ public class UnicornAuto3 extends LinearOpMode {
         }
         robot.getDriveSubsystem().setDriveMotors(0);
         sleep(500);
-        
+
          */
 
         double currentPos = robot.getDriveSubsystem().getDataFusionY();
