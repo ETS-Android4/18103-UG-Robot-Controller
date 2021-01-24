@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.team18103.states;
 
 public enum AutoMode {
-    None(60, -45),
-    One(84, 45),
-    Four(108, -45);
+    None(84, -45),
+    One(108, 45),
+    Four(132, -45);
 
     private final double dist;
     private final double angle;

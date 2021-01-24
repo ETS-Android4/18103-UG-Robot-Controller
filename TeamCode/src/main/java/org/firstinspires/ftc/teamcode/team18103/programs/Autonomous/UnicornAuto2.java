@@ -21,15 +21,15 @@ public class UnicornAuto2 extends LinearOpMode {
         // Vision
         AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
         // Drive to Square
-        robot.getDriveSubsystem().CustomDriveStraight(mode.getDist());
+        robot.getDriveSubsystem().CustomDriveStraight(mode.getDist(), 15);
         // Rotating the WG in the Square
-        robot.getDriveSubsystem().CustomDriveRotate(mode.getAngle());
-        robot.getDriveSubsystem().CustomDriveStraight(mode.getDist() + 6);
-        robot.getDriveSubsystem().CustomDriveStraight(mode.getDist());
-        robot.getDriveSubsystem().CustomDriveRotate(0);
+        robot.getDriveSubsystem().CustomDriveRotate(mode.getAngle(), 15);
+        robot.getDriveSubsystem().CustomDriveStraight(mode.getDist() + 6, 15);
+        robot.getDriveSubsystem().CustomDriveStraight(mode.getDist(), 15);
+        robot.getDriveSubsystem().CustomDriveRotate(0, 15);
         // Preparation to Shoot
-        robot.getDriveSubsystem().CustomDriveStraight(75);
-        robot.getDriveSubsystem().CustomDriveStrafe(12);
+        robot.getDriveSubsystem().CustomDriveStraight(75, 15);
+        robot.getDriveSubsystem().CustomDriveStrafe(12, 15);
         // Shoot
         robot.getDriveSubsystem().rotateToShootingAngle();
         ElapsedTime timer = new ElapsedTime();
@@ -49,6 +49,6 @@ public class UnicornAuto2 extends LinearOpMode {
         robot.getIOSubsystem().runTransfer(false);
         robot.getIOSubsystem().runOuttake(false);
         // Park
-        robot.getDriveSubsystem().CustomDriveStraight(80);
+        robot.getDriveSubsystem().CustomDriveStraight(80, 15);
     }
 }
