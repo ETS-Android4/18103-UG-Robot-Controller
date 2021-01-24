@@ -157,6 +157,7 @@ public class IntakeOuttake extends Subsystem {
 
         double omega = 120.0/48 * dw + 1650;
 
+        //runTransfer(true);
         PIDOuttake2(omega);
 
         return omega;
