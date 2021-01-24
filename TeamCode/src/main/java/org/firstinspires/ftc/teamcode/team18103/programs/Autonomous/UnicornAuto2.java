@@ -21,7 +21,8 @@ public class UnicornAuto2 extends LinearOpMode {
         // Vision
         AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
         // Drive to Square
-        robot.getDriveSubsystem().CustomDriveStraight(mode.getDist(), 15);
+        robot.getDriveSubsystem().CustomDriveStraight(robot.getDriveSubsystem().getDataFusionY() + mode.getDist(),
+                (robot.getDriveSubsystem().getDataFusionY() + mode.getDist() ) / 5);
         // Rotating the WG in the Square
         robot.getDriveSubsystem().CustomDriveRotate(mode.getAngle(), 15);
         robot.getDriveSubsystem().CustomDriveStraight(mode.getDist() + 6, 15);
