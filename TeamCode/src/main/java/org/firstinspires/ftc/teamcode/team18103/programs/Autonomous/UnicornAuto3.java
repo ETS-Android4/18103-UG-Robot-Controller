@@ -153,7 +153,7 @@ public class UnicornAuto3 extends LinearOpMode {
             robot.getIOSubsystem().runOuttake(false);
         } else {
             while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4) {
-                robot.getDriveSubsystem().setDriveMotors(0.5);
+                robot.getDriveSubsystem().setDriveMotors(0.35);
                 if(Math.abs(robot.getDriveSubsystem().getDataFusionTheta()) > 5) {
                     if (robot.getDriveSubsystem().getDataFusionTheta() < 0) {
                         while(robot.getDriveSubsystem().getDataFusionTheta() < 0) {
