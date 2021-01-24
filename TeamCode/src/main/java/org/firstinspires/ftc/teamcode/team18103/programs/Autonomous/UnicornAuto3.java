@@ -220,8 +220,8 @@ public class UnicornAuto3 extends LinearOpMode {
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(300);
             //robot.getDriveSubsystem().rotateToShootingAngle();
-            double targetAngle = Math.toDegrees(Math.atan2((robot.getDriveSubsystem().getDataFusionX() - 28.5), (108 - robot.getDriveSubsystem().getDataFusionY()))) - 10;
-            while(robot.getDriveSubsystem().getDataFusionTheta() > targetAngle) {
+            //double targetAngle = Math.toDegrees(Math.atan2((robot.getDriveSubsystem().getDataFusionX() - 28.5), (108 - robot.getDriveSubsystem().getDataFusionY()))) - 10;
+            while(robot.getDriveSubsystem().getDataFusionTheta() > -28.89) {
                 robot.getDriveSubsystem().setRotateMotors(-0.25);
                 robot.loop(telemetry);
             }
