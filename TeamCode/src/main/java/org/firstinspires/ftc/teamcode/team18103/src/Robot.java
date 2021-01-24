@@ -145,7 +145,7 @@ public class Robot {
     }
 
     public Wobble getWobbleSubsystem() {
-        return null; //WobbleSubsystem;
+        return WobbleSubsystem;
     }
 
     public void setGameState(GameState gameState) {
