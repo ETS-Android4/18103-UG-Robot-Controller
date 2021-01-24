@@ -31,7 +31,7 @@ public class UnicornAuto2 extends LinearOpMode {
         robot.getDriveSubsystem().CustomDriveStraight(75);
         robot.getDriveSubsystem().CustomDriveStrafe(12);
         // Shoot
-        robot.getDriveSubsystem().CustomDriveRotate(robot.getDriveSubsystem().rotateToShootingAngle());
+        robot.getDriveSubsystem().rotateToShootingAngle();
         ElapsedTime timer = new ElapsedTime();
         timer.startTime();
         while (timer.seconds() < 1.5) {
