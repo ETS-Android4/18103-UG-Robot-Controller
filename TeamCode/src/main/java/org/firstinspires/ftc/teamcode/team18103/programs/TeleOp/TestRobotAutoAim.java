@@ -61,8 +61,8 @@ public class TestRobotAutoAim extends OpMode {
         robot.getIOSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
         if(gamepad1.y) {
-            double targetAngle = robot.getDriveSubsystem().rotateToShootingAngle();
-            telemetry.addData("targetAngle", targetAngle);
+            robot.getDriveSubsystem().rotateToShootingAngle();
+            /*telemetry.addData("targetAngle", targetAngle);
             double dist = Math.abs(targetAngle - robot.getDriveSubsystem().getDataFusionTheta());
 
             while (Math.abs(targetAngle - robot.getDriveSubsystem().getDataFusionTheta()) > 15) {
@@ -72,6 +72,8 @@ public class TestRobotAutoAim extends OpMode {
             }
 
             robot.getDriveSubsystem().setDriveMotors(0);
+
+             */
 
             robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
                     108 - robot.getDriveSubsystem().getDataFusionY(),
