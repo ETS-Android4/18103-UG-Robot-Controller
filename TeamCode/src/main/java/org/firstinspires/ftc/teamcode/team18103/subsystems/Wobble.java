@@ -10,8 +10,8 @@ public class Wobble extends Subsystem {
 
     @Override
     public void init(HardwareMap ahMap) {
-        latch = ahMap.get(Servo.class, "latch");
-        joint = ahMap.get(CRServo.class, "joint");
+        latch = ahMap.get(Servo.class, "joint");
+        joint = ahMap.get(CRServo.class, "latch");
     }
 
     @Override
