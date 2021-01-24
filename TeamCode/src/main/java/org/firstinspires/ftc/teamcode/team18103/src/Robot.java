@@ -28,7 +28,7 @@ public class Robot {
     Wobble WobbleSubsystem = new Wobble();
 
     public void init(HardwareMap hardwareMap, Telemetry telemetry) {
-        subsystems = new Subsystem[]{DriveSubsystem, IOSubsystem, /*WobbleSubsystem*/};
+        subsystems = new Subsystem[]{DriveSubsystem, IOSubsystem, WobbleSubsystem};
 
         for (Subsystem subsystem : subsystems) {
             subsystem.init(hardwareMap);
