@@ -267,6 +267,29 @@ public class Drive extends Subsystem {
         return targetTheta;
     }
 
+    public void CustomDriveStraight(double distance) {
+        while (Math.abs(distance - getDataFusionY()) > 15) {
+            POVMecanumDrive(-1 + (getDataFusionY()) / 75, 0, 0, DriveMode.Balanced);
+        }
+        setDriveMotors(0);
+    }
+
+    public void CustomDriveStrafe(double distance) {
+        while (Math.abs(distance - getDataFusionX()) > 15) {
+            POVMecanumDrive(0, -1 + (getDataFusionX()) / 75, 0, DriveMode.Balanced);
+        }
+        setDriveMotors(0);
+    }
+
+    public void CustomDriveRotate(double targetAngle) {
+        double dist = Math.abs(targetAngle - getDataFusionTheta());
+        while (Math.abs(targetAngle - getDataFusionTheta()) > 15) {
+            POVMecanumDrive(0, 0,
+                    (targetAngle - getDataFusionTheta())/dist, DriveMode.Balanced);
+        }
+        setDriveMotors(0);
+    }
+
     // TeleOp Methods
 
     /**
