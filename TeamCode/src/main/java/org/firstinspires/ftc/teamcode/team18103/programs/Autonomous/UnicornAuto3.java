@@ -219,7 +219,7 @@ public class UnicornAuto3 extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(300);
-            //robot.getDriveSubsystem().rotateToShootingAngle();
+            robot.getDriveSubsystem().rotateToShootingAngle();
             robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
                     108 - robot.getDriveSubsystem().getDataFusionY(),
                     Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
@@ -229,7 +229,12 @@ public class UnicornAuto3 extends LinearOpMode {
             robot.getIOSubsystem().runTransfer(false);
             robot.getIOSubsystem().runOuttake(false);
         }
-
-
+        double currentPositionY = robot.getDriveSubsystem().getDataFusionY();
+        while(robot.getDriveSubsystem().getDataFusionY() < currentPositionY + 12) {
+            robot.getDriveSubsystem().setDriveMotors(0.5);
+            robot.loop(telemetry);
+        }
+        robot.getDriveSubsystem().setDriveMotors(0);
+        sleep(300);
     }
 }
