@@ -70,9 +70,11 @@ public class TriWheelOdometryGPS extends Odometry {
         double p = ((dr + dl) / (2));
 
         //Calculate and update the position values
-        double dx = p * Math.cos(dTheta/2) + ds * Math.sin(dTheta /2);
-        //double dy = -dx * Math.tan(dTheta /2) + ds * Math.cos(dTheta /2);
-        double dy = p * Math.sin(dTheta/2) + ds * Math.cos(dTheta/2);
+        //double dx = p * Math.cos(dTheta/2) + ds * Math.sin(dTheta /2);
+        double dx = (p/dTheta) * Math.sin(dTheta);
+        double dy = -dx * Math.tan(dTheta/2) + ds * Math.cos(dTheta/2);
+        dx += ds * Math.sin(dTheta/2);
+        //double dy = p * Math.sin(dTheta/2) + ds * Math.cos(dTheta/2);
 
         x += dx;
         y += dy;

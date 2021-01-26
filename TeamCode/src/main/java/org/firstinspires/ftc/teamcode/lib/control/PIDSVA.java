@@ -10,13 +10,18 @@ public class PIDSVA {
         setConstants(kp, ki, kd, ks, kv, ka);
     }
 
-    public double getOutput(double error, double velocity, double acceleration) {
-        double kf = ks + (velocity * kv) + (acceleration * ka);
+    public double getOutput(double error,
+                            double velocity,
+                            double acceleration) {
+        double kf = ks +
+                (velocity * kv) +
+                (acceleration * ka);
         integral += error * Dt;
         derivative = (error - prev_error)/Dt - velocity;
         prev_error = error;
-
-        return (kp * error) + (ki * integral) + (kd * derivative) + kf;
+        return (kp * error) +
+                (ki * integral) +
+                (kd * derivative) + kf;
     }
 
     public void setConstants(double kp, double ki, double kd, double ks, double kv, double ka) {

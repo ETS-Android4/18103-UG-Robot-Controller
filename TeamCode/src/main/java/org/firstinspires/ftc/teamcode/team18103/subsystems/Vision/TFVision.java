@@ -65,9 +65,11 @@ public class TFVision extends Subsystem {
 
     public AutoMode getAutoMode() {
         for (Recognition i : search()) {
-            if (i.getLabel().equals(LABEL_FIRST_ELEMENT)) {
+            if (i.getLabel().equals(
+                    LABEL_FIRST_ELEMENT)) {
                 return AutoMode.Four;
-            } else if (i.getLabel().equals(LABEL_SECOND_ELEMENT)) {
+            } else if (i.getLabel().equals(
+                    LABEL_SECOND_ELEMENT)) {
                 return AutoMode.One;
             }
         }

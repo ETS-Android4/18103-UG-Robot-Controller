@@ -90,7 +90,6 @@ public class MecanumKinematicEstimator extends Subsystem {
         fr_0 = fr_1;
         bl_0 = bl_1;
         br_0 = br_1;
-
     }
 
     @Override
