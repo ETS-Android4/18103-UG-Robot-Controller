@@ -53,8 +53,8 @@ public final class Constants {
     public static final org.opencv.core.Point REGION1_TOP_LEFT_ANCHOR_POINT = new org.opencv.core.Point(20,150);
     public static final int REGION_WIDTH = 120;
     public static final int REGION_HEIGHT = 100;
-    public static final int FOUR_RING_THRESHOLD = 130;
-    public static final int ONE_RING_THRESHOLD = 125;
+    public static final int FOUR_RING_THRESHOLD = 128;
+    public static final int ONE_RING_THRESHOLD = 123;
     public static final int RED_FOUR_RING_THRESHOLD = 133;
     public static final int RED_ONE_RING_THRESHOLD = 129;
 
