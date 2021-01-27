@@ -258,8 +258,24 @@ public class Drive extends Subsystem {
     }
 
     public void rotateToShootingAngle() {
-        double targetTheta = Math.toDegrees(Math.atan2((getDataFusionX() - 28.5), (108 - getDataFusionY()))) - 10;
+        double targetTheta = Math.toDegrees(
+                Math.atan2((getDataFusionX() - 28.5),
+                        (108 - getDataFusionY()))) - 10;
         CustomDriveRotate(targetTheta, 15);
+    }
+
+    public void CustomDriveRotate(double targetAngle,
+                                  double tolerance) {
+        double dist = Math.abs(targetAngle
+                - getDataFusionTheta());
+        while (Math.abs(targetAngle -
+                getDataFusionTheta()) > 15) {
+            POVMecanumDrive(0, 0,
+                    (targetAngle -
+                            getDataFusionTheta())/dist,
+                    DriveMode.Balanced);
+        }
+        setDriveMotors(0);
     }
 
     public void CustomDriveStraight(double distance, double tolerance) {
@@ -272,15 +288,6 @@ public class Drive extends Subsystem {
     public void CustomDriveStrafe(double distance, double tolerance) {
         while (Math.abs(distance - getDataFusionX()) > 15) {
             POVMecanumDrive(0, 1 + (getDataFusionX()) / distance, 0, DriveMode.Balanced);
-        }
-        setDriveMotors(0);
-    }
-
-    public void CustomDriveRotate(double targetAngle, double tolerance) {
-        double dist = Math.abs(targetAngle - getDataFusionTheta());
-        while (Math.abs(targetAngle - getDataFusionTheta()) > 15) {
-            POVMecanumDrive(0, 0,
-                    (targetAngle - getDataFusionTheta())/dist, DriveMode.Balanced);
         }
         setDriveMotors(0);
     }
@@ -314,9 +321,7 @@ public class Drive extends Subsystem {
         double v4 = -(y + (turn * Constants.strafeScaling) + (x/Constants.turnScaling));
 
         Double[] v = new Double[]{Math.abs(v1), Math.abs(v2), Math.abs(v3), Math.abs(v4)};
-
         Arrays.sort(v);
-
         if (v[3] > 1) {
             v1 /= v[3];
             v2 /= v[3];
