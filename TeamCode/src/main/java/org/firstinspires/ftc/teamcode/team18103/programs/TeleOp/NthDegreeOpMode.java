@@ -55,8 +55,17 @@ public class NthDegreeOpMode extends OpMode {
             robot.getIOSubsystem().runOuttake(0);
         }
 
-        robot.getWobbleSubsystem().moveJoint(gamepad1.dpad_left ? -1 : gamepad1.dpad_right ? 0 : 1);
-        robot.getWobbleSubsystem().moveLatch(gamepad1.dpad_up ? 1 : gamepad1.dpad_down ? 0 : -1);
+        if(gamepad1.dpad_left) {
+            robot.getWobbleSubsystem().moveJoint(true);
+        } else if(gamepad1.dpad_right) {
+            robot.getWobbleSubsystem().moveJoint(false);
+        }
+
+        if(gamepad1.dpad_up) {
+            robot.getWobbleSubsystem().moveLatch(1);
+        } else if(gamepad1.dpad_down) {
+            robot.getWobbleSubsystem().moveLatch(0.40);
+        }
 
     }
 
