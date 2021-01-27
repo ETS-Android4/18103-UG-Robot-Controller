@@ -23,7 +23,8 @@ public class UnicornAuto extends LinearOpMode {
         robot.getDriveSubsystem().setDriveMotors(0);
         sleep(500);
 
-        AutoMode mode = AutoMode.One; //robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
+        //AutoMode mode = AutoMode.One;
+        AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
 
         double currentPos = robot.getDriveSubsystem().getDataFusionY();
 
