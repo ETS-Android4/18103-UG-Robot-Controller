@@ -70,8 +70,7 @@ public class NthDegreeOpMode extends OpMode {
         /*if (gamepad1.a && wgClose) {
             robot.getWobbleSubsystem().moveLatch(1.0); //open
             wgClose = false;
-        }
-        if (gamepad1.a && !wgClose) {
+        } else if (gamepad1.a && !wgClose) {
             robot.getWobbleSubsystem().moveLatch(0.40);
             wgClose = true;
         }
