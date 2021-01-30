@@ -14,6 +14,7 @@ public class NthDegreeOpMode extends OpMode {
     Robot robot = new Robot();
     DcMotor shooter1;
     DcMotor shooter2;
+    public boolean wgClose = true;
 
     @Override
     public void init() {
@@ -55,14 +56,42 @@ public class NthDegreeOpMode extends OpMode {
             robot.getIOSubsystem().runOuttake(0);
         }
 
-        if(gamepad1.dpad_left) {
+        if (gamepad1.a) {
+            robot.getWobbleSubsystem().moveLatch(1.0); //open
+            //if (wgClose = false) {
+                //robot.getWobbleSubsystem().moveLatch(0.40);
+                //wgClose = true;
+            //} else {
+                //robot.getWobbleSubsystem().moveLatch(1);
+                //wgClose = false;
+            //}
+        }
+
+        /*if (gamepad1.a && wgClose) {
+            robot.getWobbleSubsystem().moveLatch(1.0); //open
+            wgClose = false;
+        }
+        if (gamepad1.a && !wgClose) {
+            robot.getWobbleSubsystem().moveLatch(0.40);
+            wgClose = true;
+        }
+         Toggle --> if wg is open, a closes; if wg is closed, a opens
+        */
+
+        if (gamepad1.b) {
+            robot.getWobbleSubsystem().moveJoint(false);
+        } else if (gamepad1.x) {
+            robot.getWobbleSubsystem().moveJoint(true);
+        }
+
+        /*if(gamepad1.dpad_left) {
             robot.getWobbleSubsystem().moveJoint(true);
         } else if(gamepad1.dpad_right) {
             robot.getWobbleSubsystem().moveJoint(false);
-        }
+        }*/
 
         if(gamepad1.dpad_up) {
-            robot.getWobbleSubsystem().moveLatch(1);
+            //robot.getWobbleSubsystem().moveLatch(1);
         } else if(gamepad1.dpad_down) {
             robot.getWobbleSubsystem().moveLatch(0.40);
         }
