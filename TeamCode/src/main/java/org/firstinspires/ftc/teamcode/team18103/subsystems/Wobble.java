@@ -6,12 +6,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Wobble extends Subsystem {
     Servo latch;
-    CRServo joint;
+    Servo joint;
 
     @Override
     public void init(HardwareMap ahMap) {
         latch = ahMap.get(Servo.class, "joint");
-        joint = ahMap.get(CRServo.class, "latch");
+        joint = ahMap.get(Servo.class, "latch");
     }
 
     @Override
@@ -24,14 +24,18 @@ public class Wobble extends Subsystem {
 
     }
 
-    public void moveJoint(double power) {
-        joint.setPower(power);
+    public void moveJoint(boolean action) {
+        if(action) {
+            joint.setPosition(joint.getPosition() + 0.05);
+        } else {
+            joint.setPosition(joint.getPosition() - 0.02);
+        }
     }
 
     /**
      * @param action if -1, no input detected. if 0, close. if 1, open
      */
-    public void moveLatch(int action) {
+    public void moveLatch(double action) {
         if(action != -1) {
             latch.setPosition(action);
         }

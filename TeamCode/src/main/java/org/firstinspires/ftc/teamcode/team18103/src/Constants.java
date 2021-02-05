@@ -50,11 +50,11 @@ public final class Constants {
     // EOCVision
     public static final Scalar BLUE = new Scalar(0, 0, 255);
     public static final Scalar GREEN = new Scalar(0, 255, 0);
-    public static final org.opencv.core.Point REGION1_TOP_LEFT_ANCHOR_POINT = new org.opencv.core.Point(20,150);
-    public static final int REGION_WIDTH = 120;
-    public static final int REGION_HEIGHT = 100;
+    public static final org.opencv.core.Point REGION1_TOP_LEFT_ANCHOR_POINT = new org.opencv.core.Point(20,130); //y:150 og
+    public static final int REGION_WIDTH = 90;
+    public static final int REGION_HEIGHT = 70;
     public static final int FOUR_RING_THRESHOLD = 128;
-    public static final int ONE_RING_THRESHOLD = 123;
+    public static final int ONE_RING_THRESHOLD = 117;
     public static final int RED_FOUR_RING_THRESHOLD = 133;
     public static final int RED_ONE_RING_THRESHOLD = 129;
 
