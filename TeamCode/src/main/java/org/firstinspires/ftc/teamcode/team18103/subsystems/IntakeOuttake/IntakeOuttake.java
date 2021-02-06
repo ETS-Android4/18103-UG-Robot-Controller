@@ -150,6 +150,12 @@ public class IntakeOuttake extends Subsystem {
         return omega;
     }
 
+    public double outtakeFromPoint4(double dw, double dz) {
+        double omega = 120.0/48 * dw + 1525;
+        PIDOuttake2(omega);
+        return omega;
+    }
+
     public double outtakeFromPoint2() {
         double dw = 70.75 * Constants.mmPerInch / 1000;
         double dz = (35.5 - 14.5) * Constants.mmPerInch / 1000;

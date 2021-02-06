@@ -259,8 +259,8 @@ public class Drive extends Subsystem {
 
     public void rotateToShootingAngle() {
         double targetTheta = Math.toDegrees(
-                Math.atan2((getDataFusionX() - 28.5),
-                        (108 - getDataFusionY()))) - 10;
+                Math.atan2((getDataFusionX() + 9),
+                        (126 - getDataFusionY()))) - 10;
         CustomDriveRotate(targetTheta, 15);
     }
 
