@@ -268,13 +268,16 @@ public class Drive extends Subsystem {
             left = false;
         }
 
-        while (left && getDataFusionTheta() > targetTheta) {
-            setRotateMotors(-0.5);
+        if (left) {
+            while (left && getDataFusionTheta() > targetTheta + 10) {
+                setRotateMotors(-0.5);
+            }
+        } else {
+            while (!left && getDataFusionTheta() < targetTheta + 10) {
+                setRotateMotors(0.5);
+            }
         }
 
-        while (!left && getDataFusionTheta() < targetTheta) {
-            setRotateMotors(0.5);
-        }
 
         //CustomDriveRotate(targetTheta, 15);
 
