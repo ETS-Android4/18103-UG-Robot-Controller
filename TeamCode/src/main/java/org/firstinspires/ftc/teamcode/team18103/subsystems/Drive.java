@@ -263,6 +263,7 @@ public class Drive extends Subsystem {
 
         double targetTheta = Math.toDegrees(Math.atan((Constants.Gx-getDataFusionX())/(Constants.Gy-getDataFusionY()))) - 10;
 
+        /*
         boolean left = true;
         if (targetTheta > getDataFusionTheta()) {
             left = false;
@@ -278,8 +279,10 @@ public class Drive extends Subsystem {
             }
         }
 
+         */
 
-        //CustomDriveRotate(targetTheta, 15);
+
+        CustomDriveRotate(targetTheta, 15);
 
         return targetTheta;
     }
