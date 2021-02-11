@@ -295,7 +295,7 @@ public class Drive extends Subsystem {
                 getDataFusionTheta()) > tolerance) {
             POVMecanumDrive(0, 0,
                     (targetAngle -
-                            getDataFusionTheta())/dist + 0.25,
+                            getDataFusionTheta())/dist + 0.2,
                     DriveMode.Balanced);
         }
         setDriveMotors(0);
