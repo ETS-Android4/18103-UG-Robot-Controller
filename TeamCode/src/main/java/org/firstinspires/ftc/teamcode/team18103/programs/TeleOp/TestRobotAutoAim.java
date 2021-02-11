@@ -58,7 +58,7 @@ public class TestRobotAutoAim extends OpMode {
         //telemetry.addData("Target Theta", robot.getDriveSubsystem().rotateToShootingAngle());
 
         if(gamepad1.y) {
-            robot.getDriveSubsystem().rotateToShootingAngle();
+            //robot.getDriveSubsystem().rotateToShootingAngle();
 
             robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
                     120 - robot.getDriveSubsystem().getDataFusionY(),
