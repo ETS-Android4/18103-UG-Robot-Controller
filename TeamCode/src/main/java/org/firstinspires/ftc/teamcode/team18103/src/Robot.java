@@ -100,7 +100,7 @@ public class Robot {
                 .addData("Vision Y: ", getDriveSubsystem().getVisualOdometry().getY())
                 .addData("Vision Theta: ", getDriveSubsystem().getVisualOdometry().getTheta());*/
 
-        /* Data Fusion Model
+        /* Data Fusion Model*/
         telemetry.addLine()
                 .addData("Data Fusion X: ", df.format(getDriveSubsystem().getDataFusionX()))
                 .addData("Data Fusion Y: ", df.format(getDriveSubsystem().getDataFusionY()))
@@ -117,7 +117,7 @@ public class Robot {
         /* Outtake */
         telemetry.addLine()
                 .addData("Shooter 1 RPM: ", getIOSubsystem().shooterDiagnostics()[0])
-                .addData("SShooter 2 RPM: ", getIOSubsystem().shooterDiagnostics()[1]);//*/
+                .addData("Shooter 2 RPM: ", getIOSubsystem().shooterDiagnostics()[1]);//*/
 
         telemetry.update();
 

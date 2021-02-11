@@ -57,8 +57,6 @@ public final class Constants {
     public static final int ONE_RING_THRESHOLD = 117;
     public static final int RED_FOUR_RING_THRESHOLD = 133;
     public static final int RED_ONE_RING_THRESHOLD = 129;
-
-
     // --------------------------
     //  Wheel-Based Odometry
     // --------------------------
@@ -80,4 +78,6 @@ public final class Constants {
     public static final Point rightGoal = new Point(0, 0, 0);
     public static final double theta = 40;
     public static final double wheelDiam = 0.072;
+    public static final double Gx = 24;
+    public static final double Gy = 132;
 }

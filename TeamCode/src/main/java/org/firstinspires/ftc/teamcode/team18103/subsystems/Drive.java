@@ -257,11 +257,13 @@ public class Drive extends Subsystem {
         setDriveMotors(0);
     }
 
-    public void rotateToShootingAngle() {
-        double targetTheta = Math.toDegrees(
-                Math.atan2((getDataFusionX() + 9),
-                        (126 - getDataFusionY()))) - 10;
-        CustomDriveRotate(targetTheta, 15);
+    public double rotateToShootingAngle() {
+        double targetTheta = Math.toDegrees(Math.atan2(Constants.Gx-getDataFusionX(),
+                Constants.Gy-getDataFusionY())) - 10;
+
+        CustomDriveRotate(targetTheta, 5);
+
+        return targetTheta;
     }
 
     public void CustomDriveRotate(double targetAngle,
@@ -269,10 +271,10 @@ public class Drive extends Subsystem {
         double dist = Math.abs(targetAngle
                 - getDataFusionTheta());
         while (Math.abs(targetAngle -
-                getDataFusionTheta()) > 15) {
+                getDataFusionTheta()) > tolerance) {
             POVMecanumDrive(0, 0,
                     (targetAngle -
-                            getDataFusionTheta())/dist,
+                            getDataFusionTheta())/dist + 0.15,
                     DriveMode.Balanced);
         }
         setDriveMotors(0);

@@ -46,63 +46,65 @@ public class TestRobotAutoAim extends OpMode {
     public void loop() {
         robot.loop(telemetry);
 
-        /*telemetry.addData("Velocity 2:", robot.getIOSubsystem().getSecondOuttake().getVelocity());
-        telemetry.addData("Velocity 1:", robot.getIOSubsystem().getSecondOuttake().getVelocity());*/
-
-        /*robot.getDriveSubsystem().ultimateDriveController(gamepad1.left_stick_y, gamepad1.left_stick_x,
-                gamepad1.right_stick_x, gamepad1.left_trigger, gamepad1.right_trigger,
-                gamepad1.left_bumper, gamepad1.right_bumper, gamepad1.x);*/
-
         robot.getDriveSubsystem().POVMecanumDrive(gamepad1.left_stick_y, gamepad1.left_stick_x,
-                gamepad1.right_stick_x, DriveMode.Sport); // Max Speed
+                gamepad1.right_stick_x, DriveMode.Balanced); // Max Speed
 
-        robot.getDriveSubsystem().zeroCoords(gamepad1.a);
+        robot.getDriveSubsystem().zeroCoords(gamepad1.right_bumper);
 
         robot.getIOSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
+        robot.getIOSubsystem().runTransfer(-(gamepad1.right_trigger-gamepad1.left_trigger));
+
         if(gamepad1.y) {
-            //robot.getDriveSubsystem().rotateToShootingAngle();
-            /*telemetry.addData("targetAngle", targetAngle);
-            double dist = Math.abs(targetAngle - robot.getDriveSubsystem().getDataFusionTheta());
-
-            while (Math.abs(targetAngle - robot.getDriveSubsystem().getDataFusionTheta()) > 15) {
-                robot.getDriveSubsystem().POVMecanumDrive(0, 0,
-                        (targetAngle - robot.getDriveSubsystem().getDataFusionTheta())/dist, DriveMode.Balanced);
-                robot.loop(telemetry);
-            }
-
-            robot.getDriveSubsystem().setDriveMotors(0);
-
-             */
+            telemetry.addData("Target Theta: ", robot.getDriveSubsystem().rotateToShootingAngle());
 
             robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
-                    108 - robot.getDriveSubsystem().getDataFusionY(),
-                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
+                    120 - robot.getDriveSubsystem().getDataFusionY(),
+                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 24)));
         } else {
             robot.getIOSubsystem().runOuttake(false);
         }
 
+        // WBS Commands from NthDegreeOpMode
 
-        robot.getIOSubsystem().runTransfer(-(gamepad1.right_trigger-gamepad1.left_trigger));
-
-        /*
-
-        if(gamepad1.right_bumper) {
-            robot.getIOSubsystem().runTransfer(robot.getIOSubsystem().getTransferPower() == -1 ? 0 : -1);
-        } else if(gamepad1.left_bumper) {
-            robot.getIOSubsystem().runTransfer(robot.getIOSubsystem().getTransferPower() == 1 ? 0 : 1);
+        if (gamepad1.a) {
+            robot.getWobbleSubsystem().moveLatch(1.0); //open
+            //if (wgClose = false) {
+            //robot.getWobbleSubsystem().moveLatch(0.40);
+            //wgClose = true;
+            //} else {
+            //robot.getWobbleSubsystem().moveLatch(1);
+            //wgClose = false;
+            //}
         }
 
-         */
+        /*if (gamepad1.a && wgClose) {
+            robot.getWobbleSubsystem().moveLatch(1.0); //open
+            wgClose = false;
+        } else if (gamepad1.a && !wgClose) {
+            robot.getWobbleSubsystem().moveLatch(0.40);
+            wgClose = true;
+        }
+        Toggle --> if wg is open, a closes; if wg is closed, a opens
+        */
 
-        /*
-        if(gamepad1.y) {
-            robot.getIOSubsystem().runOuttake(1);
-        } else {
-            robot.getIOSubsystem().runOuttake(0);
+        if (gamepad1.b) {
+            robot.getWobbleSubsystem().moveJoint(false);
+        } else if (gamepad1.x) {
+            robot.getWobbleSubsystem().moveJoint(true);
         }
 
-         */
+        /*if(gamepad1.dpad_left) {
+            robot.getWobbleSubsystem().moveJoint(true);
+        } else if(gamepad1.dpad_right) {
+            robot.getWobbleSubsystem().moveJoint(false);
+        }*/
+
+        if(gamepad1.dpad_up) {
+            //robot.getWobbleSubsystem().moveLatch(1);
+        } else if(gamepad1.dpad_down) {
+            robot.getWobbleSubsystem().moveLatch(0.40);
+        }
 
     }
 
