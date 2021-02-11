@@ -287,16 +287,12 @@ public class Drive extends Subsystem {
         return targetTheta;
     }
 
-    public void CustomDriveRotate(double targetAngle,
-                                  double tolerance) {
-        double dist = Math.abs(targetAngle
-                - getDataFusionTheta());
-        while (Math.abs(targetAngle -
-                getDataFusionTheta()) > tolerance) {
-            POVMecanumDrive(0, 0,
-                    (targetAngle -
-                            getDataFusionTheta())/dist + 0.2,
-                    DriveMode.Balanced);
+    public void CustomDriveRotate(double targetAngle, double tolerance) {
+        double dist = Math.abs(targetAngle - getDataFusionTheta());
+        double error = targetAngle - getDataFusionTheta();
+
+        while (Math.abs(error) > tolerance) {
+            setRotateMotors(error/dist + 0.2);
         }
         setDriveMotors(0);
     }
