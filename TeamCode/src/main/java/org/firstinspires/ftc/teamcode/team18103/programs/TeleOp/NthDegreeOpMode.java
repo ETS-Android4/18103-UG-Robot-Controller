@@ -43,9 +43,9 @@ public class NthDegreeOpMode extends OpMode {
         robot.getIOSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
 
         if(gamepad1.right_bumper) {
-            robot.getIOSubsystem().runTransfer(robot.getIOSubsystem().getTransferPower() == -1 ? 0 : -1);
+            robot.getIOSubsystem().runTransfer(-1);
         } else if(gamepad1.left_bumper) {
-            robot.getIOSubsystem().runTransfer(robot.getIOSubsystem().getTransferPower() == 1 ? 0 : 1);
+            robot.getIOSubsystem().runTransfer(1);
         }
 
         if(gamepad1.y) {
@@ -58,24 +58,7 @@ public class NthDegreeOpMode extends OpMode {
 
         if (gamepad1.a) {
             robot.getWobbleSubsystem().moveLatch(1.0); //open
-            //if (wgClose = false) {
-                //robot.getWobbleSubsystem().moveLatch(0.40);
-                //wgClose = true;
-            //} else {
-                //robot.getWobbleSubsystem().moveLatch(1);
-                //wgClose = false;
-            //}
         }
-
-        /*if (gamepad1.a && wgClose) {
-            robot.getWobbleSubsystem().moveLatch(1.0); //open
-            wgClose = false;
-        } else if (gamepad1.a && !wgClose) {
-            robot.getWobbleSubsystem().moveLatch(0.40);
-            wgClose = true;
-        }
-         Toggle --> if wg is open, a closes; if wg is closed, a opens
-        */
 
         if (gamepad1.b) {
             robot.getWobbleSubsystem().moveJoint(false);
@@ -83,14 +66,9 @@ public class NthDegreeOpMode extends OpMode {
             robot.getWobbleSubsystem().moveJoint(true);
         }
 
-        /*if(gamepad1.dpad_left) {
-            robot.getWobbleSubsystem().moveJoint(true);
-        } else if(gamepad1.dpad_right) {
-            robot.getWobbleSubsystem().moveJoint(false);
-        }*/
 
         if(gamepad1.dpad_up) {
-            //robot.getWobbleSubsystem().moveLatch(1);
+            robot.getIOSubsystem().runTransfer(0);
         } else if(gamepad1.dpad_down) {
             robot.getWobbleSubsystem().moveLatch(0.40);
         }
