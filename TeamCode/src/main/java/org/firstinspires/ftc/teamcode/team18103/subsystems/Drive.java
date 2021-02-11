@@ -261,9 +261,9 @@ public class Drive extends Subsystem {
         //double targetTheta = Math.toDegrees(Math.atan2(Constants.Gx-getDataFusionX(),
         //        Constants.Gy-getDataFusionY())) - 10;
 
-        double targetTheta = -Math.toDegrees(Math.atan((Constants.Gx-getDataFusionX())/(Constants.Gy-getDataFusionY()))) - 10;
+        double targetTheta = Math.toDegrees(Math.atan((Constants.Gx-getDataFusionX())/(Constants.Gy-getDataFusionY()))) + 10;
 
-        CustomDriveRotate(targetTheta, 15);
+        //CustomDriveRotate(targetTheta, 15);
 
         return targetTheta;
     }
