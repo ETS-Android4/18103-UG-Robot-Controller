@@ -33,11 +33,6 @@ public class NthDegreeOpMode extends OpMode {
     public void loop() {
         robot.loop(telemetry);
 
-//        telemetry.addData("Left: ", robot.getDriveSubsystem().frontLeft.getCurrentPosition());
-//        telemetry.addData("Right: ", robot.getDriveSubsystem().frontRight.getCurrentPosition());
-//        telemetry.addData("Horizontal: ", robot.getDriveSubsystem().backRight.getCurrentPosition());
-//        telemetry.addData("Chosen One: ", robot.getDriveSubsystem().backLeft.getCurrentPosition());
-
         robot.getDriveSubsystem().POVMecanumDrive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, DriveMode.Sport);
 
         robot.getIOSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
@@ -50,8 +45,8 @@ public class NthDegreeOpMode extends OpMode {
 
         if(gamepad1.y) {
             robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
-                    45 - robot.getDriveSubsystem().getDataFusionY(),
-                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
+                    120 - robot.getDriveSubsystem().getDataFusionY(),
+                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 24)));
         } else {
             robot.getIOSubsystem().runOuttake(0);
         }
@@ -73,6 +68,7 @@ public class NthDegreeOpMode extends OpMode {
             robot.getWobbleSubsystem().moveLatch(0.40);
         }
 
+        robot.getDriveSubsystem().zeroCoords(gamepad1.share);
     }
 
     public void launchShooter(boolean shooting) {
