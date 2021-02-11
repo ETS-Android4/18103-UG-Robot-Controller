@@ -261,7 +261,7 @@ public class Drive extends Subsystem {
         double targetTheta = Math.toDegrees(Math.atan2(Constants.Gx-getDataFusionX(),
                 Constants.Gy-getDataFusionY())) - 10;
 
-        CustomDriveRotate(targetTheta, 5);
+        CustomDriveRotate(targetTheta, 15);
 
         return targetTheta;
     }
@@ -274,7 +274,7 @@ public class Drive extends Subsystem {
                 getDataFusionTheta()) > tolerance) {
             POVMecanumDrive(0, 0,
                     (targetAngle -
-                            getDataFusionTheta())/dist + 0.15,
+                            getDataFusionTheta())/dist + 0.25,
                     DriveMode.Balanced);
         }
         setDriveMotors(0);
