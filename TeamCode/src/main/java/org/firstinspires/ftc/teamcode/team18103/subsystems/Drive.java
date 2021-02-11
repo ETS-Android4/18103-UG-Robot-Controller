@@ -275,7 +275,7 @@ public class Drive extends Subsystem {
         while (!left && getDataFusionTheta() < targetTheta) {
             setRotateMotors(0.5);
         }
-        
+
         //CustomDriveRotate(targetTheta, 15);
 
         return targetTheta;
