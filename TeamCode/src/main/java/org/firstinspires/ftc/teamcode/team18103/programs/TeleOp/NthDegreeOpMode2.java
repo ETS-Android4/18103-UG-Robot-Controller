@@ -4,24 +4,17 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 import org.firstinspires.ftc.teamcode.team18103.src.Robot;
 import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
 
 @TeleOp
-public class NthDegreeOpMode extends OpMode {
+public class NthDegreeOpMode2 extends OpMode {
 
     Robot robot = new Robot();
-    DcMotor shooter1;
-    DcMotor shooter2;
-    public boolean wgClose = true;
 
     @Override
     public void init() {
-
         robot.init(hardwareMap, telemetry);
-        //shooter1 = robot.getOuttakeSubsystem().getFirstOuttake();
-        //shooter2 = robot.getOuttakeSubsystem().getSecondOuttake();
     }
 
     @Override
@@ -44,9 +37,24 @@ public class NthDegreeOpMode extends OpMode {
         }
 
         if(gamepad1.y) {
-            robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
-                    120 - robot.getDriveSubsystem().getDataFusionY(),
-                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 24)));
+            robot.getDriveSubsystem().rotateToShootingAngle();
+
+            while (gamepad1.y) {
+
+                robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
+                        120 - robot.getDriveSubsystem().getDataFusionY(),
+                        Math.abs(robot.getDriveSubsystem().getDataFusionX() - 24)));
+
+                if(gamepad1.right_bumper) {
+                    robot.getIOSubsystem().runTransfer(-1);
+                } else if(gamepad1.left_bumper) {
+                    robot.getIOSubsystem().runTransfer(1);
+                }
+
+                robot.getIOSubsystem().runIntake(gamepad1.right_trigger - gamepad1.left_trigger);
+
+            }
+
         } else {
             robot.getIOSubsystem().runOuttake(0);
         }
@@ -71,8 +79,4 @@ public class NthDegreeOpMode extends OpMode {
         robot.getDriveSubsystem().zeroCoords(gamepad1.share);
     }
 
-    public void launchShooter(boolean shooting) {
-        //robot.getOuttakeSubsystem().runOuttake(shooting);
-        //robot.getTransferSubsystem().runTransfer(shooting);
-    }
 }
