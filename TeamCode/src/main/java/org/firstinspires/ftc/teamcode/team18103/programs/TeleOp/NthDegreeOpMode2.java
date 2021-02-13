@@ -37,7 +37,7 @@ public class NthDegreeOpMode2 extends OpMode {
         }
 
         if(gamepad1.y) {
-            robot.getIOSubsystem().outtakeFromPoint3(60);
+            robot.getIOSubsystem().outtakeFromPoint3(60); // 45 - x, y - 36 for mid goal
 
             if(gamepad1.right_bumper) {
                 robot.getIOSubsystem().runTransfer(-1);

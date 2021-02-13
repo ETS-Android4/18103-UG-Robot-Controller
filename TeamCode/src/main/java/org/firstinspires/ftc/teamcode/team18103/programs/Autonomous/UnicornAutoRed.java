@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.team18103.src.Robot;
 import org.firstinspires.ftc.teamcode.team18103.states.AutoMode;
 
 @Autonomous
-public class UnicornAuto extends LinearOpMode {
+public class UnicornAutoRed extends LinearOpMode {
 
     Robot robot = new Robot();
 
@@ -43,8 +43,8 @@ public class UnicornAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-            while (robot.getDriveSubsystem().getDataFusionTheta() < 15) {
-                robot.getDriveSubsystem().setRotateMotors(0.25);
+            while (robot.getDriveSubsystem().getDataFusionTheta() > -15) {
+                robot.getDriveSubsystem().setRotateMotors(-0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
@@ -56,8 +56,8 @@ public class UnicornAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-            while (robot.getDriveSubsystem().getDataFusionTheta() > 0) {
-                robot.getDriveSubsystem().setRotateMotors(-0.25);
+            while (robot.getDriveSubsystem().getDataFusionTheta() < 0) {
+                robot.getDriveSubsystem().setRotateMotors(0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
@@ -82,8 +82,8 @@ public class UnicornAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(200);
-            while(robot.getDriveSubsystem().getDataFusionTheta() < 50) {
-                robot.getDriveSubsystem().setRotateMotors(0.25);
+            while(robot.getDriveSubsystem().getDataFusionTheta() > -50) {
+                robot.getDriveSubsystem().setRotateMotors(-0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
@@ -118,8 +118,8 @@ public class UnicornAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-            while(robot.getDriveSubsystem().getDataFusionTheta() < 45) {
-                robot.getDriveSubsystem().setRotateMotors(0.25);
+            while(robot.getDriveSubsystem().getDataFusionTheta() > -45) {
+                robot.getDriveSubsystem().setRotateMotors(-0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
@@ -137,7 +137,7 @@ public class UnicornAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-            while(robot.getDriveSubsystem().getDataFusionTheta() > -3) {
+            while(robot.getDriveSubsystem().getDataFusionTheta() < 3) {
                 robot.getDriveSubsystem().setRotateMotors(-0.25);
                 robot.loop(telemetry);
             }
@@ -150,9 +150,7 @@ public class UnicornAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-            robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
-                    45 - robot.getDriveSubsystem().getDataFusionY(),
-                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
+            robot.getIOSubsystem().outtakeFromPoint3(3*24);
             sleep(2000);
             robot.getIOSubsystem().runTransfer(true);
             sleep(3000);
@@ -189,8 +187,8 @@ public class UnicornAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-            while (robot.getDriveSubsystem().getDataFusionTheta() > -30) {
-                robot.getDriveSubsystem().setRotateMotors(-0.25);
+            while (robot.getDriveSubsystem().getDataFusionTheta() < 30) {
+                robot.getDriveSubsystem().setRotateMotors(0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
@@ -207,8 +205,8 @@ public class UnicornAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-            while(robot.getDriveSubsystem().getDataFusionTheta() < 30) {
-                robot.getDriveSubsystem().setRotateMotors(0.25);
+            while(robot.getDriveSubsystem().getDataFusionTheta() > -30) {
+                robot.getDriveSubsystem().setRotateMotors(-0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
@@ -220,8 +218,8 @@ public class UnicornAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-            while(robot.getDriveSubsystem().getDataFusionTheta() > 0) {
-                robot.getDriveSubsystem().setRotateMotors(-0.25);
+            while(robot.getDriveSubsystem().getDataFusionTheta() < 0) {
+                robot.getDriveSubsystem().setRotateMotors(0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
@@ -233,9 +231,7 @@ public class UnicornAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(300);
-            robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(
-                    45 - robot.getDriveSubsystem().getDataFusionY(),
-                    Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
+            robot.getIOSubsystem().outtakeFromPoint3(3*24);
             sleep(2000);
             robot.getIOSubsystem().runTransfer(true);
             sleep(3000);
