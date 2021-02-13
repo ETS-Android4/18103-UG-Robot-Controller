@@ -76,9 +76,9 @@ public class MecanumKinematicEstimator extends Subsystem {
         dy = (bl + fr + fl + br)/4;
         dTheta = (fl + bl - (fr + br))/(4);
 
-        dx /= Motor.GoBILDA_435.getTicksPerInch();
-        dy /= Motor.GoBILDA_435.getTicksPerInch();
-        dTheta /= Motor.GoBILDA_435.getTicksPerDegree();
+        dx /= Motor.GoBILDA_312.getTicksPerInch();
+        dy /= Motor.GoBILDA_312.getTicksPerInch();
+        dTheta /= Motor.GoBILDA_312.getTicksPerDegree();
 
         theta += dTheta;
         theta = MathFx.angleWrap(-180, 180, theta);

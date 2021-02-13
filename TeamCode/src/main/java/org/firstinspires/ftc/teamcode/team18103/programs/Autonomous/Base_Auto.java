@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.team18103.src.Robot;
 
-
+@Disabled
 @Autonomous
 public class Base_Auto extends LinearOpMode {
     Robot robot = new Robot();

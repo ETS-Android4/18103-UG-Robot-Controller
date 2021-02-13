@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.team18103.programs.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -28,7 +29,7 @@ import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
  * Run at full speed (GamePad Y Button)
  *
  */
-
+@Disabled
 @TeleOp
 public class TestRobot extends OpMode {
     Robot robot = new Robot();

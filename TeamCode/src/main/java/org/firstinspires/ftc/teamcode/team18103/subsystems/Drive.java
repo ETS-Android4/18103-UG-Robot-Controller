@@ -333,7 +333,7 @@ public class Drive extends Subsystem {
      * @param mode Drivetrain Speed Setting (Sport, Normal, Economy)
      */
     public void POVMecanumDrive(double y, double x, double turn, DriveMode mode) {
-        turn *= 0.75; //Custom reduction bc it was requested.
+        turn *= 0.5; //Custom reduction bc it was requested.
         double v1 = -(y - (turn * Constants.strafeScaling) - (x/Constants.turnScaling));
         double v2 = -(y - (turn * Constants.strafeScaling) + (x/Constants.turnScaling));
         double v3 = -(y + (turn * Constants.strafeScaling) - (x/Constants.turnScaling));

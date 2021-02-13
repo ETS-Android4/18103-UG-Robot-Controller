@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.team18103.programs.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.team18103.src.Robot;
 import org.firstinspires.ftc.teamcode.team18103.states.AutoMode;
-
+@Disabled
 @Autonomous
 public class UnicornAuto2 extends LinearOpMode {
 

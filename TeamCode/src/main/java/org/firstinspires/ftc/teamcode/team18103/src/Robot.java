@@ -60,13 +60,13 @@ public class Robot {
 //        telemetry.addLine()
 //                .addData("Robot Initialized: ", true);
 
-        /* Game State
+        /* Game State*/
         telemetry.addLine()
                 .addData("Game State: ", getGameState().getName());
         telemetry.addLine()
                 .addData("Ring Position: ", getDriveSubsystem().getVisionProcessing().getAutoMode());
         telemetry.addLine()
-                .addData("Color Value: ", getDriveSubsystem().getVisionProcessing().pipeline.getAnalysis()); */
+                .addData("Color Value: ", getDriveSubsystem().getVisionProcessing().pipeline.getAnalysis()); //*/
 
         /* IMU Measurements
         telemetry.addLine()
