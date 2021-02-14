@@ -78,5 +78,5 @@ public final class Constants {
     public static final double theta = 40;
     public static final double wheelDiam = 0.072;
     public static final double Gx = 24;
-    public static final double Gy = 132;
+    public static final double Gy = 120;
 }

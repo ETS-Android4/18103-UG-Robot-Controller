@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.lib.control.PIDSVA;
 import org.firstinspires.ftc.teamcode.lib.drivers.Motor;
 import org.firstinspires.ftc.teamcode.lib.geometry.Point;
 import org.firstinspires.ftc.teamcode.team18103.src.Constants;
+import org.firstinspires.ftc.teamcode.team18103.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.team18103.subsystems.Subsystem;
 
 import static java.lang.Math.cos;
@@ -146,6 +147,22 @@ public class IntakeOuttake extends Subsystem {
 
     public double outtakeFromPoint3(double dw) {
         double omega = 120.0/48 * dw + 1650;
+        PIDOuttake2(omega);
+        return omega;
+    }
+
+    public double outtakeFromPoint3(Drive drive) {
+        double omega = 120.0/48 * Math.hypot(Constants.Gx - drive.getDataFusionX(),
+                Constants.Gy - drive.getDataFusionY()) + 1650;
+
+        PIDOuttake2(omega);
+        return omega;
+    }
+
+    public double outtakeFromPoint5(Drive drive) {
+        double omega = 3 * Math.hypot(Constants.Gx - drive.getDataFusionX(),
+                Constants.Gy - drive.getDataFusionY()) + 1650;
+
         PIDOuttake2(omega);
         return omega;
     }

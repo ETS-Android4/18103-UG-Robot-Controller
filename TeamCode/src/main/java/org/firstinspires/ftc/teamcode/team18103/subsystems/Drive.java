@@ -281,8 +281,8 @@ public class Drive extends Subsystem {
 
          */
 
-
-        CustomDriveRotate(targetTheta, 15);
+        //CustomDriveRotate(targetTheta, 15);
+        EncoderDriveRotate(targetTheta, 0.25, 5);
 
         return targetTheta;
     }
@@ -293,6 +293,19 @@ public class Drive extends Subsystem {
 
         while (Math.abs(error) > tolerance) {
             setRotateMotors(error/dist + 0.2);
+            error = targetAngle - getDataFusionTheta();
+        }
+        setDriveMotors(0);
+    }
+
+    public void EncoderDriveRotate(double targetAngle, double power, double tolerance) {
+        double turn = 1;
+        if (targetAngle < getDataFusionY()) {
+            turn = -1;
+        }
+
+        while (Math.abs(targetAngle - getDataFusionY()) > tolerance) {
+            setRotateMotors(turn * power);
         }
         setDriveMotors(0);
     }
@@ -482,15 +495,15 @@ public class Drive extends Subsystem {
     }
 
     public void zeroYaw() {
-        ThetaModel.setBias(-getDataFusionTheta());
+        ThetaModel.setBias(ThetaModel.getBias() - getDataFusionTheta());
     }
 
     public void zeroX() {
-        XModel.setBias(-getDataFusionX());
+        XModel.setBias(XModel.getBias() - getDataFusionX());
     }
 
     public void zeroY() {
-        YModel.setBias(-getDataFusionY());
+        YModel.setBias(YModel.getBias() -getDataFusionY());
     }
 
     public DriveMode getDriveMode() {
@@ -536,7 +549,7 @@ public class Drive extends Subsystem {
     }
 
     public double getDataFusionTheta() {
-        setTheta(ThetaModel.fuse(new double[]{/*imu.getHeading(), odometry.getTheta(),
+        setTheta(ThetaModel.fuse(new double[]{imu.getHeading(), /*odometry.getTheta(),
                 /*visualOdometry.getTheta(),*/ MKEstimator.getTheta()}));
         return theta;
     }
