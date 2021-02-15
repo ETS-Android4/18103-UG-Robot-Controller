@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.team18103.programs.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.team18103.src.Constants;
 import org.firstinspires.ftc.teamcode.team18103.src.Robot;
 import org.firstinspires.ftc.teamcode.team18103.states.DriveMode;
 
@@ -40,8 +41,7 @@ public class Aimbot extends OpMode {
             robot.getDriveSubsystem().rotateToShootingAngle();
 
             while (gamepad1.y) {
-                robot.getIOSubsystem().outtakeFromPoint3(Math.hypot(108 - robot.getDriveSubsystem().getDataFusionX(),
-                        24)); // 45 - x, y - 36 for mid goal
+                robot.getIOSubsystem().outtakeFromPoint5(robot.getDriveSubsystem()); // 45 - x, y - 36 for mid goal
 
                 if(gamepad1.right_bumper) {
                     robot.getIOSubsystem().runTransfer(-1);

@@ -38,4 +38,7 @@ public class MeanOptimizedDataFusionModel {
         this.bias = bias;
     }
 
+    public double getBias() {
+        return bias;
+    }
 }
