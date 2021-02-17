@@ -38,7 +38,20 @@ public class Aimbot extends OpMode {
 
         if(gamepad1.y) {
 
-            robot.getDriveSubsystem().rotateToShootingAngle();
+            //robot.getDriveSubsystem().rotateToShootingAngle();
+            double targetTheta = Math.toDegrees(Math.atan((Constants.Gx-robot.getDriveSubsystem().getDataFusionX())/(Constants.Gy-robot.getDriveSubsystem().getDataFusionY()))) - 22;
+
+            if (targetTheta > robot.getDriveSubsystem().getDataFusionTheta() + 10) {
+                while (robot.getDriveSubsystem().getDataFusionTheta() < targetTheta) {
+                    robot.getDriveSubsystem().setRotateMotors(0.25);
+                    robot.loop(telemetry);
+                }
+            } else if (robot.getDriveSubsystem().getDataFusionTheta() -10 > targetTheta) {
+                while (robot.getDriveSubsystem().getDataFusionTheta() > targetTheta) {
+                    robot.getDriveSubsystem().setRotateMotors(-0.25);
+                    robot.loop(telemetry);
+                }
+            }
 
             while (gamepad1.y) {
                 robot.getIOSubsystem().outtakeFromPoint3(robot.getDriveSubsystem()); // 45 - x, y - 36 for mid goal

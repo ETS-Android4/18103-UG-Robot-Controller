@@ -24,6 +24,9 @@ public class EOCVision extends Subsystem {
     public int pointAY;
     public int pointBX;
     public int pointBY;
+    public org.opencv.core.Point REGION1_TOP_LEFT_ANCHOR_POINT = Constants.REGION1_TOP_LEFT_ANCHOR_POINT;
+    public int ONE_RING_THRESHOLD = Constants.ONE_RING_THRESHOLD;
+    public int FOUR_RING_THRESHOLD = Constants.FOUR_RING_THRESHOLD;
 
     @Override
     public void init(HardwareMap ahMap) {
@@ -46,6 +49,14 @@ public class EOCVision extends Subsystem {
                 webcam.startStreaming(320,240, OpenCvCameraRotation.SIDEWAYS_LEFT);
             }
         });
+    }
+
+    public void setSide(boolean red) {
+        if (red) {
+            REGION1_TOP_LEFT_ANCHOR_POINT = Constants.REGION1_TOP_LEFT_ANCHOR_POINT_RED;
+            ONE_RING_THRESHOLD = Constants.RED_ONE_RING_THRESHOLD;
+            FOUR_RING_THRESHOLD = Constants.RED_FOUR_RING_THRESHOLD;
+        }
     }
 
     public static class UGDeterminationPipeline extends OpenCvPipeline {
