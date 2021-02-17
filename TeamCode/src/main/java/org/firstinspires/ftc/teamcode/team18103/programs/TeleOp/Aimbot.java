@@ -41,7 +41,7 @@ public class Aimbot extends OpMode {
             robot.getDriveSubsystem().rotateToShootingAngle();
 
             while (gamepad1.y) {
-                robot.getIOSubsystem().outtakeFromPoint5(robot.getDriveSubsystem()); // 45 - x, y - 36 for mid goal
+                robot.getIOSubsystem().outtakeFromPoint3(robot.getDriveSubsystem()); // 45 - x, y - 36 for mid goal
 
                 if(gamepad1.right_bumper) {
                     robot.getIOSubsystem().runTransfer(-1);

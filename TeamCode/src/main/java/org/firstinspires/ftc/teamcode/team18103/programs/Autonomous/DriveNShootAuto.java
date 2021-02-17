@@ -18,7 +18,7 @@ public class DriveNShootAuto extends LinearOpMode {
         robot.start();
 
         while (Math.abs(75 - robot.getDriveSubsystem().getDataFusionY()) > 15) {
-            robot.getDriveSubsystem().POVMecanumDrive(-1 + (robot.getDriveSubsystem().getDataFusionY())/75, 0, 0, DriveMode.Balanced);
+            robot.getDriveSubsystem().POVMecanumDrive(-1.25 + (robot.getDriveSubsystem().getDataFusionY())/75, 0, 0, DriveMode.Balanced);
             robot.loop(telemetry);
         }
 
@@ -31,6 +31,13 @@ public class DriveNShootAuto extends LinearOpMode {
         robot.getDriveSubsystem().setDriveMotors(0);
 
          */
+
+        while (Math.abs(75 - robot.getDriveSubsystem().getDataFusionY()) > 15) {
+            robot.getDriveSubsystem().POVMecanumDrive(-1.25 + (robot.getDriveSubsystem().getDataFusionY())/75, 0, 0, DriveMode.Balanced);
+            robot.loop(telemetry);
+        }
+
+
         ElapsedTime timer = new ElapsedTime();
         timer.startTime();
         while (timer.seconds() < 1.5) {
@@ -43,10 +50,12 @@ public class DriveNShootAuto extends LinearOpMode {
                     108 - robot.getDriveSubsystem().getDataFusionY(),
                     Math.abs(robot.getDriveSubsystem().getDataFusionX() - 36)));
             robot.getIOSubsystem().runTransfer(true);
+            robot.getDriveSubsystem().setRotateMotors(-0.18);
         }
 
         robot.getIOSubsystem().runTransfer(false);
         robot.getIOSubsystem().runOuttake(false);
+        robot.getDriveSubsystem().setDriveMotors(0);
 
         //robot.getIOSubsystem().OuttakeFromPoint();
         //sleep(1000);

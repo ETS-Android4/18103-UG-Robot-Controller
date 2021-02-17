@@ -60,7 +60,7 @@ public class Robot {
 //        telemetry.addLine()
 //                .addData("Robot Initialized: ", true);
 
-        /* Game State*/
+        /* Game State */
         telemetry.addLine()
                 .addData("Game State: ", getGameState().getName());
         telemetry.addLine()
@@ -93,6 +93,12 @@ public class Robot {
                 .addData("MKE Theta: ", df.format(getDriveSubsystem().getMKEstimator().getTheta()));//*/
 
         //DriveSubsystem.getVisionProcessing().searchTele(telemetry);
+
+        telemetry.addLine()
+                .addData("MKE FL: ", df.format(getDriveSubsystem().getMKEstimator().getFrontLeft().getCurrentPosition()))
+                .addData("MKE FR: ", df.format(getDriveSubsystem().getMKEstimator().getFrontRight().getCurrentPosition()))
+                .addData("MKE BL: ", df.format(getDriveSubsystem().getMKEstimator().getBackLeft().getCurrentPosition()))
+                .addData("MKE BR: ", df.format(getDriveSubsystem().getMKEstimator().getBackRight().getCurrentPosition()));
 
         /* Visual Odometry
         telemetry.addLine()
