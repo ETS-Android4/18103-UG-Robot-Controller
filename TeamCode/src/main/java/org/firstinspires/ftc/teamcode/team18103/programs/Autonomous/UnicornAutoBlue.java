@@ -40,7 +40,7 @@ public class UnicornAutoBlue extends LinearOpMode {
             sleep(500);
 
             while(robot.getDriveSubsystem().getDataFusionTheta() > -30) {
-                robot.getDriveSubsystem().setRotateMotors(0.25);
+                robot.getDriveSubsystem().setRotateMotors(-0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
@@ -54,6 +54,13 @@ public class UnicornAutoBlue extends LinearOpMode {
             sleep(500);
             while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) > currentDiagonalPosition - 7) {
                 robot.getDriveSubsystem().setDriveMotors(-0.25);
+                robot.loop(telemetry);
+            }
+            robot.getDriveSubsystem().setDriveMotors(0);
+            sleep(500);
+
+            while(robot.getDriveSubsystem().getDataFusionTheta() < 0) {
+                robot.getDriveSubsystem().setRotateMotors(0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);

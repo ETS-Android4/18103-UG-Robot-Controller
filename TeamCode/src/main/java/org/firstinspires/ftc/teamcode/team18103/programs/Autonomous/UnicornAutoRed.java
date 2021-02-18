@@ -38,7 +38,6 @@ public class UnicornAutoRed extends LinearOpMode {
             robot.getDriveSubsystem().setDriveMotors(0.25);
             robot.loop(telemetry);
         }
-
         robot.getDriveSubsystem().setDriveMotors(0);
         sleep(750);
 
