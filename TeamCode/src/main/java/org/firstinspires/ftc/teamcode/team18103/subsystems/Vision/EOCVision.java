@@ -25,8 +25,12 @@ public class EOCVision extends Subsystem {
     public int pointBX;
     public int pointBY;
     public org.opencv.core.Point REGION1_TOP_LEFT_ANCHOR_POINT = Constants.REGION1_TOP_LEFT_ANCHOR_POINT;
+    public org.opencv.core.Point REGION1_TOP_LEFT_ANCHOR_POINT_RED = Constants.REGION1_TOP_LEFT_ANCHOR_POINT_RED;
     public int ONE_RING_THRESHOLD = Constants.ONE_RING_THRESHOLD;
     public int FOUR_RING_THRESHOLD = Constants.FOUR_RING_THRESHOLD;
+    public static Point anchorPoint = new Point();
+    public static double oneRing;
+    public static double fourRings;
 
     @Override
     public void init(HardwareMap ahMap) {
@@ -53,20 +57,27 @@ public class EOCVision extends Subsystem {
 
     public void setSide(boolean red) {
         if (red) {
-            REGION1_TOP_LEFT_ANCHOR_POINT = Constants.REGION1_TOP_LEFT_ANCHOR_POINT_RED;
-            ONE_RING_THRESHOLD = Constants.RED_ONE_RING_THRESHOLD;
-            FOUR_RING_THRESHOLD = Constants.RED_FOUR_RING_THRESHOLD;
+            double[] arr = new double[]{Constants.REGION1_TOP_LEFT_ANCHOR_POINT_RED.x, Constants.REGION1_TOP_LEFT_ANCHOR_POINT_RED.y};
+            anchorPoint.set(arr);
+            oneRing = Constants.RED_ONE_RING_THRESHOLD;
+            fourRings = Constants.RED_FOUR_RING_THRESHOLD;
+        } else if (!red) {
+            double[] arr = new double[]{Constants.REGION1_TOP_LEFT_ANCHOR_POINT.x, Constants.REGION1_TOP_LEFT_ANCHOR_POINT.y};
+            anchorPoint.set(arr);
+            anchorPoint = Constants.REGION1_TOP_LEFT_ANCHOR_POINT;
+            oneRing = Constants.ONE_RING_THRESHOLD;
+            fourRings = Constants.FOUR_RING_THRESHOLD;
         }
     }
 
     public static class UGDeterminationPipeline extends OpenCvPipeline {
 
         Point region1_pointA = new Point(
-                Constants.REGION1_TOP_LEFT_ANCHOR_POINT.x,
-                Constants.REGION1_TOP_LEFT_ANCHOR_POINT.y);
+                anchorPoint.x,
+                anchorPoint.y);
         Point region1_pointB = new Point(
-                Constants.REGION1_TOP_LEFT_ANCHOR_POINT.x + Constants.REGION_WIDTH,
-                Constants.REGION1_TOP_LEFT_ANCHOR_POINT.y + Constants.REGION_HEIGHT);
+                anchorPoint.x + Constants.REGION_WIDTH,
+                anchorPoint.y + Constants.REGION_HEIGHT);
 
         public void getRegion1_pointA() {
             System.out.println("Bottom Left X: " + region1_pointA.x);
@@ -120,9 +131,9 @@ public class EOCVision extends Subsystem {
                     2); // Thickness of the rectangle lines
 
             position = AutoMode.Four; // Record our analysis
-            if(avg1 > Constants.FOUR_RING_THRESHOLD){
+            if(avg1 > fourRings){
                 position = AutoMode.Four;
-            }else if (avg1 > Constants.ONE_RING_THRESHOLD){
+            }else if (avg1 > oneRing){
                 position = AutoMode.One;
             }else{
                 position = AutoMode.None;
