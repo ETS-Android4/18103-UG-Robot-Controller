@@ -55,8 +55,8 @@ public final class Constants {
     public static final int REGION_HEIGHT = 70;
     public static final int FOUR_RING_THRESHOLD = 139;
     public static final int ONE_RING_THRESHOLD = 125;
-    public static final int RED_FOUR_RING_THRESHOLD = 133;
-    public static final int RED_ONE_RING_THRESHOLD = 129;
+    public static final int RED_FOUR_RING_THRESHOLD = 155;
+    public static final int RED_ONE_RING_THRESHOLD = 135;
     // --------------------------
     //  Wheel-Based Odometry
     // --------------------------
