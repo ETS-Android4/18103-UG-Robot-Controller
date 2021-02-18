@@ -112,7 +112,7 @@ public class UnicornAutoBlue extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(200);
-            while(robot.getDriveSubsystem().getDataFusionTheta() < 50) {
+            while(robot.getDriveSubsystem().getDataFusionTheta() < 30) {
                 robot.getDriveSubsystem().setRotateMotors(0.25);
                 robot.loop(telemetry);
             }

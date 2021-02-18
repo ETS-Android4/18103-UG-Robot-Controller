@@ -18,7 +18,7 @@ public class UnicornAutoRed extends LinearOpMode {
         robot.start();
         robot.getDriveSubsystem().getVisionProcessing().setSide(true);
 
-        while (robot.getDriveSubsystem().getDataFusionY() < 18) {
+        while (robot.getDriveSubsystem().getDataFusionY() < 10) {
             robot.getDriveSubsystem().setDriveMotors(0.25);
             robot.loop(telemetry);
         }
@@ -26,14 +26,14 @@ public class UnicornAutoRed extends LinearOpMode {
         robot.getDriveSubsystem().setDriveMotors(0);
         sleep(750);
 
-        while (robot.getDriveSubsystem().getDataFusionTheta() > -35) {
+        while (robot.getDriveSubsystem().getDataFusionTheta() > -40) {
             robot.getDriveSubsystem().setRotateMotors(-0.25);
             robot.loop(telemetry);
         }
         robot.getDriveSubsystem().setDriveMotors(0);
-        sleep(500);
+        sleep(25000);
 
-        AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
+        AutoMode mode = AutoMode.None;//robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
 
         while (robot.getDriveSubsystem().getDataFusionTheta() < 0) {
             robot.getDriveSubsystem().setRotateMotors(0.25);
@@ -47,20 +47,20 @@ public class UnicornAutoRed extends LinearOpMode {
 
 
         if(mode == AutoMode.None) {
-            while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4) {
-                robot.getDriveSubsystem().setDriveMotors(0.30);
+            while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4 + 8) {
+                robot.getDriveSubsystem().setDriveMotors(0.27);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-            while (robot.getDriveSubsystem().getDataFusionTheta() < 10) {
-                robot.getDriveSubsystem().setRotateMotors(0.30);
+            while (robot.getDriveSubsystem().getDataFusionTheta() < 40) {
+                robot.getDriveSubsystem().setRotateMotors(0.27);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
 
             double currentDiagonalPosition = Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2));
-            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) < currentDiagonalPosition + 8) {
+            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) < currentDiagonalPosition + 4) {
                 robot.getDriveSubsystem().setDriveMotors(0.30);
                 robot.loop(telemetry);
             }
@@ -68,7 +68,7 @@ public class UnicornAutoRed extends LinearOpMode {
             sleep(500);
 
             currentDiagonalPosition = Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2));
-            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) > currentDiagonalPosition - 8) {
+            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) > currentDiagonalPosition - 4) {
                 robot.getDriveSubsystem().setDriveMotors(-0.30);
                 robot.loop(telemetry);
             }
@@ -80,7 +80,7 @@ public class UnicornAutoRed extends LinearOpMode {
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
-            sleep(500);
+            sleep(250);
 
             currentPos = robot.getDriveSubsystem().getDataFusionY();
             while (robot.getDriveSubsystem().getDataFusionY() > currentPos - 9) {
@@ -88,39 +88,39 @@ public class UnicornAutoRed extends LinearOpMode {
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
-            sleep(500);
+            sleep(250);
             while (robot.getDriveSubsystem().getDataFusionTheta() > -15) {
                 robot.getDriveSubsystem().setRotateMotors(-0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
-            sleep(500);
+            sleep(250);
             currentPos = robot.getDriveSubsystem().getDataFusionY();
             while (robot.getDriveSubsystem().getDataFusionY() > currentPos - 17) {
                 robot.getDriveSubsystem().setDriveMotors(-0.30);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
-            sleep(500);
+            sleep(250);
             while (robot.getDriveSubsystem().getDataFusionTheta() < 0) {
                 robot.getDriveSubsystem().setRotateMotors(0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
-            sleep(500);
+            sleep(250);
             currentPos = robot.getDriveSubsystem().getDataFusionY();
             while (robot.getDriveSubsystem().getDataFusionY() < currentPos + 25) {
                 robot.getDriveSubsystem().setDriveMotors(0.30);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
-            sleep(500);
-            while (robot.getDriveSubsystem().getDataFusionTheta() > -35) {
+            sleep(250);
+            while (robot.getDriveSubsystem().getDataFusionTheta() > -30) {
                 robot.getDriveSubsystem().setRotateMotors(-0.25);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
-            sleep(500);
+            sleep(250);
             robot.getIOSubsystem().outtakeFromPoint3(3*24);
             sleep(2000);
             robot.getIOSubsystem().runTransfer(true);
@@ -132,7 +132,7 @@ public class UnicornAutoRed extends LinearOpMode {
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
-            sleep(500);
+            sleep(250);
             currentPos = robot.getDriveSubsystem().getDataFusionY();
             while (robot.getDriveSubsystem().getDataFusionY() > currentPos - 2) {
                 robot.getDriveSubsystem().setDriveMotors(-0.30);
@@ -140,7 +140,7 @@ public class UnicornAutoRed extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(200);
-            while(robot.getDriveSubsystem().getDataFusionTheta() > -50) {
+            while(robot.getDriveSubsystem().getDataFusionTheta() > -30) {
                 robot.getDriveSubsystem().setRotateMotors(-0.25);
                 robot.loop(telemetry);
             }
@@ -153,7 +153,7 @@ public class UnicornAutoRed extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
         } else if(mode == AutoMode.One) {
-            while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4) {
+            while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4 + 8) {
                 robot.getDriveSubsystem().setDriveMotors(0.25);
                 if(Math.abs(robot.getDriveSubsystem().getDataFusionTheta()) > 5) {
                     if (0 - robot.getDriveSubsystem().getDataFusionTheta() > 0) {
@@ -240,7 +240,7 @@ public class UnicornAutoRed extends LinearOpMode {
             robot.getDriveSubsystem().setDriveMotors(0);
         } else {
             double currentTheta = 0;
-            while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4) {
+            while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4 + 8) {
                 robot.getDriveSubsystem().setDriveMotors(0.30);
                 if(Math.abs(robot.getDriveSubsystem().getDataFusionTheta() - currentTheta) > 2.5) {
                     if (currentTheta - robot.getDriveSubsystem().getDataFusionTheta() > 0) {
