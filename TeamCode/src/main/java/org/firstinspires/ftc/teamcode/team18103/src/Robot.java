@@ -65,8 +65,8 @@ public class Robot {
                 .addData("Game State: ", getGameState().getName());
         telemetry.addLine()
                 .addData("Ring Position: ", getDriveSubsystem().getVisionProcessing().getAutoMode());
-        telemetry.addLine()
-                .addData("Color Value: ", getDriveSubsystem().getVisionProcessing().pipeline.getAnalysis()); //*/
+        //telemetry.addLine()
+        //        .addData("Color Value: ", getDriveSubsystem().getVisionProcessing().pipeline.getAnalysis()); //*/
 
         /* IMU Measurements
         telemetry.addLine()

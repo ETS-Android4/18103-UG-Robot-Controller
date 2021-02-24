@@ -16,7 +16,7 @@ public class UnicornAutoBlue extends LinearOpMode {
         robot.init(hardwareMap,telemetry);
         waitForStart();
         robot.start();
-        robot.getDriveSubsystem().getVisionProcessing().setSide(false);
+        //robot.getDriveSubsystem().getVisionProcessing().setSide(false);
         AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
 
         while (robot.getDriveSubsystem().getDataFusionY() < 18) {
