@@ -33,7 +33,7 @@ public class UnicornAutoRed extends LinearOpMode {
         robot.getDriveSubsystem().setDriveMotors(0);
         sleep(500);
 
-        AutoMode mode = AutoMode.Four;
+        AutoMode mode = AutoMode.One;
                 //robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
 
         while (robot.getDriveSubsystem().getDataFusionTheta() < 0) {
