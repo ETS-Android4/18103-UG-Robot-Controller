@@ -13,11 +13,17 @@ public class UnicornAutoBlue extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap,telemetry);
-        waitForStart();
+        robot.init(hardwareMap, telemetry);
+        AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
+        while (!isStarted()) {
+            mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
+            //telemetry.addLine()
+            //        .addData("Ring Position: ", robot.getDriveSubsystem().getVisionProcessing().getAutoMode());
+            //telemetry.update();
+        }
         robot.start();
         //robot.getDriveSubsystem().getVisionProcessing().setSide(false);
-        AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
+        mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
 
         while (robot.getDriveSubsystem().getDataFusionY() < 18) {
             robot.getDriveSubsystem().setDriveMotors(0.25);

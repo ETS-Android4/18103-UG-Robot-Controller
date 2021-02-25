@@ -32,7 +32,7 @@ public class TFVision extends Subsystem {
         initVuforia(ahMap);
         initTfod(ahMap);
         tfod.activate();
-        //tfod.setZoom(2.5, 16.0/9.0);
+        tfod.setZoom(2.5, 16.0/9.0);
     }
 
     @Override
@@ -64,13 +64,16 @@ public class TFVision extends Subsystem {
     }
 
     public AutoMode getAutoMode() {
-        for (Recognition i : search()) {
-            if (i.getLabel().equals(
-                    LABEL_FIRST_ELEMENT)) {
-                return AutoMode.Four;
-            } else if (i.getLabel().equals(
-                    LABEL_SECOND_ELEMENT)) {
-                return AutoMode.One;
+        List<Recognition> searches = search();
+        if (searches != null) {
+            for (Recognition i : searches) {
+                if (i.getLabel().equals(
+                        LABEL_FIRST_ELEMENT)) {
+                    return AutoMode.Four;
+                } else if (i.getLabel().equals(
+                        LABEL_SECOND_ELEMENT)) {
+                    return AutoMode.One;
+                }
             }
         }
         return AutoMode.None;
