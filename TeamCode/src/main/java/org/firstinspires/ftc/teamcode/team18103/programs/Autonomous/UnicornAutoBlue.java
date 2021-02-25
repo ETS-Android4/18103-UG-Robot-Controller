@@ -17,7 +17,7 @@ public class UnicornAutoBlue extends LinearOpMode {
         waitForStart();
         robot.start();
         //robot.getDriveSubsystem().getVisionProcessing().setSide(false);
-        AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
+        AutoMode mode = AutoMode.Four; //robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
 
         while (robot.getDriveSubsystem().getDataFusionY() < 18) {
             robot.getDriveSubsystem().setDriveMotors(0.25);
@@ -50,7 +50,7 @@ public class UnicornAutoBlue extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
-            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) > currentDiagonalPosition - 7) {
+            while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) > currentDiagonalPosition - 2) {
                 robot.getDriveSubsystem().setDriveMotors(-0.25);
                 robot.loop(telemetry);
             }
@@ -111,14 +111,14 @@ public class UnicornAutoBlue extends LinearOpMode {
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(200);
             while(robot.getDriveSubsystem().getDataFusionTheta() < 30) {
-                robot.getDriveSubsystem().setRotateMotors(0.25);
+                robot.getDriveSubsystem().setRotateMotors(0.27);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(200);
             currentPos = robot.getDriveSubsystem().getDataFusionY();
-            while(robot.getDriveSubsystem().getDataFusionY() < currentPos + 20) {
-                robot.getDriveSubsystem().setDriveMotors(0.30);
+            while(robot.getDriveSubsystem().getDataFusionY() < currentPos + 15) {
+                robot.getDriveSubsystem().setDriveMotors(0.35);
                 robot.loop(telemetry);
             }
             robot.getDriveSubsystem().setDriveMotors(0);
