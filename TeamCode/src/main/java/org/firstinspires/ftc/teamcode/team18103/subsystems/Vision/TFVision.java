@@ -35,6 +35,10 @@ public class TFVision extends Subsystem {
         tfod.setZoom(2.5, 16.0/9.0);
     }
 
+    public void setZoom(double zoom) {
+        tfod.setZoom(zoom, 16.0/9.0);
+    }
+
     @Override
     public void start() {
         //search();
