@@ -17,15 +17,17 @@ public class UnicornAutoBlue extends LinearOpMode {
         AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
         while (!isStarted()) {
             mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
-            //telemetry.addLine()
-            //        .addData("Ring Position: ", robot.getDriveSubsystem().getVisionProcessing().getAutoMode());
-            //telemetry.update();
         }
+
         robot.start();
         //robot.getDriveSubsystem().getVisionProcessing().setSide(false);
         mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
 
         while (robot.getDriveSubsystem().getDataFusionY() < 18) {
+
+            if(mode == AutoMode.None)
+                mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode(); //I'm lazy and this is 200 IQ.
+
             robot.getDriveSubsystem().setDriveMotors(0.25);
             robot.loop(telemetry);
         }
@@ -56,6 +58,7 @@ public class UnicornAutoBlue extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
             sleep(500);
+            currentDiagonalPosition = Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2));
             while(Math.sqrt(Math.pow(robot.getDriveSubsystem().getDataFusionY(), 2) + Math.pow(robot.getDriveSubsystem().getDataFusionX(), 2)) > currentDiagonalPosition - 2) {
                 robot.getDriveSubsystem().setDriveMotors(-0.25);
                 robot.loop(telemetry);

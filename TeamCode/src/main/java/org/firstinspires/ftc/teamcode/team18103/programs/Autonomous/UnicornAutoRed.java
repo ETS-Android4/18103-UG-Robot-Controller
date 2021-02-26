@@ -14,11 +14,18 @@ public class UnicornAutoRed extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap,telemetry);
-        waitForStart();
+        AutoMode mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
+        while (!isStarted()) {
+            mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
+        }
         robot.start();
         //robot.getDriveSubsystem().getVisionProcessing().setSide(true);
 
+        mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode(); //I'm lazy and this is 200 IQ.
+
         while (robot.getDriveSubsystem().getDataFusionY() < 10) {
+            if(mode == AutoMode.None)
+                mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode(); //I'm lazy and this is 200 IQ.
             robot.getDriveSubsystem().setDriveMotors(0.25);
             robot.loop(telemetry);
         }
@@ -27,16 +34,18 @@ public class UnicornAutoRed extends LinearOpMode {
         sleep(750);
 
         while (robot.getDriveSubsystem().getDataFusionTheta() > -40) {
+            if(mode == AutoMode.None)
+                mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode(); //I'm lazy and this is 200 IQ.
             robot.getDriveSubsystem().setRotateMotors(-0.25);
             robot.loop(telemetry);
         }
         robot.getDriveSubsystem().setDriveMotors(0);
         sleep(500);
 
-        AutoMode mode = AutoMode.One;
-                //robot.getDriveSubsystem().getVisionProcessing().getAutoMode();
 
         while (robot.getDriveSubsystem().getDataFusionTheta() < 0) {
+            if(mode == AutoMode.None)
+                mode = robot.getDriveSubsystem().getVisionProcessing().getAutoMode(); //I'm lazy and this is 200 IQ.
             robot.getDriveSubsystem().setRotateMotors(0.25);
             robot.loop(telemetry);
         }
@@ -44,8 +53,6 @@ public class UnicornAutoRed extends LinearOpMode {
         sleep(500);
 
         double currentPos = robot.getDriveSubsystem().getDataFusionY();
-
-
 
         if(mode == AutoMode.None) {
             while (robot.getDriveSubsystem().getDataFusionY() < currentPos + mode.getDist() + 4 + 8) {
