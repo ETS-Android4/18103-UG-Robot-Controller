@@ -72,14 +72,14 @@ public class DriveNShootRedAuto extends LinearOpMode {
             }
             robot.getDriveSubsystem().setDriveMotors(0);
 
-        }
+            while (Math.abs(55 - robot.getDriveSubsystem().getDataFusionY()) > 5) {
+                robot.getDriveSubsystem().POVMecanumDrive(-0.9 + (robot.getDriveSubsystem().getDataFusionY())/55, 0, 0, DriveMode.Balanced);
+                robot.loop(telemetry);
+            }
 
-        while (Math.abs(55 - robot.getDriveSubsystem().getDataFusionY()) > 5) {
-            robot.getDriveSubsystem().POVMecanumDrive(-0.9 + (robot.getDriveSubsystem().getDataFusionY())/55, 0, 0, DriveMode.Balanced);
-            robot.loop(telemetry);
-        }
+            robot.getDriveSubsystem().setDriveMotors(0);
 
-        robot.getDriveSubsystem().setDriveMotors(0);
+        }
 
         /*robot.getDriveSubsystem().setDriveMotors(0.5);
         do {
