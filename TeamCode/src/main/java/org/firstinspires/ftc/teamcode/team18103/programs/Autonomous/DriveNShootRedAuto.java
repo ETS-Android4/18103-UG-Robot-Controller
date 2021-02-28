@@ -79,6 +79,13 @@ public class DriveNShootRedAuto extends LinearOpMode {
 
             robot.getDriveSubsystem().setDriveMotors(0);
 
+        } else {
+            while (Math.abs(75 - robot.getDriveSubsystem().getDataFusionY()) > 15) {
+                robot.getDriveSubsystem().POVMecanumDrive(-1.25 + (robot.getDriveSubsystem().getDataFusionY())/75, 0, 0, DriveMode.Balanced);
+                robot.loop(telemetry);
+            }
+
+            robot.getDriveSubsystem().setDriveMotors(0);
         }
 
         /*robot.getDriveSubsystem().setDriveMotors(0.5);
